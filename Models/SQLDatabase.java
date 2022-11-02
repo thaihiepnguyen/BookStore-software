@@ -1,3 +1,5 @@
+package Models;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -13,21 +15,34 @@ public class SQLDatabase {
     private String username;
     private String password;
 
+    private static SQLDatabase instance = null;
+
     SQLDatabase() {
         url = "jdbc:mysql://localhost:3306/sys";
         username = "";
         password = "";
     }
 
-    SQLDatabase(String username, String password) {
+    public SQLDatabase(String username, String password) {
         this.username = username;
         this.password = password;
+        this.url = "jdbc:mysql://localhost:3306/sys";
+        instance = this;
     }
 
     SQLDatabase(String username, String password, String url) {
         this.url = url;
         this.username = username;
         this.password = password;
+        instance = this;
+    }
+
+    public static SQLDatabase instance() throws Exception {
+        if (instance != null) {
+            return instance;
+        } else {
+            throw new Exception("SQL have not initialized");
+        }
     }
 
     public void connectTo(String url) {
