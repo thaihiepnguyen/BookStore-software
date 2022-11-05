@@ -2,10 +2,7 @@ package Models;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class SQLDatabase {
@@ -21,6 +18,7 @@ public class SQLDatabase {
         url = "jdbc:mysql://localhost:3306/sys";
         username = "";
         password = "";
+        instance = this;
     }
 
     public SQLDatabase(String username, String password) {
@@ -37,11 +35,11 @@ public class SQLDatabase {
         instance = this;
     }
 
-    public static SQLDatabase instance() throws Exception {
+    public static SQLDatabase instance() throws SQLException {
         if (instance != null) {
             return instance;
         } else {
-            throw new Exception("SQL have not initialized");
+            throw new SQLException("SQL have not initialized");
         }
     }
 
@@ -63,16 +61,20 @@ public class SQLDatabase {
         try {
             result = this.statement.executeQuery(readSQLFile(filePath));
         }
-        catch (Exception e) {
+        catch (SQLException e) {
             System.out.println(e);
         }
         return result;
     }
 
+    Statement getStatement() {
+        return this.statement;
+    }
+
     public void close() {
         try {
             conn.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -83,7 +85,7 @@ public class SQLDatabase {
         * */
         String data = "";
         try {
-            File file = new File("getEmployees.sql");
+            File file = new File(filePath);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 data += scanner.nextLine() + "\n";
