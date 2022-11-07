@@ -51,7 +51,7 @@ public class SQLDatabase {
             this.conn = DriverManager.getConnection(url, this.username, this.password);
 
             this.statement = this.conn.createStatement();
-        }catch(Exception e) {
+        }catch(SQLException | ClassNotFoundException e) {
             System.out.println(e);
         }
     }
@@ -67,9 +67,10 @@ public class SQLDatabase {
         return result;
     }
 
-    Statement getStatement() {
+    public Statement getStatement() {
         return this.statement;
     }
+    public Connection getConn() { return this.conn; }
 
     public void close() {
         try {

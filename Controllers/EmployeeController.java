@@ -3,7 +3,7 @@ package Controllers;
 import Models.EmployeeModel;
 import Views.UserView.EmployeeView;
 import javax.swing.*;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 public class EmployeeController {
@@ -18,6 +18,7 @@ public class EmployeeController {
     public EmployeeController(int id) {
         this.employeeModel = EmployeeModel.getEmployeeById(id);
 
+        // chua try catch . bat loi nullPointerException
         this.employeeView = new EmployeeView(employeeModel.getUserID(), employeeModel.getUsername(),
                 employeeModel.getPassword(), employeeModel.getAddress());
     }
@@ -61,7 +62,7 @@ public class EmployeeController {
         }
     }
 
-//    public static JPanel handleLogin() {
-//
-//    }
+    public static boolean handleLogin(String username, String password) throws SQLException {
+        return EmployeeModel.isExistEmployee(username, password);
+    }
 }

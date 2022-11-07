@@ -2,10 +2,8 @@ package Models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
 public class EmployeeModel extends UserModel {
     public EmployeeModel() {
@@ -15,10 +13,6 @@ public class EmployeeModel extends UserModel {
         super(userID, username, password, address);
     }
 
-    /*
-    * @ Hello
-
-     */
     public static List<EmployeeModel> loadAllEmployees() {
         List<EmployeeModel> employees = new ArrayList<>();
 
@@ -97,7 +91,23 @@ public class EmployeeModel extends UserModel {
         return employee;
     }
 
-    public void handleLogin() {
-        EmployeeModel e = getEmployeeById(2);
+    public static boolean isExistEmployee(String username, String password) throws SQLException {
+        SQLDatabase sys = null;
+        ResultSet resultSet = null;
+        try {
+            sys = SQLDatabase.instance();
+
+            if (sys == null) {
+                return false;
+            }
+
+            resultSet = sys.getStatement().executeQuery("select * from employee where" +
+                    " username = \"" +
+                    username + "\"and password = \"" + password + "\"");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        return resultSet.next();
     }
 }
