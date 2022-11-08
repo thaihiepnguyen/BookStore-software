@@ -1,22 +1,22 @@
 package Views.UserView;
 
 import Models.EmployeeModel;
+
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeView extends JPanel {
+public class AdminView extends JPanel {
     private int id;
     private String name;
     private String password;
     private String address;
 
-    public EmployeeView() {
+    public AdminView() {
 
     }
 
-    public EmployeeView(int id, String name, String password, String address) {
+    public AdminView(int id, String name, String password, String address) {
         this.add(new JLabel(Integer.toString(id)));
         this.add(new JLabel(name));
         this.add(new JLabel(password));

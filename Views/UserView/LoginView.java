@@ -2,113 +2,166 @@ package Views.UserView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.sql.SQLException;
 
+import Controllers.AdminController;
 import Controllers.EmployeeController;
+import Models.AdminModel;
 
-public class LoginView extends JPanel {
-    private int width;
-    private int height;
+class BackgroundView {
+    BackgroundView() {
 
-    private JLabel lName;
-    private JLabel lPass;
-    private JTextField tfName;
-    private JTextField tfPass;
-
-    private JButton btLogin;
-
-    public LoginView() {
-        this.width = 400;
-        this.height = 300;
-        lName = new JLabel("Username: ");
-        lPass = new JLabel("Password: ");
-        tfName = new JTextField();
-        tfPass = new JTextField();
-        btLogin = new JButton("Login");
     }
 
-    public LoginView(int width, int height) {
-        this.width = width;
-        this.height = height;
+    static JPanel render() {
+        JPanel background = new JPanel();
 
-        lName = new JLabel("Username: ");
-        lPass = new JLabel("Password: ");
-        tfName = new JTextField();
-        tfPass = new JTextField();
-        btLogin = new JButton("Login");
+        background.setLayout(new GridLayout(2, 1));
+        JPanel bottom = new JPanel();
+        bottom.setLayout(new BorderLayout());
+        JLabel declaration = new JLabel("Welcome Back!", JLabel.CENTER);
+        declaration.setFont(new Font(declaration.getName(), Font.BOLD, 50));
+        declaration.setForeground(new Color(255,255, 255));
+        bottom.add(declaration, BorderLayout.SOUTH);
+        bottom.setBackground(new Color(70,130, 180));
+
+        JPanel top = new JPanel();
+        top.setLayout(new BorderLayout());
+        JLabel description = new JLabel("login with your personal info", JLabel.CENTER);
+        description.setForeground(new Color(255,255, 255));
+        description.setFont(new Font(declaration.getName(), Font.PLAIN, 14));
+        top.add(description, BorderLayout.NORTH);
+        top.setBackground(new Color(70,130, 180));
+
+        background.add(bottom);
+        background.add(top);
+        return background;
     }
+}
 
-    public JLabel getlName() {
-        return lName;
-    }
+class LoginContainer {
+    LoginContainer() {}
 
-    public void setlName(JLabel lName) {
-        this.lName = lName;
-    }
+    static JPanel render() {
+        JLabel lName = new JLabel("Username: ");
+        JLabel lPass = new JLabel("Password: ");
+        JTextField tfName = new JTextField();
+        JPasswordField tfPass = new JPasswordField();
+        JButton btLogin = new JButton("Login");
+        JPanel loginContainer = new JPanel();
 
-    public JLabel getlPass() {
-        return lPass;
-    }
+        loginContainer.setLayout(null);
+        loginContainer.setBackground(new Color(255, 255, 255));
+        JLabel loginLabel = new JLabel("Login");
+        loginLabel.setFont(new Font(loginLabel.getName(), Font.BOLD, 40));
+        loginLabel.setForeground(new Color(70,130, 180));
+        loginLabel.setBounds(40, 180, 150, 50);
+        loginContainer.add(loginLabel);
+        lName.setBounds(50, 250, 75, 25);
+        tfName.setBounds(125, 250, 250, 30);
+        loginContainer.add(lName);
+        loginContainer.add(tfName);
+        lPass.setBounds(50, 300, 75, 25);
+        tfPass.setBounds(125, 300, 250, 30);
+        loginContainer.add(lPass);
+        loginContainer.add(tfPass);
+        btLogin.setBounds(50, 375, 100, 40);
+        JCheckBox ckAdmin = new JCheckBox();
+        ckAdmin.setText("Admin");
+        ckAdmin.setBounds(50, 350, 100, 20);
+        JCheckBox ckEmployee = new JCheckBox();
+        ckEmployee.setText("Employee");
+        ckEmployee.setBounds(150, 350, 100, 20);
 
-    public void setlPass(JLabel lPass) {
-        this.lPass = lPass;
-    }
+        ckEmployee.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
 
-    public JTextField getTfName() {
-        return tfName;
-    }
+            }
 
-    public void setTfName(JTextField tfName) {
-        this.tfName = tfName;
-    }
-
-    public JTextField getTfPass() {
-        return tfPass;
-    }
-
-    public void setTfPass(JTextField tfPass) {
-        this.tfPass = tfPass;
-    }
-
-    public JPanel render() {
-        this.setBackground(Color.LIGHT_GRAY);
-        this.setSize(width, height);
-        this.setLayout(null);
-        this.lName.setBounds(50, 50, 75, 25);
-        this.tfName.setBounds(125, 50, 250, 30);
-        this.add(this.lName);
-        this.add(this.tfName);
-        this.lPass.setBounds(50, 100, 75, 25);
-        this.tfPass.setBounds(125, 100, 250, 30);
-        this.add(this.lPass);
-        this.add(this.tfPass);
-
-        this.btLogin.setBounds(50, 150, 100, 40);
-
-        this.btLogin.addActionListener(e -> {
-            String username = tfName.getText();
-            String password = tfPass.getText();
-
-            // kiểm tra nếu username và password tồn tại trong database hay không?
-            // Nếu có thì next.... Không thì đăng nhập lại!
-            try {
-                if (EmployeeController.handleLogin(username, password)) {
-                    System.out.println("Dang nhap thanh cong");
-                }
-                else {
-                    tfName.setText("");
-                    tfPass.setText("");
-                    System.out.println("Dang nhap khong thanh cong");
-                    JLabel mess = new JLabel("Khong tim thay tai khoan");
-                    mess.setBounds(50, 200, 200, 25);
-                    this.add(mess);
-                }
-            } catch (SQLException ex) {
-                System.out.println("Lỗi truy vấn SQL");
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                ckEmployee.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
         });
-//        tfPass.setPreferredSize(new Dimension(250, 30));
-        this.add(btLogin);
+
+        ckAdmin.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                ckAdmin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+        ckEmployee.addActionListener(e -> {
+            ckAdmin.setSelected(false);
+        });
+        ckAdmin.addActionListener(e -> {
+            ckEmployee.setSelected(false);
+        });
+
+        btLogin.addActionListener(e -> {
+
+            String username = tfName.getText();
+            String password = String.valueOf(tfPass.getPassword());
+
+            if (ckEmployee.isSelected())
+            {
+                EmployeeController employeeController = new EmployeeController();
+
+                try {
+                    employeeController.login(username, password);
+                } catch (SQLException ex) {
+                    System.out.println(ex);
+                }
+            }
+
+            if (ckAdmin.isSelected()) {
+                AdminController adminController = new AdminController();
+
+                try {
+                    adminController.login(username, password);
+                } catch (SQLException ex) {
+                    System.out.println(ex);
+                }
+            }
+        });
+        loginContainer.add(btLogin);
+        loginContainer.add(ckAdmin);
+        loginContainer.add(ckEmployee);
+
+        return loginContainer;
+    }
+
+}
+
+
+public class LoginView extends JPanel {
+
+
+    public LoginView() {
+    }
+
+    public LoginView render(String errorMessage) {
+        this.setLayout(new GridLayout(1, 2));
+        this.add(BackgroundView.render());
+        this.add(LoginContainer.render());
+
+        this.setVisible(false);
+        return this;
+    }
+
+    public LoginView render() {
+        this.setLayout(new GridLayout(1, 2));
+        this.add(BackgroundView.render());
+        this.add(LoginContainer.render());
+        this.setVisible(false);
         return this;
     }
 }
