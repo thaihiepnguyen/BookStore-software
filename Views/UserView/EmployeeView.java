@@ -1,5 +1,6 @@
 package Views.UserView;
 
+import Controllers.EmployeeController;
 import Models.EmployeeModel;
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,15 @@ public class EmployeeView extends JPanel {
 
     // View an employee profile
     public JPanel render() {
+        JButton jButton = new JButton();
+        jButton.setText("Logout");
+        this.add(jButton);
+
+        jButton.addActionListener(e -> {
+            EmployeeController employeeController = EmployeeController.getInstance();
+            employeeController.logout();
+        });
+
         return this;
     }
 

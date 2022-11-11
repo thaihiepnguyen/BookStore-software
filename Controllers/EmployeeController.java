@@ -3,7 +3,8 @@ package Controllers;
 import Models.EmployeeModel;
 import Views.Home.HomeView;
 import Views.UserView.EmployeeView;
-import Views.UserView.LoginView;
+
+import javax.swing.*;
 import java.sql.SQLException;
 
 public class EmployeeController {
@@ -11,7 +12,15 @@ public class EmployeeController {
     private EmployeeView employeeView;
     private HomeView homeView = HomeView.getInstance();
 
-    private LoginView loginView;
+    private static EmployeeController instance = null;
+
+    public static EmployeeController getInstance() {
+        if (instance == null) {
+            return new EmployeeController();
+        }else {
+            return instance;
+        }
+    }
 
     public EmployeeController() {
         this.employeeModel = null;
@@ -21,17 +30,6 @@ public class EmployeeController {
         this.employeeModel = employeeModel;
         this.employeeView = employeeView;
     }
-//    public EmployeeController(int id) {
-//        this.employeeModel = EmployeeModel.getEmployeeById(id);
-//
-//        try {
-//            this.employeeView = new EmployeeView(employeeModel.getUserID(), employeeModel.getUsername(),
-//                    employeeModel.getPassword(), employeeModel.getAddress());
-//        }catch (NullPointerException ex) {
-//            System.out.println("this id could not be found");
-//        }
-//    }
-
     public EmployeeModel getEmployeeModel() {
         return employeeModel;
     }
@@ -48,56 +46,55 @@ public class EmployeeController {
         this.employeeView = employeeView;
     }
 
-    public void update() {
-        if (this.employeeModel == null) {
-            return;
-        } else {
-            // update this employee data into database
-        }
-    }
-
     public void login(String username, String password) throws SQLException {
         this.employeeModel = EmployeeModel.findUser(username, password);
 
         if (this.employeeModel == null) {
-            String error = "Do not find this user!";
+            String error = "this account not be found!";
+            JOptionPane.showMessageDialog(this.employeeView, error);
             this.homeView.render();
         }
         else {
-            this.employeeView = new EmployeeView(this.employeeModel.getUserID(),
-                    this.employeeModel.getUsername(), this.employeeModel.getPassword(), this.employeeModel.getAddress());
+            int userID = this.employeeModel.getUserID();
+            String userName = this.employeeModel.getUsername();
+            String userPass = this.employeeModel.getPassword();
+            String userAddress = this.employeeModel.getAddress();
+
+
+
+            this.employeeView = new EmployeeView(userID,
+                    userName, userPass, userAddress);
+
             this.homeView.render(this.employeeView);
         }
     }
 
-//
-//
-//    public JPanel getUserProfile() throws Exception {
-//        if (this.employeeView != null)
-//            return this.employeeView.render();
-//        else {
-//            throw new Exception("This user could not be found");
-//        }
-//    }
-//
-//    public static JPanel getAllUsers() throws Exception {
-//        List<EmployeeModel> employees = EmployeeModel.loadAllEmployees();
-//        if (employees.size() > 0) {
-//            return EmployeeView.render(employees);
-//        }
-//        else {
-//            throw new Exception("Could not be found");
-//        }
-//    }
-//
-////    public static void getEmployee(String username, String password) throws SQLException {
-////        EmployeeModel employeeModel = EmployeeModel.getEmployee(username, password);
-////
-////
-////        if (employeeModel != null) {
-////            homeView.render(employeeModel);
-////        }
-////    }
-//
-//    public get
+    public void logout() {
+        this.employeeModel = null;
+        this.employeeView = null;
+
+        this.homeView.render();
+    }
+
+    public void changePassword() {}
+    public void updateInfo() {}
+    public void viewListBookCategories() {}
+    public void searchBookCategories() {}
+
+    public void sortBookCategories() {}
+
+    public void addNewBookCategories() {}
+
+    public void updateBookInformationOfBookPublishers() {}
+
+    public void DisableBookCategory() {}
+
+    public void EnableBookCategory() {}
+
+    public void viewListBooksByPublishers() {}
+    public void searchBooksByPublishers() {}
+    public void sortBooksByPublishers() {}
+
+
+
 }

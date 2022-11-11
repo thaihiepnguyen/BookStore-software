@@ -1,56 +1,64 @@
 package Controllers;
 
 import Models.AdminModel;
-import Models.EmployeeModel;
-import Models.SQLDatabase;
 import Views.Home.HomeView;
-import Views.UserView.AdminView;
-import Views.UserView.EmployeeView;
+import Views.UserView.AdminView.AdminView;
 
-import java.sql.ResultSet;
+import javax.swing.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminController {
     private AdminModel adminModel = null;
-
     private AdminView adminView = null;
     private HomeView homeView = HomeView.getInstance();
 
-    private List<EmployeeModel> employeeModels;
+    public AdminModel getAdminModel() {
+        return adminModel;
+    }
 
-    public static List<EmployeeModel> loadAllEmployees() {
-        List<EmployeeModel> employees = new ArrayList<>();
-        ResultSet resultSet = null;
-        SQLDatabase sys = null;
-        try {
-            sys = SQLDatabase.instance();
-            if (sys == null) {
-                return null;
-            }
+    public void setAdminModel(AdminModel adminModel) {
+        this.adminModel = adminModel;
+    }
 
-            resultSet = sys.getStatement().executeQuery("select * from employee");
+    public AdminView getAdminView() {
+        return adminView;
+    }
 
-            while(resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                String pass = resultSet.getString(3);
-                String address = resultSet.getString(4);
-                EmployeeModel employeeModel = new EmployeeModel(id, name, pass, address);
+    public AdminController(AdminModel adminModel, AdminView adminView) {
+        this.adminModel = adminModel;
+        this.adminView = adminView;
+    }
 
-                employees.add(employeeModel);
-            }
-        }
-        catch (SQLException ex) {
-            System.out.println(ex);
-        }
-
-        return employees;
+    public void setAdminView(AdminView adminView) {
+        this.adminView = adminView;
     }
 
     public void login(String username, String password) throws SQLException {
-        System.out.println("Admin login");
+        this.adminModel = AdminModel.findUser(username, password);
+
+        if (this.adminModel == null) {
+            String error = "this account not be found!";
+            JOptionPane.showMessageDialog(this.adminView, error);
+            this.homeView.render();
+        }
+        else {
+            int userID = this.adminModel.getUserID();
+            String userName = this.adminModel.getUsername();
+            String userPass = this.adminModel.getPassword();
+            String userAddress = this.adminModel.getAddress();
+
+
+            this.adminView = new AdminView(userID,
+                    userName, userPass, userAddress);
+            this.homeView.render(this.adminView);
+        }
+    }
+
+    public void logout() {
+        this.adminModel = null;
+        this.adminView = null;
+
+        this.homeView.render();
     }
 
     public void addNewAccount() {
