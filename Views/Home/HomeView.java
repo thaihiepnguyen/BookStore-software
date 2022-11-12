@@ -1,20 +1,18 @@
 package Views.Home;
 import javax.swing.*;
-import Views.UserView.*;
+
 import Views.UserView.AdminView.AdminView;
-import Views.UserView.AdminView.NavItemView;
+import Views.UserView.EmployeeView.EmployeeView;
+import Views.UserView.LoginView.LoginView;
 
 import java.awt.*;
-import java.net.URL;
 
 public class HomeView extends JFrame {
     private int width = 800;
     private int height = 600;
     LoginView loginView = null;
     EmployeeView employeeView = null;
-
     AdminView adminView = null;
-
 
     public static HomeView instance = null;
 
@@ -34,7 +32,6 @@ public class HomeView extends JFrame {
     public HomeView(int width, int height) {
         this.setLayout(new BorderLayout());
         this.setTitle("Book Store Management System");
-//        this.setMinimumSize(new Dimension(800, 600));
         this.setMaximumSize(new Dimension(width, height));
         this.setLocation(400, 200);
         this.setSize(width, height);
@@ -80,8 +77,14 @@ public class HomeView extends JFrame {
 
     public void render() {
         this.loginView.jPasswordField.setText("");
+
         if (this.employeeView != null) {
             this.employeeView.setVisible(false);
+            this.remove(this.employeeView);
+        }
+        if (this.adminView != null) {
+            this.adminView.setVisible(false);
+            this.remove(this.adminView);
         }
         this.loginView.setVisible(true);
     }
@@ -90,14 +93,10 @@ public class HomeView extends JFrame {
         this.employeeView = employeeView;
         if (this.loginView != null)
             this.loginView.setVisible(false);
+        if (this.adminView != null) {
+            this.adminView.setVisible(false);
+        }
         this.add(this.employeeView.render(), BorderLayout.CENTER);
-    }
-
-    public void render(LoginView loginView, String error) {
-        this.loginView = loginView;
-
-        this.loginView.setVisible(true);
-        this.employeeView.setVisible(false);
     }
 
     public void render(AdminView adminView) {
@@ -106,12 +105,10 @@ public class HomeView extends JFrame {
         if (this.employeeView != null) {
             this.employeeView.setVisible(false);
         }
-
         if (this.loginView != null) {
             this.loginView.setVisible(false);
         }
 
-        this.add(this.adminView.render());
+        this.add(this.adminView.render(), BorderLayout.CENTER);
     }
-
 }

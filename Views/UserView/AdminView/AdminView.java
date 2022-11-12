@@ -1,9 +1,8 @@
 package Views.UserView.AdminView;
 
+import Controllers.AdminController;
 import Models.EmployeeModel;
 import Views.Home.HomeView;
-
-import javax.net.ssl.SNIHostName;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -19,19 +18,18 @@ public class AdminView extends JPanel {
     }
 
     public AdminView(int id, String name, String password, String address) {
-        this.add(new JLabel(Integer.toString(id)));
-        this.add(new JLabel(name));
-        this.add(new JLabel(password));
-        this.add(new JLabel(address));
+//        this.add(new JLabel(Integer.toString(id)));
+//        this.add(new JLabel(name));
+//        this.add(new JLabel(password));
+//        this.add(new JLabel(address));
     }
 
     // View an employee profile
 
     // View all employees in database
     public JPanel render() {
-        JPanel container = new JPanel();
-        container.setBackground(new Color(255, 255, 255));
-        container.setLayout(null);
+        this.setBackground(new Color(255, 255, 255));
+        this.setLayout(null);
 
         List<EmployeeModel> employees = EmployeeModel.loadAllEmployees();
 
@@ -49,12 +47,23 @@ public class AdminView extends JPanel {
 
         JScrollPane jScrollPane = new JScrollPane(jt);
         jScrollPane.setBounds(HomeView.getInstance().getWidth() / 3, 0,
-                HomeView.getInstance().getWidth() * 2/ 3, HomeView.getInstance().getHeight() / 5);
+                HomeView.getInstance().getWidth() * 2/ 3,
+                HomeView.getInstance().getHeight() / 5);
 
-        container.add(new NavView());
-        container.add(jScrollPane);
+        this.add(new NavView());
+        this.add(jScrollPane);
 
+        JButton jButton = new JButton();
+        jButton.setText("Logout");
+        jButton.setBounds(HomeView.getInstance().getWidth() - 100, HomeView.getInstance().getHeight() - 100, 100, 50);
 
-        return container;
+        this.add(jButton);
+
+        jButton.addActionListener(e -> {
+            AdminController adminController = AdminController.getInstance();
+            adminController.logout();
+        });
+
+        return this;
     }
 }

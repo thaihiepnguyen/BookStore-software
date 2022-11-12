@@ -2,7 +2,7 @@ package Controllers;
 
 import Models.EmployeeModel;
 import Views.Home.HomeView;
-import Views.UserView.EmployeeView;
+import Views.UserView.EmployeeView.EmployeeView;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -25,10 +25,12 @@ public class EmployeeController {
     public EmployeeController() {
         this.employeeModel = null;
         this.employeeView = null;
+        instance = null;
     }
     public EmployeeController(EmployeeModel employeeModel, EmployeeView employeeView) {
         this.employeeModel = employeeModel;
         this.employeeView = employeeView;
+        instance = null;
     }
     public EmployeeModel getEmployeeModel() {
         return employeeModel;
@@ -61,7 +63,6 @@ public class EmployeeController {
             String userAddress = this.employeeModel.getAddress();
 
 
-
             this.employeeView = new EmployeeView(userID,
                     userName, userPass, userAddress);
 
@@ -72,13 +73,15 @@ public class EmployeeController {
     public void logout() {
         this.employeeModel = null;
         this.employeeView = null;
-
         this.homeView.render();
     }
 
     public void changePassword() {}
+
     public void updateInfo() {}
+
     public void viewListBookCategories() {}
+
     public void searchBookCategories() {}
 
     public void sortBookCategories() {}
@@ -92,9 +95,9 @@ public class EmployeeController {
     public void EnableBookCategory() {}
 
     public void viewListBooksByPublishers() {}
+
     public void searchBooksByPublishers() {}
+
     public void sortBooksByPublishers() {}
-
-
 
 }

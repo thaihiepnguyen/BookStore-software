@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AdminModel extends UserModel {
-
     List<EmployeeModel> employeeModels = EmployeeModel.loadAllEmployees();
+
     public AdminModel() {
 
     }

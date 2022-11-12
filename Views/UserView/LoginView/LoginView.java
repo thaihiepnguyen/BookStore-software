@@ -1,4 +1,4 @@
-package Views.UserView;
+package Views.UserView.LoginView;
 
 import javax.swing.*;
 import java.awt.*;

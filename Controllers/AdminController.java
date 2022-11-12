@@ -12,6 +12,21 @@ public class AdminController {
     private AdminView adminView = null;
     private HomeView homeView = HomeView.getInstance();
 
+    private static AdminController instance = null;
+
+    public AdminController() {
+        instance = this;
+    }
+
+    public static AdminController getInstance() {
+        if (instance == null) {
+            return new AdminController();
+        }
+        else {
+            return instance;
+        }
+    }
+
     public AdminModel getAdminModel() {
         return adminModel;
     }
@@ -27,6 +42,7 @@ public class AdminController {
     public AdminController(AdminModel adminModel, AdminView adminView) {
         this.adminModel = adminModel;
         this.adminView = adminView;
+        instance = this;
     }
 
     public void setAdminView(AdminView adminView) {
@@ -57,6 +73,7 @@ public class AdminController {
     public void logout() {
         this.adminModel = null;
         this.adminView = null;
+
 
         this.homeView.render();
     }

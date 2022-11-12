@@ -1,4 +1,4 @@
-package Views.UserView;
+package Views.UserView.EmployeeView;
 
 import Controllers.EmployeeController;
 import Models.EmployeeModel;
@@ -36,28 +36,5 @@ public class EmployeeView extends JPanel {
         });
 
         return this;
-    }
-
-    // View all employees in database
-    public static JPanel render(List<EmployeeModel> employees) {
-        List<EmployeeView> employeeViews = new ArrayList<>();
-
-        JPanel employeeUI = new JPanel();
-
-        for (EmployeeModel employee : employees) {
-            EmployeeView item = new EmployeeView(employee.getUserID(), employee.getUsername(),
-                    employee.getPassword(), employee.getAddress()
-            );
-
-            employeeViews.add(
-                    item
-            );
-        }
-
-        for(EmployeeView employeeView : employeeViews) {
-            employeeUI.add(employeeView);
-        }
-
-        return employeeUI;
     }
 }

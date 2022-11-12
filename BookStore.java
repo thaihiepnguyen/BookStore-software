@@ -7,14 +7,11 @@ public class BookStore {
         final int WINDOW_HEIGHT = 600;
 
         SQLDatabase sys = new SQLDatabase("root", "reallyStrongPwd123");
-
         sys.connectTo("jdbc:mysql://localhost:3306/sys");
+
 
         HomeView main = new HomeView(WINDOW_WIDTH, WINDOW_HEIGHT);
 
         main.render();
-
-
-        sys.close();
     }
 }
