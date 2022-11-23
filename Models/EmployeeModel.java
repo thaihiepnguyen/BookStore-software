@@ -13,54 +13,71 @@ public class EmployeeModel extends UserModel {
         super(userID, username, password, address);
     }
 
-    public static EmployeeModel getEmployeeById(int id) {
-        String sql = "select * from employee where id = " + id;
+    public static EmployeeModel findEmployee(int ID) {
+        SQLDatabase db = null;
+        ResultSet resultSet = null;
         EmployeeModel employee = null;
-        SQLDatabase sys;
-        ResultSet resultSet;
         try {
-            sys = SQLDatabase.instance();
-            if (sys == null) {
+            db = SQLDatabase.instance();
+
+            if (db == null) {
                 return null;
             }
-            resultSet = sys.getStatement().executeQuery(sql);
-            while(resultSet.next()) {
-                String name = resultSet.getString(2);
-                String pass = resultSet.getString(3);
-                String address = resultSet.getString(4);
-                employee = new EmployeeModel(id, name, pass, address);
+
+            var item = db.findOne("employee", ID);
+
+            var id = 0; var name = ""; var pass = ""; var address = "";
+            for (var itemEntry : item.entrySet()) {
+                if (itemEntry.getKey().equals("id")) {
+                    id = (int) itemEntry.getValue();
+                } else if (itemEntry.getKey().equals("username")) {
+                    name = (String) itemEntry.getValue();
+                } else if (itemEntry.getKey().equals("password")) {
+                    pass = (String) itemEntry.getValue();
+                } else {
+                    address = (String) itemEntry.getValue();
+                }
             }
-        }
-        catch (SQLException ex) {
+            employee = new EmployeeModel(id, name, pass, address);
+            System.out.println(employee);
+        } catch (SQLException ex) {
             System.out.println(ex);
         }
 
         return employee;
     }
+    @Override
+    public String toString() {
+        return userID + " " + username + " " + password + " " + address + "\n";
+    }
 
-    public static EmployeeModel findUser(String username, String password) throws SQLException {
-        String sql = "select * from employee where" +
-                " username = \"" +
-                username + "\"and password = \"" + password + "\"";
-        SQLDatabase sys = null;
+    public static EmployeeModel findEmployee(String username, String password) {
+        SQLDatabase db = null;
         ResultSet resultSet = null;
         EmployeeModel employee = null;
         try {
-            sys = SQLDatabase.instance();
+            db = SQLDatabase.instance();
 
-            if (sys == null) {
+            if (db == null) {
                 return null;
             }
 
-            resultSet = sys.getStatement().executeQuery(sql);
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                String pass = resultSet.getString(3);
-                String address = resultSet.getString(4);
-                employee = new EmployeeModel(id, name, pass, address);
-                break;
+            var item = db.findOne("employee", username, password);
+
+            var id = 0; var name = ""; var pass = ""; var address = "";
+            for (var itemEntry : item.entrySet()) {
+                if (itemEntry.getKey().equals("id")) {
+                    id = (int) itemEntry.getValue();
+                } else if (itemEntry.getKey().equals("username")) {
+                    name = (String) itemEntry.getValue();
+                } else if (itemEntry.getKey().equals("password")) {
+                    pass = (String) itemEntry.getValue();
+                } else {
+                    address = (String) itemEntry.getValue();
+                }
             }
+            employee = new EmployeeModel(id, name, pass, address);
+            System.out.println(employee);
         } catch (SQLException ex) {
             System.out.println(ex);
         }
@@ -69,25 +86,31 @@ public class EmployeeModel extends UserModel {
     }
 
     public static List<EmployeeModel> loadAllEmployees() {
-        List<EmployeeModel> employees = new ArrayList<>();
-        ResultSet resultSet = null;
-        SQLDatabase sys = null;
+        var employees = new ArrayList<EmployeeModel>();
+        SQLDatabase db = null;
         try {
-            sys = SQLDatabase.instance();
-            if (sys == null) {
+            db = SQLDatabase.instance();
+            if (db == null) {
                 return null;
             }
 
-            resultSet = sys.getStatement().executeQuery("select * from employee");
+            var list = db.findAll("employee");
 
-            while(resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                String pass = resultSet.getString(3);
-                String address = resultSet.getString(4);
-                EmployeeModel employeeModel = new EmployeeModel(id, name, pass, address);
-
-                employees.add(employeeModel);
+            for (var row : list) {
+                var id = 0; var name = ""; var pass = ""; var address = "";
+                for (var itemEntry : row.entrySet()) {
+                    if (itemEntry.getKey().equals("id")) {
+                        id = (int) itemEntry.getValue();
+                    } else if (itemEntry.getKey().equals("username")) {
+                        name = (String) itemEntry.getValue();
+                    } else if (itemEntry.getKey().equals("password")) {
+                        pass = (String) itemEntry.getValue();
+                    } else {
+                        address = (String) itemEntry.getValue();
+                    }
+                }
+                var employee = new EmployeeModel(id, name, pass, address);
+                employees.add(employee);
             }
         }
         catch (SQLException ex) {

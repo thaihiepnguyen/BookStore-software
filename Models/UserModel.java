@@ -2,14 +2,13 @@ package Models;
 
 import java.util.Date;
 public class UserModel {
-    private int userID;
-    private String username;
-    private String password;
-    private String address;
+    int userID;
+    String username;
+    String password;
+    String address;
+    Date hireDate;
 
-    private Date hireDate;
-
-    private int jobId;
+    int jobId;
 
     public UserModel() {
         this.userID = -1;

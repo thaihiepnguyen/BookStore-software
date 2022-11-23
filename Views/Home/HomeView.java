@@ -111,4 +111,8 @@ public class HomeView extends JFrame {
 
         this.add(this.adminView.render(), BorderLayout.CENTER);
     }
+
+//    public void render(Object other) {
+//
+//    }
 }

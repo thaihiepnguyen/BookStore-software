@@ -15,8 +15,8 @@ public class AdminModel extends UserModel {
         super(userID, username, password, address);
     }
 
-    public static AdminModel findUser(String username, String password) throws SQLException {
-        String sql = "select * from admin where" +
+    public static AdminModel findUser(String username, String password) {
+        var sql = "select * from admin where" +
                 " username = \"" +
                 username + "\"and password = \"" + password + "\"";
         SQLDatabase sys = null;

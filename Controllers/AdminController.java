@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class AdminController {
     private AdminModel adminModel = null;
     private AdminView adminView = null;
-    private HomeView homeView = HomeView.getInstance();
+    HomeView homeView = HomeView.getInstance();
 
     private static AdminController instance = null;
 
@@ -50,32 +50,31 @@ public class AdminController {
     }
 
     public void login(String username, String password) throws SQLException {
-        this.adminModel = AdminModel.findUser(username, password);
+        adminModel = AdminModel.findUser(username, password);
 
-        if (this.adminModel == null) {
-            String error = "this account not be found!";
+        if (adminModel == null) {
+            var error = "this account not be found!";
             JOptionPane.showMessageDialog(this.adminView, error);
-            this.homeView.render();
+            homeView.render();
         }
         else {
-            int userID = this.adminModel.getUserID();
-            String userName = this.adminModel.getUsername();
-            String userPass = this.adminModel.getPassword();
-            String userAddress = this.adminModel.getAddress();
+            var userID = adminModel.getUserID();
+            var userName = adminModel.getUsername();
+            var userPass = adminModel.getPassword();
+            var userAddress = adminModel.getAddress();
 
 
-            this.adminView = new AdminView(userID,
+            adminView = new AdminView(userID,
                     userName, userPass, userAddress);
-            this.homeView.render(this.adminView);
+            homeView.render(adminView);
         }
     }
 
     public void logout() {
-        this.adminModel = null;
-        this.adminView = null;
+        adminModel = null;
+        adminView = null;
 
-
-        this.homeView.render();
+        homeView.render();
     }
 
     public void addNewAccount() {

@@ -10,10 +10,8 @@ import java.sql.SQLException;
 public class EmployeeController {
     private EmployeeModel employeeModel;
     private EmployeeView employeeView;
-    private HomeView homeView = HomeView.getInstance();
-
+    HomeView homeView = HomeView.getInstance();
     private static EmployeeController instance = null;
-
     public static EmployeeController getInstance() {
         if (instance == null) {
             return new EmployeeController();
@@ -49,24 +47,24 @@ public class EmployeeController {
     }
 
     public void login(String username, String password) throws SQLException {
-        this.employeeModel = EmployeeModel.findUser(username, password);
+        employeeModel = EmployeeModel.findEmployee(username, password);
 
-        if (this.employeeModel == null) {
-            String error = "this account not be found!";
-            JOptionPane.showMessageDialog(this.employeeView, error);
-            this.homeView.render();
+        if (employeeModel == null) {
+            var error = "this account not be found!";
+            JOptionPane.showMessageDialog(employeeView, error);
+            homeView.render();
         }
         else {
-            int userID = this.employeeModel.getUserID();
-            String userName = this.employeeModel.getUsername();
-            String userPass = this.employeeModel.getPassword();
-            String userAddress = this.employeeModel.getAddress();
+            var userID = employeeModel.getUserID();
+            var userName = employeeModel.getUsername();
+            var userPass = employeeModel.getPassword();
+            var userAddress = employeeModel.getAddress();
 
 
-            this.employeeView = new EmployeeView(userID,
+            employeeView = new EmployeeView(userID,
                     userName, userPass, userAddress);
 
-            this.homeView.render(this.employeeView);
+            homeView.render(employeeView);
         }
     }
 
