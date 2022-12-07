@@ -1,40 +1,25 @@
 package Views.UserView.EmployeeView;
 
-import Controllers.EmployeeController;
-import Models.EmployeeModel;
+import Controllers.UserController.EmployeeController;
 import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EmployeeView extends JPanel {
+    EmployeeController employeeController = EmployeeController.getInstance();
     private int id;
     private String name;
     private String password;
     private String address;
 
-    public EmployeeView() {
+    JButton button = new JButton("Logout");
 
-    }
+    public EmployeeView() {}
 
     public EmployeeView(int id, String name, String password, String address) {
-        this.add(new JLabel(Integer.toString(id)));
-        this.add(new JLabel(name));
-        this.add(new JLabel(password));
-        this.add(new JLabel(address));
-    }
-
-    // View an employee profile
-    public JPanel render() {
-        JButton jButton = new JButton();
-        jButton.setText("Logout");
-        this.add(jButton);
-
-        jButton.addActionListener(e -> {
-            EmployeeController employeeController = EmployeeController.getInstance();
-            employeeController.logout();
-        });
-
-        return this;
+        add(new JLabel(Integer.toString(id)));
+        add(new JLabel(name));
+        add(new JLabel(password));
+        add(new JLabel(address));
+        button.addActionListener(e -> employeeController.logout());
+        add(button);
     }
 }
