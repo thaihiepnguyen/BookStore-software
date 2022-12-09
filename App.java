@@ -1,5 +1,6 @@
 import DBUtilities.SQLDatabase;
 import Views.HomeView.HomeView;
+import Views.AllBookListView.AllBookListView;
 
 import java.sql.SQLException;
 
@@ -9,18 +10,17 @@ public class App {
         final var DEFAULT_WINDOW_WIDTH = 1200;
         final var DEFAULT_WINDOW_HEIGHT = 700;
 
-        // initialize SQLDatabase(
-        //  host, port, user, pass, database
-        // )
-        new SQLDatabase(
+        SQLDatabase sql = new SQLDatabase(
             "127.0.0.1",
             3306,
             "root",
-            "reallyStrongPwd123",
-            "book_store"
+            "",
+            "book-store"
             );
+        AllBookListView screen = new AllBookListView();
+        screen.setVisible(true);
+//        var db = sql.instance();
+//        var table = db.findAll("user");
 
-        var homeView = new HomeView(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
-        homeView.render("loginView");
     }
 }

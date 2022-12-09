@@ -29,7 +29,7 @@ public class SQLDatabase {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
+//            System.out.println("OK");
             conn = DriverManager.getConnection(url, username, password);
 
             statement = conn.createStatement();
