@@ -141,6 +141,45 @@ public class SQLDatabase {
         return result;
     }
 
+    public void insert(String table,Map<String,Object> data) {
+        String keys = "(";
+        String values = "('";
+        for (Map.Entry<String,Object> entry : data.entrySet()){
+            keys+=entry.getKey().toString()+",";
+            values+=entry.getValue()+"','";
+        }
+        StringBuffer sb= new StringBuffer(keys);
+        sb.deleteCharAt(sb.length()-1);
+        keys=sb.toString()+") ";
+        sb = new StringBuffer(values);
+        sb.deleteCharAt(sb.length()-1);
+        sb.deleteCharAt(sb.length()-1);
+        values=sb.toString()+")";
+
+        String sql = "Insert into "+table+keys+"values "+values;
+        try {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void update(String table,int id,Map<String,Object> data) {
+        String values = "";
+        for (Map.Entry<String,Object> entry : data.entrySet()){
+            values+=entry.getKey()+"='"+entry.getValue()+"',";
+        }
+        StringBuffer sb= new StringBuffer(values);
+        sb.deleteCharAt(sb.length()-1);
+        values = sb.toString();
+        String sql = "Update "+table+ " set "+ values+" where id="+id;
+        try {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void close() {
         try {
             conn.close();
