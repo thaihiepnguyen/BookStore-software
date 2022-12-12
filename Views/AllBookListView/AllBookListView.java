@@ -29,29 +29,29 @@ public class AllBookListView extends JFrame{
         leftPn.setPreferredSize(new Dimension(200, 600));
 
         // RIGHT SECTION
-        rightPn.setLayout(new BorderLayout());
+        rightPn.setLayout(null);
         rightPn.setBackground(Color.decode("#D6E4E5"));
 
         // Header
         JLabel head = new JLabel("All Books List");
         head.setFont(new java.awt.Font("", 1, 40));
         head.setForeground(Color.decode("#344D67"));
-        head.setBounds(30,10,400,100);
-        rightPn.add(head, BorderLayout.NORTH);
+        head.setBounds(30,15,400,100);
+        rightPn.add(head);
 
-        // Body
+        // Body: searchBar, titleBar, listPn
         JPanel body = new JPanel();
         body.setLayout(new BorderLayout());
-        // body.setLayout(new FlowLayout());
-        // body.setBackground(Color.RED);
-        // Search/Filter bar
-        JPanel bar = new JPanel();
-        bar.setLayout(null);
-        bar.setBackground(Color.decode("#D6E4E5"));
-        bar.setPreferredSize(new Dimension(800,30));
-        bar.setBackground(Color.decode("#D6E4E5"));
+
+        // Search/Filter bar container
+        JPanel searchBar = new JPanel();
+        searchBar.setLayout(null);
+        searchBar.setBackground(Color.decode("#D6E4E5"));
+        searchBar.setPreferredSize(new Dimension(800,30));
+        searchBar.setBounds(10, 100,800,30);
+
+        // Search/Filter bar items
         JTextField input = new JTextField();
-//        input.setPreferredSize(new Dimension(300,30));
         input.setBounds(20,0,300,30);
 
         MyButton addBtn = new MyButton("Add new", 20);
@@ -63,12 +63,45 @@ public class AllBookListView extends JFrame{
         JComboBox filter = new JComboBox(new String[]{"Name", "Author", "Publisher"});
         filter.setBounds(440, 0, 100,30);
 
-        bar.add(input);
-        bar.add(searchBtn);
-        bar.add(filter);
-        bar.add(addBtn);
+        searchBar.add(input);
+        searchBar.add(searchBtn);
+        searchBar.add(filter);
+        searchBar.add(addBtn);
 
-        body.add(bar, BorderLayout.NORTH);
+//        body.add(searchBar, BorderLayout.NORTH);
+
+        // Title bar of the list
+        JPanel titleBar = new JPanel(null);
+        titleBar.setPreferredSize(new Dimension(800, 30));
+        titleBar.setBounds(0, 150, 800,30);
+
+        JLabel idLabel = new JLabel("ID");
+        idLabel.setBounds(25,0,20,30);
+        idLabel.setFont(new Font("", Font.PLAIN, 18));
+
+        JLabel nameLabel = new JLabel("Name");
+        nameLabel.setBounds(110,0,100,30);
+        nameLabel.setFont(new Font("", Font.PLAIN, 18));
+
+        JLabel authorLabel = new JLabel("Author");
+        authorLabel.setBounds(280,0,100,30);
+        authorLabel.setFont(new Font("", Font.PLAIN, 18));
+
+        JLabel publisherLabel = new JLabel("Publisher");
+        publisherLabel.setBounds(410,0,100,30);
+        publisherLabel.setFont(new Font("", Font.PLAIN, 18));
+
+        JLabel statusLabel = new JLabel("Status");
+        statusLabel.setBounds(560,0,100,30);
+        statusLabel.setFont(new Font("", Font.PLAIN, 18));
+
+        titleBar.add(idLabel);
+        titleBar.add(nameLabel);
+        titleBar.add(authorLabel);
+        titleBar.add(publisherLabel);
+        titleBar.add(statusLabel);
+
+        body.add(titleBar, BorderLayout.CENTER);
 
         // LIST SECTION
         JPanel listPn = new JPanel();
@@ -82,6 +115,7 @@ public class AllBookListView extends JFrame{
         listPn.setBorder(new EmptyBorder(10,0,10,0));
         listPn.setBackground(Color.decode("#475E6B"));
 
+        // ADD ITEMS INTO LISTPN
         bookItem item = new bookItem();
         listPn.add(item);
         listPn.add(Box.createVerticalStrut(10));
@@ -94,7 +128,10 @@ public class AllBookListView extends JFrame{
         container.add(listPn,BorderLayout.NORTH);
         body.add(container);
 
-        rightPn.add(body, BorderLayout.CENTER);
+        body.setBounds(0,180,800,600);
+        rightPn.add(searchBar);
+        rightPn.add(titleBar);
+        rightPn.add(body);
 
         mainPanel.add(leftPn, BorderLayout.WEST);
         mainPanel.add(rightPn, BorderLayout.CENTER);

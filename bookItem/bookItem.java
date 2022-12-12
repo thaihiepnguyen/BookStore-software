@@ -2,6 +2,7 @@ package bookItem;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.*;
 import java.awt.*;
 import MyCustom.MyButton;
 
@@ -60,14 +61,15 @@ public class bookItem extends JPanel{
     }
 
     public bookItem() {
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+//        setLayout(new FlowLayout(FlowLayout.LEFT));
         setBackground(Color.decode("#31414A"));
 //        setPreferredSize(new Dimension(800,40));
         // setMargin(new Insets(50, 50, 50, 50));
 
         JLabel _id = new JLabel("#10234");
         _id.setFont(new Font("", Font.PLAIN, 18));
-        _id.setBorder(new EmptyBorder(0,10,0,20));
+        _id.setBorder(new EmptyBorder(0,0,0,20));
+
         JLabel _name = new JLabel("48 Laws Of Power");
         _name.setBorder(new EmptyBorder(0,0,0,10));
 
@@ -105,18 +107,19 @@ public class bookItem extends JPanel{
         add(editBtn);
         add(deleteBtn);
 
-        JTextArea text = new JTextArea();
-        text.setText("The 48 Laws of Power (1998) is a non-fiction book by American author Robert Greene. The book is a New York Times bestseller, selling over 1.2 million copies in the United States; it is popular with prison inmates and celebrities.");
+        // DESCRIPTION SECTION
+        JTextPane text = new JTextPane();
+        text.setText("The 48 Laws of Power (1998) is a non-fiction book by American author Robert Greene. The book is a NewYork Times bestseller, selling over 1.2 million copies in the United States; it is popular with prison inmates and celebrities.");
         text.setFont(new Font("", Font.PLAIN, 16));
-        text.setBackground(Color.BLACK);
+        text.setBackground(Color.decode("#131A1D"));
         text.setForeground(Color.WHITE);
-        text.setBorder(new EmptyBorder(0,0,0,0));
-        text.setPreferredSize(new Dimension(800, 120));
-        text.setLineWrap(true);
+        text.setEditable(false);
+        text.setPreferredSize(new Dimension(740, 100));
 
+        // PANEL contains description
         JPanel textPanel = new JPanel(new BorderLayout());
-        textPanel.setPreferredSize(new Dimension(800, 80));
-        textPanel.add(text, BorderLayout.NORTH);
+        textPanel.setPreferredSize(new Dimension(740, 100));
+        textPanel.add(text, BorderLayout.CENTER);
         textPanel.setVisible(false);
         add(textPanel);
 
