@@ -8,7 +8,7 @@ public class MyButton extends JButton {
     public MyButton(String text, int radius) {
         this.setText(text);
         this.setForeground(Color.WHITE);
-        this.setFont(new Font("", Font.PLAIN, 18));
+        this.setFont(new Font("", Font.PLAIN, 15));
         this.setRadius(radius);
         color= Color.decode("#344D67");
         setColor(color);
