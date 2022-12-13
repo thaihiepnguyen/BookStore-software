@@ -1,14 +1,12 @@
-package bookItem;
+package MyComponents.bookItem;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.*;
 import java.awt.*;
 import MyCustom.MyButton;
+import MyComponents.editDialog.editDialog;
 
 import java.awt.event.*;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 
 public class bookItem extends JPanel{
     private int id;
@@ -60,13 +58,11 @@ public class bookItem extends JPanel{
         this.status = status;
     }
 
-    public bookItem() {
-//        setLayout(new FlowLayout(FlowLayout.LEFT));
+    public bookItem(int id) {
         setBackground(Color.decode("#31414A"));
-//        setPreferredSize(new Dimension(800,40));
-        // setMargin(new Insets(50, 50, 50, 50));
+        setPreferredSize(new Dimension(800,40));
 
-        JLabel _id = new JLabel("#10234");
+        JLabel _id = new JLabel(String.valueOf(id));
         _id.setFont(new Font("", Font.PLAIN, 18));
         _id.setBorder(new EmptyBorder(0,0,0,20));
 
@@ -114,12 +110,12 @@ public class bookItem extends JPanel{
         text.setBackground(Color.decode("#131A1D"));
         text.setForeground(Color.WHITE);
         text.setEditable(false);
-        text.setPreferredSize(new Dimension(740, 100));
+        text.setPreferredSize(new Dimension(800, 100));
 
         // PANEL contains description
         JPanel textPanel = new JPanel(new BorderLayout());
-        textPanel.setPreferredSize(new Dimension(740, 100));
-        textPanel.add(text, BorderLayout.CENTER);
+        textPanel.setPreferredSize(new Dimension(800, 100));
+        textPanel.add(text, BorderLayout.NORTH);
         textPanel.setVisible(false);
         add(textPanel);
 
@@ -128,16 +124,24 @@ public class bookItem extends JPanel{
             public void mouseClicked(MouseEvent e) {
                 if(!isClicked) {
                     textPanel.setVisible(true);
+                    setPreferredSize(new Dimension(800,120));
                     isClicked = true;
                 }
                 else {
                     textPanel.setVisible(false);
+                    setPreferredSize(new Dimension(800,40));
                     isClicked = false;
                 }
             }
         });
 
-//        JPanel desPane = new JPanel();
-        // setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        editBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               editDialog dialog = new editDialog();
+               dialog.setVisible(true);
+               name = dialog.getInputName().getText();
+            }
+        });
     }
 }

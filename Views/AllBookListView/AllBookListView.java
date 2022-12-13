@@ -5,7 +5,7 @@ import MyCustom.MyButton;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import bookItem.bookItem;
+import MyComponents.bookItem.bookItem;
 
 public class AllBookListView extends JFrame{
     final int DEFAULT_WIDTH = 1000;
@@ -39,7 +39,7 @@ public class AllBookListView extends JFrame{
         head.setBounds(30,15,400,100);
         rightPn.add(head);
 
-        // Body: searchBar, titleBar, listPn
+        // body: titleBar, container(listPn: NORTH)
         JPanel body = new JPanel();
         body.setLayout(new BorderLayout());
 
@@ -101,14 +101,11 @@ public class AllBookListView extends JFrame{
         titleBar.add(publisherLabel);
         titleBar.add(statusLabel);
 
-        body.add(titleBar, BorderLayout.CENTER);
-
         // LIST SECTION
         JPanel listPn = new JPanel();
-        // JScrollPane isScroll = new JScrollPane();
-        // listPn.add(isScroll);
 
-        JPanel container = new JPanel(new BorderLayout());
+//        JPanel container = new JPanel(new BorderLayout());
+        JPanel container = new JPanel(null);
         container.setPreferredSize(new Dimension(800,600));
 
         listPn.setLayout(new BoxLayout(listPn, BoxLayout.Y_AXIS));
@@ -116,19 +113,28 @@ public class AllBookListView extends JFrame{
         listPn.setBackground(Color.decode("#475E6B"));
 
         // ADD ITEMS INTO LISTPN
-        bookItem item = new bookItem();
-        listPn.add(item);
-        listPn.add(Box.createVerticalStrut(10));
-        bookItem item2 = new bookItem();
-        listPn.add(item2);
-        listPn.add(Box.createVerticalStrut(10));
-        bookItem item3 = new bookItem();
-        listPn.add(item3);
+        bookItem bookList[] = new bookItem[10];
+        for (int i = 0; i < 10; i++){
+            bookItem item = new bookItem(i+10000);
+            bookList[i] = item;
+            listPn.add(item);
+            listPn.add(Box.createVerticalStrut(12));
+        }
 
-        container.add(listPn,BorderLayout.NORTH);
-        body.add(container);
+        // SCROLLING PANE
+        JScrollPane scrollPane = new JScrollPane(listPn);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setBounds(0, 0, 800, 400);
 
+        //***********************************************************/
+        container.add(scrollPane);
+//        container.add(scrollPane, BorderLayout.NORTH);
+
+        body.add(titleBar, BorderLayout.NORTH);
+        body.add(container, BorderLayout.NORTH);
         body.setBounds(0,180,800,600);
+
         rightPn.add(searchBar);
         rightPn.add(titleBar);
         rightPn.add(body);
