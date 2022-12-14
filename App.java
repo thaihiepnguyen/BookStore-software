@@ -1,20 +1,21 @@
-import DBUtilities.SQLDatabase;
-
-import java.sql.SQLException;
+import DataAccess.MySQLDatabase;
+import DataAccess.EmployeeDA;
 
 public class App {
-
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         final var DEFAULT_WINDOW_WIDTH = 1200;
         final var DEFAULT_WINDOW_HEIGHT = 700;
 
-        new SQLDatabase(
+        new MySQLDatabase(
             "127.0.0.1",
             3306,
             "root",
             "reallyStrongPwd123",
-            "book_store"
+            "book-store"
             );
 
+        for (var user : EmployeeDA.loadAllEmployeeDA()) {
+            System.out.println(user);
+        }
     }
 }
