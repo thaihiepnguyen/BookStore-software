@@ -69,6 +69,47 @@ public class SQLDatabase {
         }
         return rows;
     }
+    
+    public void insert(String table,Map<String,Object> data) throws SQLException {
+        String keys = "(";
+        String values = "('";
+        for (Map.Entry<String,Object> entry : data.entrySet()){
+            keys+=entry.getKey().toString()+",";
+            values+=entry.getValue()+"','";
+        }
+        StringBuffer sb= new StringBuffer(keys);
+        sb.deleteCharAt(sb.length()-1);
+        keys=sb.toString()+") ";
+        sb = new StringBuffer(values);
+        sb.deleteCharAt(sb.length()-1);
+        sb.deleteCharAt(sb.length()-1);
+        values=sb.toString()+")";
+
+        String sql = "Insert into "+table+keys+"values "+values;
+        statement.executeUpdate(sql);
+    }
+
+    public void update(String table,int id,Map<String,Object> data) throws SQLException {
+        String values = "";
+        for (Map.Entry<String,Object> entry : data.entrySet()){
+            values+=entry.getKey()+"='"+entry.getValue()+"',";
+        }
+        StringBuffer sb= new StringBuffer(values);
+        sb.deleteCharAt(sb.length()-1);
+        values = sb.toString();
+        String sql = "Update "+table+ " set "+ values+" where id="+id;
+        statement.executeUpdate(sql);
+    }
+
+    public void updateStatus(String table,int id,boolean status) throws SQLException {
+        String sql = "Update "+table+ " set is_enable="+ status +" where id="+id;
+        statement.executeUpdate(sql);
+    }
+
+    public void delete(String table,int id) throws SQLException {
+        String sql = "Delete from "+table+" where id="+id;
+        statement.executeUpdate(sql);
+    }
 
     // How to use?
     // you can call the function with a table as argument
