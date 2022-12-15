@@ -43,8 +43,39 @@ public class CategoryDA {
         preparedStatement.executeUpdate();
     }
 
+    public void update(CategoryPOJO data){
+        String sql = "Update category set name = '"+ data.getName()+"', is_enable = "+ data.getIs_enable() +" where id="+data.getId();
+        try {
+            database.getStatement().executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void delete(int id) throws SQLException {
         String sql = "Delete from category"+" where id="+id;
         database.getStatement().executeUpdate(sql);
+    }
+
+    public List<CategoryPOJO> search(String s){
+        String sql = "select * from category where id like '%"+s+"%' or name like '%"+s+"%'";
+        List<CategoryPOJO> ans = new ArrayList<>();
+        try{
+            ResultSet rs = database.getStatement().executeQuery(sql);
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                Boolean is_enable = rs.getBoolean("is_enable");
+
+                CategoryPOJO ca = new CategoryPOJO(id,name,is_enable);
+                ans.add(ca);
+            }
+        }
+        catch (SQLException ex){
+            System.out.println(ex);
+            ans = null;
+        }
+        return ans;
+
     }
 }

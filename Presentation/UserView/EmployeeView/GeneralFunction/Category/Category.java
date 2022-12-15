@@ -5,7 +5,7 @@ import Pojo.CategoryPOJO;
 import Pojo.PublisherPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.LayoutView.RoundPanel.RoundPanel;
-import Presentation.UserView.EmployeeView.GeneralFunction.Category.CategoryAddNew.CategoryAddNew;
+import Presentation.UserView.EmployeeView.GeneralFunction.Category.CategoryForm.CategoryForm;
 import Presentation.UserView.EmployeeView.GeneralFunction.Category.CategoryItem.CategoryItem;
 
 import javax.swing.*;
@@ -24,17 +24,16 @@ public class Category extends JPanel {
     RoundPanel header = new RoundPanel();
     JLabel id = new JLabel("#", SwingConstants.CENTER);
     JLabel name = new JLabel("Name", SwingConstants.CENTER);
-
     JScrollPane scrollPane = null;
-
-
+    JPanel list = new JPanel();
+    JPanel box = new JPanel();
 
     public Category(){
         setOpaque(false);
         setLayout(null);
 
         // title
-        title.setBounds(44,5,500,50);
+        title.setBounds(44,5,224,50);
         title.setForeground(new Color(52,77,103));
         title.setFont(new Font("Inter", Font.BOLD, 32));
         add(title);
@@ -67,7 +66,7 @@ public class Category extends JPanel {
         header.setRoundTopLeft(20);
         header.setBackground(new Color(52,77,103));
         header.setLayout(null);
-        header.setBounds(44,120,700,34);
+        header.setBounds(44,105,700,32);
         add(header);
 
         header.add(id);
@@ -81,8 +80,6 @@ public class Category extends JPanel {
         name.setFont(new Font("Inter",Font.PLAIN,16));
         name.setBounds(100,-1,400,34);
 
-
-        JPanel list = new JPanel();
         list.setBackground(new Color(214,228,229));
         scrollPane = new JScrollPane(list);
 
@@ -110,11 +107,10 @@ public class Category extends JPanel {
 
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(44,154,700,379);
+        scrollPane.setBounds(44,137,700,395);
         add(scrollPane,BorderLayout.CENTER);
         list.setLayout(new BorderLayout());
 
-        JPanel box = new JPanel();
         box.setBackground(new Color(214,228,229));
         list.add(box,BorderLayout.NORTH);
         box.setLayout(new BoxLayout(box,BoxLayout.Y_AXIS));
@@ -124,21 +120,50 @@ public class Category extends JPanel {
             CategoryItem item= new CategoryItem(pu);
             box.add(item);
 
-            item.getCategoryDetail().getDeleteButton().addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    bu.delete(pu.getId());
-                    box.remove(item);
-                    box.repaint();
-                    box.revalidate();
-                }
-            });
+            edit(item,pu);
+            updateState(item,pu);
+            delete(item,pu);
         }
+
+        title.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                box.removeAll();
+                box.repaint();
+                box.revalidate();
+                // set items
+                for(CategoryPOJO pu:bu.getAll()){
+                    CategoryItem item= new CategoryItem(pu);
+                    box.add(item);
+
+                    edit(item,pu);
+                    updateState(item,pu);
+                    delete(item,pu);
+                }
+            }
+        });
+
+
+        searchBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                box.removeAll();
+                box.repaint();
+                box.revalidate();
+                for(CategoryPOJO pu:bu.search(searchField.getText())){
+                    CategoryItem item = new CategoryItem(pu);
+                    edit(item,pu);
+                    updateState(item,pu);
+                    delete(item,pu);
+                    box.add(item);
+                }
+            }
+        });
 
         addNewBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                CategoryAddNew addNewView = new CategoryAddNew();
+                CategoryForm addNewView = new CategoryForm();
 
                 addNewView.getSaveButton().addMouseListener(new MouseAdapter() {
                     @Override
@@ -152,15 +177,10 @@ public class Category extends JPanel {
                             try {
                                 bu.insert(pu);
                                 CategoryItem item= new CategoryItem(pu);
-                                item.getCategoryDetail().getDeleteButton().addMouseListener(new MouseAdapter() {
-                                    @Override
-                                    public void mouseClicked(MouseEvent e) {
-                                        bu.delete(pu.getId());
-                                        box.remove(item);
-                                        box.repaint();
-                                        box.revalidate();
-                                    }
-                                });
+                                edit(item,pu);
+                                updateState(item,pu);
+                                delete(item,pu);
+
                                 box.add(item);
                                 box.repaint();
                                 box.revalidate();
@@ -184,5 +204,75 @@ public class Category extends JPanel {
         });
     }
 
+    public void edit(CategoryItem item,CategoryPOJO pu){
+        item.getEditButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                CategoryForm editItem = new CategoryForm();
+                editItem.setTitle("Edit");
+                editItem.setNameTF(pu.getName());
+                editItem.getSaveButton().addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        String name = editItem.getNameTF().getText();
+                        if(name.length()>0) {
+                            pu.setName(name);
+                            bu.update(pu);
+                            item.update(pu);
+                            item.repaint();
+                            item.revalidate();
+                            JOptionPane.showMessageDialog(editItem, "Edit successfully !", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(
+                                    editItem,
+                                    "Please enter all field !",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+                editItem.setVisible(true);
+            }
+        });
+    }
 
+    public void updateState(CategoryItem item,CategoryPOJO pu){
+        item.getStatusButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(pu.getIs_enable()){
+                    item.getStatusButton().setText("Disable");
+                    item.setBackground(new Color(134,142,150));
+                    pu.setIs_enable(false);
+                }
+                else{
+                    item.getStatusButton().setText("Enable");
+                    item.setBackground(Color.WHITE);
+                    pu.setIs_enable(true);
+                }
+                item.update(pu);
+                bu.update(pu);
+            }
+        });
+    }
+
+    public void delete(CategoryItem item, CategoryPOJO pu){
+        item.getCategoryDetail().getDeleteButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int res = JOptionPane.showConfirmDialog(
+                        scrollPane,
+                        "Are you sure delete '"+pu.getName()+"' ?",
+                        "Confirm",
+                        JOptionPane.YES_NO_OPTION);
+                if(res == JOptionPane.YES_OPTION) {
+                    bu.delete(pu.getId());
+                    box.remove(item);
+                    box.repaint();
+                    box.revalidate();
+                }
+            }
+        });
+    }
 }

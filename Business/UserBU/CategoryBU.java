@@ -17,6 +17,11 @@ public class CategoryBU {
         da.insert(data);
     }
 
+    public void update(CategoryPOJO data){
+        CategoryDA da = new CategoryDA();
+        da.update(data);
+    }
+
     public void delete(int id){
         CategoryDA da = new CategoryDA();
         try {
@@ -24,5 +29,10 @@ public class CategoryBU {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<CategoryPOJO> search(String s){
+        CategoryDA da = new CategoryDA();
+        return da.search(s);
     }
 }
