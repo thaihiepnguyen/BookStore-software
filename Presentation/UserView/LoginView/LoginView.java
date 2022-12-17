@@ -86,12 +86,12 @@ public class LoginView extends JPanel implements ActionListener {
         loginLabel.setBounds(0, 10, 150, 75);
 
 
-        userLabel.setBounds(0, 90, 125,25);
+        userLabel.setBounds(15, 90, 125,25);
         userLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
         userLabel.setForeground(new Color(57, 77, 101));
         username.setBounds(125, 90, 300, 30);
 
-        passLabel.setBounds(0, 125, 125,25);
+        passLabel.setBounds(15, 125, 125,25);
         passLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
         passLabel.setForeground(new Color(57, 77, 101));
         password.setBounds(125, 125, 300, 30);

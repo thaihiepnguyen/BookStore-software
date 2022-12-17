@@ -35,7 +35,6 @@ public class HomeView extends JFrame {
         setVisible(true);
         this.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 
-
         container.setBackground(Color.BLUE);
         this.add(container, BorderLayout.CENTER);
 

@@ -1,5 +1,6 @@
 package Business.UserBU;
 
+import DataAccess.AdminDA;
 import DataAccess.EmployeeDA;
 import Pojo.UserPOJO;
 import Presentation.HomeView.HomeView;
@@ -12,7 +13,7 @@ public class AccountBU {
         if (user != null) {
             HomeView homeView = HomeView.getInstance();
             homeView.render(
-                    new EmployeeView(user)
+                    new EmployeeView()
             );
         }
         else {
@@ -21,6 +22,14 @@ public class AccountBU {
     }
 
     public static void adminLogin(String username, String password) {
+        UserPOJO user = AdminDA.findAdmin(username, password);
 
+        if (user != null) {
+            HomeView homeView = HomeView.getInstance();
+            homeView.render();
+        }
+        else {
+            System.out.println("Login Khong Thanh Cong!");
+        }
     }
 }
