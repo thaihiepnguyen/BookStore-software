@@ -1,53 +1,153 @@
 package Presentation.UserView.LoginView;
 
 import Business.UserBU.EmployeeBU;
+import Presentation.HomeView.HomeView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class LoginView extends JPanel {
-    EmployeeBU employeeController = EmployeeBU.getInstance();
+public class LoginView extends JPanel implements ActionListener {
+    JRadioButton employee, admin;
+    JTextField username;
+    JPasswordField password;
+//
+    JLabel title;
+    JLabel tinyTitle;
+//
+    JButton login;
 
-    JPanel vwContainer = new JPanel();
+    JPanel leftComponent;
+    JPanel rightComponent;
 
-    JPanel vwLeftComponent = new JPanel();
-    JPanel vwTitle = new JPanel();
-    JLabel vwTitleLabel = new JLabel("Book Management");
+    JPanel titlePanel;
+    JPanel titleDescription;
+    JPanel loginFrame;
+    JLabel loginLabel;
+    JLabel userLabel;
+    JLabel passLabel;
 
-    JPanel vwTitleDescription = new JPanel();
-    JLabel vwTitleDescriptionLabel = new JLabel(
-            "Login with your personal information"
-    );
+    ButtonGroup group;
 
-    JPanel vwRightComponent = new JPanel();
-    JPanel vwLoginForm = new JPanel();
 
-    JButton submitForm = new JButton();
-    public LoginView() {
+    public void prepareGUI() {
+        login = new JButton("Login");
+        title = new JLabel("Book Management", JLabel.CENTER);
+        tinyTitle = new JLabel("Login your personal information", JLabel.CENTER);
+
+        leftComponent = new JPanel();
+        rightComponent = new JPanel();
+
+        titlePanel = new JPanel();
+        titleDescription = new JPanel();
+
+
+        loginFrame = new JPanel();
+        loginLabel = new JLabel("Login");
+
+        userLabel = new JLabel("Username: ");
+
+        username = new JTextField();
+
+        passLabel = new JLabel("Password: ");
+
+        password = new JPasswordField();
+
+        group = new ButtonGroup();
+
+        employee = new JRadioButton("Employee", true);
+        admin = new JRadioButton("Admin");
+
+        login = new JButton("Login");
+    }
+
+    public void designUI() {
         this.setLayout(new GridLayout(1, 2));
 
-        // left of component
-        vwLeftComponent.setBackground(new Color(57, 77, 101));
-        vwLeftComponent.setLayout(new GridLayout(2, 1));
-        vwTitle.setLayout(new BorderLayout());
-        vwTitle.add(vwTitleLabel, BorderLayout.SOUTH);
-        vwLeftComponent.add(vwTitle);
+        titlePanel.setLayout(new BorderLayout());
+        title.setFont(new Font(titlePanel.getName(), Font.BOLD, 50));
+        title.setForeground(new Color(221, 221, 221));
+        titlePanel.setOpaque(false);
+        titleDescription.setOpaque(false);
+        titleDescription.setLayout(new BorderLayout());
+        tinyTitle.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
+        tinyTitle.setForeground(new Color(221, 221, 221));
 
-        vwTitleDescription.setLayout(new BorderLayout());
-        vwTitleDescription.add(vwTitleDescriptionLabel, BorderLayout.NORTH);
-        vwLeftComponent.add(vwTitleDescription);
+        leftComponent.setBackground(new Color(57, 77, 101));
+        leftComponent.setLayout(new GridLayout(2, 1));
 
-        this.add(vwLeftComponent);
 
-        // right of component
-        vwRightComponent.setBackground(new Color(216, 227, 229));
-        this.add(vwRightComponent);
+        loginFrame.setBounds(30, 200, 600, 350);
+        loginFrame.setOpaque(false);
+        loginFrame.setLayout(null);
 
-        submitForm.addActionListener(e ->
-                employeeController.login(
-                        "thaihiepnguyen",
-                        "1234567"
-                ));
-//        add(vwContainer);
+        loginLabel.setFont(new Font(loginLabel.getName(), Font.BOLD, 50));
+        loginLabel.setForeground(new Color(57, 77, 101));
+        loginLabel.setBounds(0, 10, 150, 75);
+
+
+        userLabel.setBounds(0, 90, 125,25);
+        userLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 16));
+        userLabel.setForeground(new Color(57, 77, 101));
+        username.setBounds(125, 90, 300, 30);
+
+        passLabel.setBounds(0, 125, 125,25);
+        passLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 16));
+        passLabel.setForeground(new Color(57, 77, 101));
+        password.setBounds(125, 125, 300, 30);
+
+        employee.setForeground(new Color(57, 77, 101));
+        employee.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
+
+        admin.setForeground(new Color(57, 77, 101));
+        admin.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
+
+        employee.setBounds(0, 165, 125, 25);
+        admin.setBounds(125, 165, 125, 25);
+
+
+        login.setBounds(0, 200, 125, 55);
+        login.setForeground(new Color(57, 77, 101));
+        login.setFont(new Font(titleDescription.getName(), Font.PLAIN, 18));
+
+        rightComponent.setBackground(new Color(216, 227, 229));
+        rightComponent.setLayout(null);
+    }
+
+
+    public LoginView() {
+        prepareGUI();
+        designUI();
+
+        titlePanel.add(title, BorderLayout.SOUTH);
+
+        leftComponent.add(titlePanel);
+
+        titleDescription.add(tinyTitle, BorderLayout.NORTH);
+        leftComponent.add(titleDescription);
+
+        this.add(leftComponent);
+
+        group.add(employee);
+        group.add(admin);
+
+
+        login.addActionListener(this);
+
+        loginFrame.add(userLabel); loginFrame.add(passLabel);
+        loginFrame.add(username); loginFrame.add(password);
+        loginFrame.add(employee); loginFrame.add(admin);
+
+        loginFrame.add(loginLabel);
+        loginFrame.add(login);
+
+        rightComponent.add(loginFrame);
+        this.add(rightComponent);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Hello");
     }
 }

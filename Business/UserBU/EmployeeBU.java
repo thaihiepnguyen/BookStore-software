@@ -1,7 +1,7 @@
 package Business.UserBU;
 
 import DataAccess.AdminDA;
-import Presentation.HomeView.HomeView;
+//import Presentation.HomeView.HomeView;
 import Presentation.UserView.EmployeeView.EmployeeView;
 
 import javax.swing.*;
@@ -9,7 +9,7 @@ import javax.swing.*;
 public class EmployeeBU {
     private AdminDA adminModel;
     private EmployeeView employeeView;
-    HomeView homeView = HomeView.getInstance();
+//    HomeView homeView = HomeView.getInstance();
     private static EmployeeBU instance = null;
     public static EmployeeBU getInstance() {
         if (instance == null) {
@@ -60,21 +60,22 @@ public class EmployeeBU {
             var userAddress = adminModel.getAddress();
 
 
-            homeView.render("employeeView", new EmployeeView(
-                    userID,
-                    userName,
-                    userPass,
-                    userAddress
-                    )
-            );
+//            homeView.render("employeeView", new EmployeeView(
+//                    userID,
+//                    userName,
+//                    userPass,
+//                    userAddress
+//                    )
+//            );
         }
     }
+
 
     public void logout() {
         this.adminModel = null;
         this.employeeView = null;
 
-        homeView.render("LoginView");
+//        homeView.render("LoginView");
     }
 
     public void changePassword() {}

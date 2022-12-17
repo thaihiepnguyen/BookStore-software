@@ -93,9 +93,6 @@ public class MySQLDatabase {
         // prepare sql!!!
         String sql = "select * from "+table+" where username = ? and password = ?";
 
-        List<Map<String, Object>> list = null;
-        Map<String, Object> result = null;
-
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 

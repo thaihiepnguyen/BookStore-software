@@ -8,7 +8,8 @@ import java.awt.*;
 
 
 public class HomeView extends JFrame {
-    LoginView loginView = new LoginView();
+    final String LOGIN_PAGE = "loginView";
+    final String EMPLOYEE_PAGE = "employeeView";
     final int DEFAULT_WIDTH = 800;
     final int DEFAULT_HEIGHT = 600;
     CardLayout mainLayout = new CardLayout();
@@ -27,37 +28,42 @@ public class HomeView extends JFrame {
     public HomeView() {
         container.setLayout(mainLayout);
 
-        container.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-
+        this.setLayout(new BorderLayout());
         setTitle("Book Library");
         setDefaultCloseOperation(HomeView.EXIT_ON_CLOSE);
+        setResizable(false);
         setVisible(true);
-        add(container);
-        pack();
+        this.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+
+
+        container.setBackground(Color.BLUE);
+        this.add(container, BorderLayout.CENTER);
+
 
         instance = this;
     }
     public HomeView(int width, int height) {
         container.setLayout(mainLayout);
 
-        container.setPreferredSize(new Dimension(width, height));
-
-        setTitle("Book Library");
+        setLayout(new BorderLayout());
+        setTitle("Book Management");
         setDefaultCloseOperation(HomeView.EXIT_ON_CLOSE);
+        setResizable(false);
         setVisible(true);
-        add(container);
-        pack();
+        add(container, BorderLayout.CENTER);
+
+        setSize(new Dimension(width, height));
 
         instance = this;
     }
 
-    public void render(String loginView) {
-        container.add(this.loginView, loginView);
-        mainLayout.show(container, loginView);
+    public void render() {
+        container.add(new LoginView(), LOGIN_PAGE);
+        mainLayout.show(container, LOGIN_PAGE);
     }
 
-    public void render(String employee, EmployeeView employeeView) {
-        container.add(employeeView, employee);
-        mainLayout.show(container, employee);
+    public void render(EmployeeView employeeView) {
+        container.add(employeeView, EMPLOYEE_PAGE);
+        mainLayout.show(container, EMPLOYEE_PAGE);
     }
 }
