@@ -87,10 +87,9 @@ public class MySQLDatabase {
         return entitySet;
     }
 
-    // can run but it has not been optimized :)
     public ResultSet findOneUser(String table, String user, String pass) {
         ResultSet entity = null;
-        // prepare sql!!!
+
         String sql = "select * from "+table+" where username = ? and password = ?";
 
         try {
@@ -101,10 +100,9 @@ public class MySQLDatabase {
 
             entity = preparedStatement.executeQuery();
 
-            while (entity.next()) {
-                System.out.println(entity.getInt("id") + " " + entity.getString("firstname"));
+            if (entity == null) {
+                return null;   
             }
-            
         } catch (SQLException ex) {
             System.out.println(ex);
         }

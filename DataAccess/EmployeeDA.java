@@ -19,7 +19,7 @@ public class EmployeeDA extends UserPOJO {
         }
     }
 
-    public static List<EmployeeDA> ResultSetToEmployeeDAConverter(ResultSet entity) throws SQLException {
+    public static List<EmployeeDA> ResultSetToEmployeeDAConverter(ResultSet entity) {
         List<EmployeeDA> employeeModels = new ArrayList<>();
 
         int userID = 0;
@@ -33,21 +33,26 @@ public class EmployeeDA extends UserPOJO {
         Date hire_date = null;
         boolean status = false;
         String tel = "";
-        while (entity.next()) {
-            userID = entity.getInt("id");
-            username = entity.getString("username");
-            password = entity.getString("password");
-            firstname = entity.getString("firstname");
-            lastname = entity.getString("lastname");
-            gender = entity.getString("gender");
-            address = entity.getString("address");
-            role_id = entity.getInt("role_id");
-            hire_date = entity.getDate("hire_date");
-            status = entity.getBoolean("is_enable");
-            tel = entity.getString("tel");
+        try {
+            while (entity.next()) {
+                userID = entity.getInt("id");
+                username = entity.getString("username");
+                password = entity.getString("password");
+                firstname = entity.getString("firstname");
+                lastname = entity.getString("lastname");
+                gender = entity.getString("gender");
+                address = entity.getString("address");
+                role_id = entity.getInt("role_id");
+                hire_date = entity.getDate("hire_date");
+                status = entity.getBoolean("is_enable");
+                tel = entity.getString("tel");
 
-            employeeModels.add(new EmployeeDA(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status));
+                employeeModels.add(new EmployeeDA(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+
         return employeeModels;
     }
 
@@ -70,17 +75,15 @@ public class EmployeeDA extends UserPOJO {
 
     // The codes below to get data from database
     public static EmployeeDA findEmployeeDA(String username, String password) {
-        ResultSet dataOfEmployee = db.findOneUser("user", username, password);
+        ResultSet entity = db.findOneUser("user", username, password);
 
-        if (dataOfEmployee == null ) return null;
+        if (entity == null ) return null;
 
-        List<EmployeeDA> employeeModel = null;
-        try {
-            employeeModel = ResultSetToEmployeeDAConverter(dataOfEmployee);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return employeeModel.get(0);
+        List<EmployeeDA> employeeModel;
+        employeeModel = ResultSetToEmployeeDAConverter(entity);
+
+        if (employeeModel.size() == 0) return null;
+        else return employeeModel.get(0);
     }
     public static List<EmployeeDA> loadAllEmployeeDA() {
         List<EmployeeDA> employees;
@@ -89,11 +92,7 @@ public class EmployeeDA extends UserPOJO {
         
         if (dataOfEmployees == null) return null;
 
-        try {
-            employees = ResultSetToEmployeeDAConverter(dataOfEmployees);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        employees = ResultSetToEmployeeDAConverter(dataOfEmployees);
 
         return employees;
     }

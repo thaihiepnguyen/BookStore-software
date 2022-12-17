@@ -1,7 +1,6 @@
 package Presentation.UserView.LoginView;
 
-import Business.UserBU.EmployeeBU;
-import Presentation.HomeView.HomeView;
+import Business.UserBU.AccountBU;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,54 +61,54 @@ public class LoginView extends JPanel implements ActionListener {
         login = new JButton("Login");
     }
 
-    public void designUI() {
+    public void designGUI() {
         this.setLayout(new GridLayout(1, 2));
 
         titlePanel.setLayout(new BorderLayout());
-        title.setFont(new Font(titlePanel.getName(), Font.BOLD, 50));
+        title.setFont(new Font(titlePanel.getName(), Font.BOLD, 40));
         title.setForeground(new Color(221, 221, 221));
         titlePanel.setOpaque(false);
         titleDescription.setOpaque(false);
         titleDescription.setLayout(new BorderLayout());
-        tinyTitle.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
+        tinyTitle.setFont(new Font(titleDescription.getName(), Font.PLAIN, 12));
         tinyTitle.setForeground(new Color(221, 221, 221));
 
         leftComponent.setBackground(new Color(57, 77, 101));
         leftComponent.setLayout(new GridLayout(2, 1));
 
 
-        loginFrame.setBounds(30, 200, 600, 350);
+        loginFrame.setBounds(30, 150, 600, 350);
         loginFrame.setOpaque(false);
         loginFrame.setLayout(null);
 
-        loginLabel.setFont(new Font(loginLabel.getName(), Font.BOLD, 50));
+        loginLabel.setFont(new Font(loginLabel.getName(), Font.BOLD, 40));
         loginLabel.setForeground(new Color(57, 77, 101));
         loginLabel.setBounds(0, 10, 150, 75);
 
 
         userLabel.setBounds(0, 90, 125,25);
-        userLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 16));
+        userLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
         userLabel.setForeground(new Color(57, 77, 101));
         username.setBounds(125, 90, 300, 30);
 
         passLabel.setBounds(0, 125, 125,25);
-        passLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 16));
+        passLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
         passLabel.setForeground(new Color(57, 77, 101));
         password.setBounds(125, 125, 300, 30);
 
         employee.setForeground(new Color(57, 77, 101));
-        employee.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
+        employee.setFont(new Font(titleDescription.getName(), Font.PLAIN, 12));
 
         admin.setForeground(new Color(57, 77, 101));
-        admin.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
+        admin.setFont(new Font(titleDescription.getName(), Font.PLAIN, 12));
 
         employee.setBounds(0, 165, 125, 25);
         admin.setBounds(125, 165, 125, 25);
 
 
-        login.setBounds(0, 200, 125, 55);
+        login.setBounds(0, 200, 100, 45);
         login.setForeground(new Color(57, 77, 101));
-        login.setFont(new Font(titleDescription.getName(), Font.PLAIN, 18));
+        login.setFont(new Font(titleDescription.getName(), Font.PLAIN, 16));
 
         rightComponent.setBackground(new Color(216, 227, 229));
         rightComponent.setLayout(null);
@@ -118,7 +117,7 @@ public class LoginView extends JPanel implements ActionListener {
 
     public LoginView() {
         prepareGUI();
-        designUI();
+        designGUI();
 
         titlePanel.add(title, BorderLayout.SOUTH);
 
@@ -148,6 +147,15 @@ public class LoginView extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Hello");
+        String name = username.getText();
+        String pass = String.valueOf(password.getPassword());
+
+        if (employee.isSelected()) {
+            AccountBU.employeeLogin(name, pass);
+        }
+
+        if (admin.isSelected()) {
+            AccountBU.adminLogin(name, pass);
+        };
     }
 }
