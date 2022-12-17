@@ -1,20 +1,27 @@
-package Presentation.UserView.EmployeeView.GeneralFunction.Category.CategoryItem;
+package Presentation.UserView.EmployeeView.GeneralFunction.Publisher.PublisherItem;
 
 import Pojo.CategoryPOJO;
+import Pojo.PublisherPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.UserView.EmployeeView.GeneralFunction.Category.CategoryItem.CategoryDetail.CategoryDetail;
+import Presentation.UserView.EmployeeView.GeneralFunction.Publisher.PublisherItem.PublisherDetail.PublisherDetail;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class CategoryItem extends JPanel {
+public class PublisherItem extends JPanel {
     JLabel id = null;
     JLabel name = null;
+    JLabel email = null;
     MyButton statusButton = null;
     MyButton editButton = new MyButton("Edit");
-    CategoryDetail categoryDetail = null;
+    PublisherDetail publisherDetail = null;
+
+    public PublisherDetail getPublisherDetail() {
+        return publisherDetail;
+    }
 
     public JLabel getId() {
         return id;
@@ -23,7 +30,6 @@ public class CategoryItem extends JPanel {
     public void setId(JLabel id) {
         this.id = id;
     }
-
 
     public void setName(JLabel name) {
         this.name = name;
@@ -37,17 +43,18 @@ public class CategoryItem extends JPanel {
         return editButton;
     }
 
-    public CategoryDetail getCategoryDetail() {
-        return categoryDetail;
-    }
 
-    public void update(CategoryPOJO puUpdate){
+    public void update(PublisherPOJO puUpdate){
         name.setText(puUpdate.getName());
-        categoryDetail.getStatus().setText(puUpdate.getIs_enable()?"Status: Enable":"Status: Disable");
-        categoryDetail.getNames().setText("Name: "+puUpdate.getName());
+        email.setText(puUpdate.getEmail());
+        publisherDetail.getStatus().setText(puUpdate.getIs_enable()?"Status: Enable":"Status: Disable");
+        publisherDetail.getNames().setText("Name: "+puUpdate.getName());
+        publisherDetail.getAddress().setText("Address: " + puUpdate.getAddress());
+        publisherDetail.getEmail().setText("Email: "+ puUpdate.getEmail());
+        publisherDetail.getTel().setText("Tel: "+ puUpdate.getTel());
     }
 
-    public CategoryItem(CategoryPOJO pu){
+    public PublisherItem(PublisherPOJO pu){
         setPreferredSize(new Dimension(0,38));
         setBackground(Color.WHITE);
         setLayout(null);
@@ -66,8 +73,14 @@ public class CategoryItem extends JPanel {
         name = new JLabel(pu.getName(), SwingConstants.CENTER);
         name.setForeground(new Color(52,77,103));
         name.setFont(new Font("Inter",Font.PLAIN,15));
-        name.setBounds(100,5,400,34);
+        name.setBounds(50,5,220,34);
         add(name);
+
+        email = new JLabel(pu.getEmail(),SwingConstants.CENTER);
+        email.setForeground(new Color(52,77,103));
+        email.setFont(new Font("Inter",Font.PLAIN,15));
+        email.setBounds(270,5,300,34);
+        add(email);
 
         editButton.setTextColor(Color.WHITE);
         editButton.setRound(10,10,10,10);
@@ -85,7 +98,7 @@ public class CategoryItem extends JPanel {
         }
         else{
             statusButton = new MyButton("Disable");
-                setBackground(new Color(134,142,150));
+            setBackground(new Color(134,142,150));
         }
 
         statusButton.setTextColor(Color.WHITE);
@@ -94,25 +107,23 @@ public class CategoryItem extends JPanel {
         statusButton.setBounds(624,13,60,20);
         add(statusButton);
 
-        categoryDetail = new CategoryDetail(pu);
-        categoryDetail.setBounds(0,38,700,80);
-        add(categoryDetail);
-        categoryDetail.setVisible(false);
+        publisherDetail = new PublisherDetail(pu);
+        publisherDetail.setBounds(0,38,700,140);
+        add(publisherDetail);
+        publisherDetail.setVisible(false);
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(getHeight()==38){
-                    setPreferredSize(new Dimension(0,118));
-                    categoryDetail.setVisible(true);
+                    setPreferredSize(new Dimension(0,178));
+                    publisherDetail.setVisible(true);
                 }
                 else{
-                    categoryDetail.setVisible(false);
+                    publisherDetail.setVisible(false);
                     setPreferredSize(new Dimension(0,38));
                 }
             }
         });
-
-
     }
 }

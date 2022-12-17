@@ -42,7 +42,7 @@ public class Category extends JPanel {
         searchField.setBorder(BorderFactory.createEmptyBorder());
         searchField.setFont(new Font("Inter", Font.PLAIN, 16));
         searchField.setBounds(44,70,230,24);
-        searchField.setBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.black));
+        searchField.setBorder(BorderFactory.createMatteBorder(0,0,2,0,new Color(52,77,103)));
         add(searchField);
 
         // search button

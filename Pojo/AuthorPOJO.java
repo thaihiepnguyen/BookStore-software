@@ -8,7 +8,7 @@ public class AuthorPOJO {
     private String email;
     private String tel;
     private Boolean is_enable;
-
+    public AuthorPOJO(){}
     public AuthorPOJO(int id, String name,String gender,String date_of_birth,String email,String tel,Boolean is_enable){
         this.id = id;
         this.name = name;

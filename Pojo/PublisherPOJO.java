@@ -55,7 +55,7 @@ public class PublisherPOJO {
     public void setIs_enable(Boolean is_enable) {
         this.is_enable = is_enable;
     }
-
+    public PublisherPOJO(){}
     public PublisherPOJO(int id,String name,String address, String email,String tel,Boolean is_enable){
         this.id= id;
         this.name = name;
