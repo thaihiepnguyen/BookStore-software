@@ -6,7 +6,8 @@ import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.JPanel;
+import javax.swing.*;
+
 public class RoundPanel extends JPanel{
     public int getRoundTopLeft() {
         return roundTopLeft;
@@ -115,5 +116,14 @@ public class RoundPanel extends JPanel{
         area.add(new Area(new Rectangle2D.Double(0, 0, width - roundX / 2, height)));
         area.add(new Area(new Rectangle2D.Double(0, 0, width, height - roundY / 2)));
         return area;
+    }
+
+    public static void main(String[] args) {
+        JFrame f = new JFrame();
+        f.setSize(1000, 600);
+//        f.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        f.setResizable(false);
+        f.add(new RoundPanel());
+        f.setVisible(true);
     }
 }

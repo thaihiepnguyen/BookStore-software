@@ -1,5 +1,9 @@
 import DataAccess.MySQLDatabase;
+import Pojo.UserPOJO;
+import Presentation.AllBooksList.AllBooksList;
 import Presentation.HomeView.HomeView;
+import Presentation.UserView.EmployeeView.EmployeeView;
+import Presentation.UserView.EmployeeView.MenuView.MenuView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +19,7 @@ public class App {
             "127.0.0.1",
             3306,
             "root",
-            "reallyStrongPwd123",
+            "",
             "book-store"
             );
 
