@@ -1,5 +1,7 @@
 package Presentation.UserView.EmployeeView.MenuView;
 
+import Pojo.UserPOJO;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,35 +13,127 @@ public class MenuView extends JPanel {
     JLabel userName;
     JPanel body;
 
-    JPanel item;
-    JLabel icon; ImageIcon home;
-
+    JItem dashboard;
+    JItem book;
+    JItem promotion;
+    JItem customer;
+    JItem profile;
     JPanel footer;
 
-    public void prepareGUI() {
-        header = new JPanel();
+    JItem logout;
 
-        item = new JPanel();
+
+    public void prepareGUI(UserPOJO user) {
+        header = new JPanel();
+        {
+            avt = new JLabel((
+                    ImageIconUtil.getIcon(
+                            "Public/image/user/1.png",
+                            50, 50
+                    )
+            ));
+
+            roleOfUser = new JLabel("Employee");
+            roleOfUser.setForeground(new Color(255,255, 255));
+            roleOfUser.setFont(new Font(roleOfUser.getName(), Font.PLAIN, 18));
+
+            userName = new JLabel(user.getFirstname() + " " + user.getLastname());
+            userName.setForeground(new Color(255,255, 255));
+            userName.setFont(new Font(userName.getName(), Font.PLAIN, 12));
+        }
+
 
         body = new JPanel();
+        {
+            dashboard = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+                    "/resources/1-white.png", "Dashboard");
+            book = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+                    "/resources/2-white.png", "Book");
+            promotion = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+                    "/resources/3-white.png", "Promotion");
+            customer = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+                    "/resources/4-white.png", "Customer");
+            profile = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+                    "/resources/5-white.png", "Profile");
+        }
         footer = new JPanel();
+        {
+            logout = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+                    "/resources/6-white.png", "Logout");
+        }
     }
 
+
     public void designGUI() {
+        header.setLayout(null);
+        header.setOpaque(false);
+        {
+            avt.setBounds(10, 10, 50, 50);
+            roleOfUser.setBounds(75, 10, 100, 30);
+            userName.setBounds(75, 30, 100, 30);
 
-        icon.setIcon(home);
+            header.add(avt);
+            header.add(userName);
+            header.add(roleOfUser);
+        }
 
-        icon.setBounds(0,0,40, 40);
+        header.setBounds(0,0, 201, 75);
+
+
+        body.setLayout(null);
+        body.setOpaque(false);
+        {
+            dashboard.setBounds(10, 0, 200, 50);
+            book.setBounds(10, 50, 200, 50);
+            promotion.setBounds(10, 100, 200, 50);
+            customer.setBounds(10, 150, 200, 50);
+            profile.setBounds(10, 200, 200, 50);
+            body.add(dashboard);
+            body.add(book);
+            body.add(promotion);
+            body.add(customer);
+            body.add(profile);
+        }
+
+        body.setBounds(0,150, 201, 350);
+
+        footer.setLayout(null);
+        footer.setOpaque(false);
+        {
+            logout.setBounds(10,0, 201, 50);
+
+            footer.add(logout);
+        }
+
+        footer.setBounds(0,500, 201, 75);
+
+        setBackground(new Color(57, 77, 101));
+
         setLayout(null);
-        setOpaque(false);
-        setPreferredSize(new Dimension(200, 600));
+        setPreferredSize(new Dimension(201, 600));
+    }
 
+    public MenuView(UserPOJO user) {
+        prepareGUI(user);
+        designGUI();
+
+        add(header);
+        add(body);
+        add(footer);
     }
 
     public MenuView() {
-        prepareGUI();
-        designGUI();
+//
+    }
+}
 
-        add(icon);
+class ImageIconUtil {
+    public static ImageIcon getIcon(String filename, int width, int height) {
+        ImageIcon imageIcon = new ImageIcon(filename);
+        Image image = imageIcon.getImage(); // transform it
+
+        Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+
+        return new ImageIcon(newimg);
     }
 }

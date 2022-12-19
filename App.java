@@ -1,9 +1,9 @@
 import DataAccess.MySQLDatabase;
-import DataAccess.EmployeeDA;
 import Presentation.HomeView.HomeView;
-import Presentation.UserView.LoginView.LoginView;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class App {
     public static void main(String[] args) {

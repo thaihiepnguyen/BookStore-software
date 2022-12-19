@@ -13,7 +13,7 @@ public class AccountBU {
         if (user != null) {
             HomeView homeView = HomeView.getInstance();
             homeView.render(
-                    new EmployeeView()
+                    new EmployeeView(user)
             );
         }
         else {

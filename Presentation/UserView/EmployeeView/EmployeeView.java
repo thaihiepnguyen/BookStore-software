@@ -1,5 +1,6 @@
 package Presentation.UserView.EmployeeView;
 
+import Pojo.UserPOJO;
 import Presentation.UserView.EmployeeView.GeneralView.ContentView;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
 
@@ -10,8 +11,8 @@ public class EmployeeView extends JPanel {
     MenuView menuView;
     ContentView contentView;
 
-    public void prepareGUI() {
-        menuView = new MenuView();
+    public void prepareGUI(UserPOJO user) {
+        menuView = new MenuView(user);
         contentView = new ContentView();
     }
 
@@ -20,8 +21,9 @@ public class EmployeeView extends JPanel {
         setBackground(new Color(214,228,229));
     }
 
-    public EmployeeView() {
-        prepareGUI();
+    public EmployeeView() {}
+    public EmployeeView(UserPOJO user) {
+        prepareGUI(user);
         designGUI();
 
         add(contentView, BorderLayout.CENTER);
