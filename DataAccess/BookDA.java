@@ -93,43 +93,6 @@ public class BookDA {
         }
         return ans;
     }
-
-    public static void addBook(String title, String author, String publisher, String description){
-        try {
-            Connection connection = MyConnection.create();
-            Statement statement;
-            statement = connection.createStatement();
-
-            // Count the ID
-            int id = 1;
-            String sql = "Select * from book";
-            ResultSet rs = statement.executeQuery(sql);
-
-            while(rs.next()){
-//                System.out.println(id);
-                id++;
-            }
-
-            PreparedStatement updateEXP = connection.prepareStatement(
-                    "INSERT book (id, isbn, title, description, author_id, publisher_id) values (?,?,?,?,?,?)");
-            updateEXP.setInt(1, id);
-            updateEXP.setInt(2, (int) Math.random()*1000000000);
-            updateEXP.setString(3, title);
-            updateEXP.setString(4, description);
-            updateEXP.setInt(5, 1);
-            updateEXP.setInt(6, 1);
-            int updateEXP_done = updateEXP.executeUpdate();
-
-            System.out.println("add successfully!!!");
-//            rs.close();
-            statement.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
-//            ans = null;
-        }
-//        return ans;
-    }
-
     public static void deleteBook(int id){
         try {
             Connection connection = MyConnection.create();
@@ -155,4 +118,93 @@ public class BookDA {
         }
 //        return ans;
     }
+    public static void addBook(String title, String category, String author, String publisher, String description, int price, String language){
+        try {
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+
+            // Count the ID
+            int id = 1;
+            int id_author = -1;
+            int id_publisher = -1;
+            int id_category = -1;
+            String sql = "Select * from book";
+            ResultSet rs = statement.executeQuery(sql);
+
+            while(rs.next()){
+                id++;
+            }
+
+            String sqlAuthor = "Select * from author";
+            ResultSet rsAuthor = statement.executeQuery(sqlAuthor);
+
+            while(rsAuthor.next()){
+                if (rsAuthor.getString("name").equals(author)){
+//                    System.out.println("Correct Name");
+                    id_author = rsAuthor.getInt("id");
+                }
+            }
+
+            String sqlPublisher = "Select * from publisher";
+            ResultSet rsPublisher = statement.executeQuery(sqlPublisher);
+
+            while(rsPublisher.next()){
+                if (rsPublisher.getString("name").equals(publisher)){
+//                    System.out.println("Correct Publisher");
+                    id_publisher = rsPublisher.getInt("id");
+                }
+            }
+
+            String sqlCategory = "Select * from category";
+            ResultSet rsCategory = statement.executeQuery(sqlCategory);
+
+            while(rsCategory.next()){
+                if (rsCategory.getString("name").equals(category)){
+//                    System.out.println("Correct Category");
+                    id_category = rsCategory.getInt("id");
+                }
+            }
+
+            if(id_author == -1 || id_publisher == -1 || id_category == -1){
+                System.out.println("Author or Publisher or Category not exist");
+                return;
+            }
+
+            // CREATE RANDOM ISBN
+            int max = 9;
+            int min = 0;
+            int randomNum = 0;
+            String _ibsn = "";
+
+            for(int i = 0; i < 13; i++){
+                randomNum = (int)((Math.random() * (max - min)) + min);
+                _ibsn += String.valueOf(randomNum);
+            }
+
+            PreparedStatement updateEXP = connection.prepareStatement(
+                    "INSERT book (id, isbn, title, description, category_id, author_id, publisher_id, image_path, price, language, is_enable) " +
+                            "values (?,?,?,?,?,?,?,?,?,?,?)");
+            updateEXP.setInt(1, id);
+            updateEXP.setString(2, _ibsn);
+            updateEXP.setString(3, title);
+            updateEXP.setString(4, description);
+            updateEXP.setInt(5, id_category);
+            updateEXP.setInt(6, id_author);
+            updateEXP.setInt(7, id_publisher);
+            updateEXP.setString(8, "/public/images/" + id + ".png");
+            updateEXP.setInt(9, price);
+            updateEXP.setString(10, language);
+            updateEXP.setInt(11, 1);
+
+            int updateEXP_done = updateEXP.executeUpdate();
+
+            System.out.println("add successfully!!!");
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("add failed");
+        }
+    }
+
 }

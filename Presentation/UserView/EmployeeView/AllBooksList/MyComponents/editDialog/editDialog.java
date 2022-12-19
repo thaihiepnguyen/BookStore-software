@@ -1,6 +1,6 @@
-package Presentation.AllBooksList.MyComponents.editDialog;
+package Presentation.UserView.EmployeeView.AllBooksList.MyComponents.editDialog;
 
-import Presentation.AllBooksList.MyComponents.MyButton.MyButton;
+import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton.MyButton;
 import DataAccess.BookDA;
 
 import javax.swing.*;

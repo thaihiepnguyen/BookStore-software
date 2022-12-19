@@ -110,7 +110,7 @@ public class MenuView extends JPanel {
         setBackground(new Color(57, 77, 101));
 
         setLayout(null);
-        setPreferredSize(new Dimension(201, 600));
+        setPreferredSize(new Dimension(200, 600));
     }
 
     public MenuView(UserPOJO user) {

@@ -1,9 +1,9 @@
-package Presentation.AllBooksList;
+package Presentation.UserView.EmployeeView.AllBooksList;
 
 import Pojo.UserPOJO;
-import Presentation.AllBooksList.MyComponents.MyButton.MyButton;
-import Presentation.AllBooksList.MyComponents.addDialog.addDialog;
-import Presentation.AllBooksList.MyComponents.bookItem.bookItem;
+import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton.MyButton;
+import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.addDialog.addDialog;
+import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.bookItem.bookItem;
 import Business.UserBU.BookBU;
 import Pojo.BookPOJO;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
@@ -15,41 +15,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class AllBooksList extends JFrame{
-    final int DEFAULT_WIDTH = 1000;
-    final int DEFAULT_HEIGHT = 600;
-    // private JFrame frame;
-    private JPanel mainPanel = new JPanel();
-    private JPanel leftPn = new JPanel();
-    private JPanel rightPn = new JPanel();
-
-    private JButton btn = new JButton();
+public class AllBooksList extends JPanel{
     public AllBooksList() {
-        // FRAME
-        setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-
-        // MENU BAR SECTION
-        BorderLayout borderlayout = new BorderLayout();
-        mainPanel.setLayout(borderlayout);
-
-        leftPn.setBackground(Color.decode("#344D67"));
-        leftPn.setPreferredSize(new Dimension(200, 600));
-        leftPn.add(new MenuView(new UserPOJO()));
-
         BookBU business = new BookBU();
         final List<BookPOJO>[] books = business.getAll();
-        rightPnCreate(books);
-
-        mainPanel.add(leftPn, BorderLayout.WEST);
-        mainPanel.add(rightPn, BorderLayout.CENTER);
-
-        add(mainPanel);
-        setVisible(true);
+        add(mainPnCreate(books));
     }
-    private void rightPnCreate(List<BookPOJO>[] books){
-        // RIGHT SECTION
+    private JPanel mainPnCreate(List<BookPOJO>[] books){
+        JPanel rightPn = new JPanel();
+        rightPn.setPreferredSize(new Dimension(800,600));
         rightPn.setLayout(null);
         rightPn.setBackground(Color.decode("#D6E4E5"));
 
@@ -81,12 +55,8 @@ public class AllBooksList extends JFrame{
         MyButton searchBtn = new MyButton("Search", 20);
         searchBtn.setBounds(330,0,100,30);
 
-//        JComboBox filter = new JComboBox(new String[]{"Name", "Author", "Publisher"});
-//        filter.setBounds(440, 0, 100,30);
-
         searchBar.add(input);
         searchBar.add(searchBtn);
-//        searchBar.add(filter);
         searchBar.add(addBtn);
 
         // Title bar of the list
@@ -127,6 +97,7 @@ public class AllBooksList extends JFrame{
         container.setPreferredSize(new Dimension(800,600));
 
 //        listPn.setLayout(new BoxLayout(listPn, BoxLayout.Y_AXIS));
+//        listPn.setLayout(new BoxLayout(listPn, BoxLayout.Y_AXIS));
         listPn.setLayout(new BoxLayout(listPn, BoxLayout.Y_AXIS));
         listPn.setBorder(new EmptyBorder(10,0,10,0));
         listPn.setBackground(Color.decode("#475E6B"));
@@ -141,9 +112,15 @@ public class AllBooksList extends JFrame{
 //        System.out.println(books[0].size());
 //        bookItem bookList[] = new bookItem[10];
         for (int i = 0; i < books[0].size(); i++){
-            bookItem item = new bookItem(this, books[0].get(i).getId(), books[0].get(i).getName(), books[0].get(i).getDescription(), books[0].get(i).getAuthor(), books[0].get(i).getPublisher());
-//            bookList[i] = item;
-            item.setMaximumSize(new Dimension(Integer.MAX_VALUE, item.getHeight()));
+            bookItem item = new bookItem(this,
+                    books[0].get(i).getId(),
+                    books[0].get(i).getName(),
+                    books[0].get(i).getDescription(),
+                    books[0].get(i).getAuthor(),
+                    books[0].get(i).getPublisher());
+//            System.out.println(books[0].get(i).getDescription());
+            //            bookList[i] = item;
+            item.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
             listPn.add(item);
             listPn.add(Box.createVerticalStrut(12));
         }
@@ -154,7 +131,6 @@ public class AllBooksList extends JFrame{
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBounds(0, 0, 800, 400);
 
-        //***********************************************************/
         container.add(scrollPane);
 
         body.add(titleBar, BorderLayout.NORTH);
@@ -184,20 +160,24 @@ public class AllBooksList extends JFrame{
                 updateScreen(business.getAll());
             }
         });
+        return rightPn;
     }
     public void updateScreen(List<BookPOJO>[] books) {
-        rightPn.removeAll();
-        rightPnCreate(books);
-
-        mainPanel.add(rightPn, BorderLayout.CENTER);
-
-        add(mainPanel);
-        setVisible(true);
+        removeAll();
+        revalidate();
+        repaint();
+        add(mainPnCreate(books));
     }
 
     public static void main(String[] args) {
-        AllBooksList sc = new AllBooksList();
-//        sc.updateScreen();
+        JFrame fr = new JFrame("test");
+        fr.setLayout(new BorderLayout());
+        fr.setSize(new Dimension(1000,600));
+        fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        JPanel sc = new AllBooksList();
+        fr.add(sc, BorderLayout.CENTER);
+        fr.add((new MenuView(new UserPOJO())), BorderLayout.WEST);
+         fr.setVisible(true);
     }
 }
 

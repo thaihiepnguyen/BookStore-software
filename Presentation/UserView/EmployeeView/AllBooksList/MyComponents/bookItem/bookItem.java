@@ -1,10 +1,10 @@
-package Presentation.AllBooksList.MyComponents.bookItem;
+package Presentation.UserView.EmployeeView.AllBooksList.MyComponents.bookItem;
 
-import Presentation.AllBooksList.MyComponents.MyButton.MyButton;
-import Presentation.AllBooksList.MyComponents.editDialog.editDialog;
+import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton.MyButton;
+import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.editDialog.editDialog;
 import Business.UserBU.BookBU;
 import DataAccess.BookDA;
-import Presentation.AllBooksList.AllBooksList;
+import Presentation.UserView.EmployeeView.AllBooksList.AllBooksList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,9 +21,9 @@ public class bookItem extends JPanel{
     private String publisher;
     private boolean status;
 
-    public int getHeight(){
-        return 40;
-    }
+//    public int getHeight(){
+//        return 40;
+//    }
 
     public int getId() {
         return id;
@@ -103,14 +103,6 @@ public class bookItem extends JPanel{
         MyButton deleteBtn = new MyButton("Delete", 10);
         deleteBtn.setBounds(690,5,80,30);
 
-        add(_id);
-        add(_name);
-        add(_author);
-        add(_publisher);
-        add(_status);
-        add(editBtn);
-        add(deleteBtn);
-
         // DESCRIPTION SECTION
         JTextPane text = new JTextPane();
         text.setText(description);
@@ -118,8 +110,8 @@ public class bookItem extends JPanel{
         text.setBackground(Color.decode("#131A1D"));
         text.setForeground(Color.WHITE);
         text.setEditable(false);
-//        text.setPreferredSize(new Dimension(500, 100));
-
+        text.setPreferredSize(new Dimension(500, 100));
+//        text.setVisible(true);
         // PANEL contains description
         JPanel textPanel = new JPanel(null);
         textPanel.setPreferredSize(new Dimension(800, 100));
@@ -128,15 +120,28 @@ public class bookItem extends JPanel{
         textPanel.setBackground(Color.decode("#131A1D"));
         textPanel.setVisible(false);
         textPanel.setBounds(0,38,800,100);
+
+        add(_id);
+        add(_name);
+        add(_author);
+        add(_publisher);
+        add(_status);
+        add(editBtn);
+        add(deleteBtn);
         add(textPanel);
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(!isClicked) {
-                    textPanel.setVisible(true);
                     setPreferredSize(new Dimension(800,120));
+                    textPanel.setVisible(true);
                     isClicked = true;
+//                    JDialog detail = new JDialog();
+//                    detail.setTitle(name);
+//                    detail.setContentPane(textPanel);
+//                    detail.pack();
+//                    detail.setVisible(true);
                 }
                 else {
                     textPanel.setVisible(false);
@@ -153,6 +158,7 @@ public class bookItem extends JPanel{
                dialog.setVisible(true);
                BookBU business = new BookBU();
                screen.updateScreen(business.getAll());
+//                System.out.println("edit Btn run");
             }
         });
 
