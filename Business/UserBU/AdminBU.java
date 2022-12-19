@@ -26,34 +26,6 @@ public class AdminBU {
         }
     }
 
-    public void login(String username, String password) throws SQLException {
-        adminModel = AdminDA.findAdmin(username, password);
-
-        if (adminModel == null) {
-            var error = "this account not be found!";
-            JOptionPane.showMessageDialog(this.adminView, error);
-//            homeView.render();
-        }
-        else {
-            var userID = adminModel.getUserID();
-            var userName = adminModel.getUsername();
-            var userPass = adminModel.getPassword();
-            var userAddress = adminModel.getAddress();
-
-
-            adminView = new AdminView(userID,
-                    userName, userPass, userAddress);
-//            homeView.render(adminView);
-        }
-    }
-
-    public void logout() {
-        adminModel = null;
-        adminView = null;
-
-//        homeView.render();
-    }
-
     public void addNewAccount() {
 
     }

@@ -43,7 +43,7 @@ public class LoginView extends JPanel implements ActionListener {
 
 
         loginFrame = new JPanel();
-        loginLabel = new JLabel("Login");
+        loginLabel = new JLabel("Sign In");
 
         userLabel = new JLabel("Username: ");
 

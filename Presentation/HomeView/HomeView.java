@@ -42,6 +42,7 @@ public class HomeView extends JFrame {
         instance = this;
     }
     public HomeView(int width, int height) {
+        setLocationRelativeTo(null);
         container.setLayout(mainLayout);
 
         setLayout(new BorderLayout());
