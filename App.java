@@ -1,11 +1,5 @@
 import DataAccess.MySQLDatabase;
 import Presentation.HomeView.HomeView;
-import Presentation.UserView.LoginView.LoginView;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 public class App {
     public static void main(String[] args) {
 
@@ -21,11 +15,11 @@ public class App {
             "book-store"
             );
 
-        HomeView homeView = new HomeView(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+        HomeView.run(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                homeView.render();
+                HomeView.render();
             }
         });
     }

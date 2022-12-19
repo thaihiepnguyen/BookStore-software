@@ -18,7 +18,7 @@ public class CategoryDA {
             throw new RuntimeException(e);
         }
     }
-    public List<CategoryPOJO> getAll() {
+    public static List<CategoryPOJO> getAll() {
         List<CategoryPOJO> ans = new ArrayList<>();
         try{
 
@@ -39,7 +39,7 @@ public class CategoryDA {
         return ans;
     }
 
-    public void insert(CategoryPOJO data) throws SQLException {
+    public static void insert(CategoryPOJO data) throws SQLException {
         String sql = "INSERT INTO category (id, name, is_enable) " + "VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = db.getConn().prepareStatement(sql);
         preparedStatement.setInt(1, data.getId());
@@ -49,7 +49,7 @@ public class CategoryDA {
         preparedStatement.executeUpdate();
     }
 
-    public void update(CategoryPOJO data){
+    public static void update(CategoryPOJO data){
         String sql = "Update category set name = '"+ data.getName()+"', is_enable = "+ data.getIs_enable() +" where id="+data.getId();
         try {
             db.getStatement().executeUpdate(sql);
@@ -58,12 +58,12 @@ public class CategoryDA {
         }
     }
 
-    public void delete(int id) throws SQLException {
+    public static void delete(int id) throws SQLException {
         String sql = "Delete from category"+" where id="+id;
         db.getStatement().executeUpdate(sql);
     }
 
-    public List<CategoryPOJO> search(String s){
+    public static List<CategoryPOJO> search(String s){
         String sql = "select * from category where id like '%"+s+"%' or name like '%"+s+"%'";
         List<CategoryPOJO> ans = new ArrayList<>();
         try{
