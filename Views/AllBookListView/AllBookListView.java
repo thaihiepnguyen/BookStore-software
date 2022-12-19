@@ -113,6 +113,7 @@ public class AllBookListView extends JFrame{
         listPn.setBackground(Color.decode("#475E6B"));
 
         // ADD ITEMS INTO LISTPN
+
         bookItem bookList[] = new bookItem[10];
         for (int i = 0; i < 10; i++){
             bookItem item = new bookItem(i+10000);
