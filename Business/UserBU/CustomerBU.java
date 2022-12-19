@@ -1,24 +1,24 @@
 package Business.UserBU;
 
 import DataAccess.CategoryDA;
-import DataAccess.PublisherDA;
+import DataAccess.CustomerDA;
 import Pojo.CategoryPOJO;
-import Pojo.PublisherPOJO;
+import Pojo.CustomerPOJO;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class PublisherBU {
-    PublisherDA da = new PublisherDA();
+public class CustomerBU {
+    CustomerDA da = new CustomerDA();
 
-    public List<PublisherPOJO> getAll(){
+    public List<CustomerPOJO> getAll(){
         return da.getAll();
     }
-    public void insert(PublisherPOJO data){
+    public void insert(CustomerPOJO data){
         da.insert(data);
     }
 
-    public void update(PublisherPOJO data){
+    public void update(CustomerPOJO data){
         da.update(data);
     }
 
@@ -26,7 +26,7 @@ public class PublisherBU {
         da.delete(id);
     }
 
-    public List<PublisherPOJO> search(String s){
+    public List<CustomerPOJO> search(String s){
         return da.search(s);
     }
 }

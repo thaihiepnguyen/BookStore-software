@@ -1,3 +1,5 @@
+import Presentation.UserView.EmployeeView.CustomerView.Customer;
+import Presentation.UserView.EmployeeView.CustomerView.CustomerItem.CustomerItem;
 import Presentation.UserView.EmployeeView.GeneralFunction.GeneralFunction;
 
 import javax.swing.*;
@@ -8,6 +10,7 @@ import java.sql.SQLException;
 public class App extends JFrame {
     JPanel menu = new JPanel();
     GeneralFunction generalFunction = new GeneralFunction();
+    Customer customer = new Customer();
     public App() throws IOException {
         this.setSize(new Dimension(1000,600));
         setResizable(false);
@@ -19,7 +22,7 @@ public class App extends JFrame {
         menu.setPreferredSize(new Dimension(200,0));
 
         this.add(menu, BorderLayout.WEST);
-        this.add(generalFunction,BorderLayout.CENTER);
+        this.add(customer,BorderLayout.CENTER);
 
     }
     public static void main(String[] args) {

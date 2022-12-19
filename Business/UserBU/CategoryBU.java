@@ -8,22 +8,24 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CategoryBU {
+    CategoryDA da = new CategoryDA();
+
     public List<CategoryPOJO> getAll(){
-        CategoryDA da = new CategoryDA();
         return da.getAll();
     }
-    public void insert(CategoryPOJO data) throws SQLException {
-        CategoryDA da = new CategoryDA();
-        da.insert(data);
+    public void insert(CategoryPOJO data){
+        try {
+            da.insert(data);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void update(CategoryPOJO data){
-        CategoryDA da = new CategoryDA();
         da.update(data);
     }
 
     public void delete(int id){
-        CategoryDA da = new CategoryDA();
         try {
             da.delete(id);
         } catch (SQLException e) {
@@ -32,7 +34,6 @@ public class CategoryBU {
     }
 
     public List<CategoryPOJO> search(String s){
-        CategoryDA da = new CategoryDA();
         return da.search(s);
     }
 }
