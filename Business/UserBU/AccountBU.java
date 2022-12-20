@@ -11,8 +11,7 @@ public class AccountBU {
         UserPOJO user = EmployeeDA.findEmployeeDA(username, password);
 
         if (user != null) {
-            HomeView homeView = HomeView.getInstance();
-            homeView.render(
+            HomeView.render(
                     new EmployeeView(user)
             );
         }
@@ -25,8 +24,7 @@ public class AccountBU {
         UserPOJO user = AdminDA.findAdmin(username, password);
 
         if (user != null) {
-            HomeView homeView = HomeView.getInstance();
-            homeView.render();
+            HomeView.render();
         }
         else {
             System.out.println("Login Khong Thanh Cong!");

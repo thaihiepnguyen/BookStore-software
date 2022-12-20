@@ -9,30 +9,25 @@ import java.util.List;
 
 public class CategoryBU {
     public List<CategoryPOJO> getAll(){
-        CategoryDA da = new CategoryDA();
-        return da.getAll();
+        return CategoryDA.getAll();
     }
     public void insert(CategoryPOJO data) throws SQLException {
-        CategoryDA da = new CategoryDA();
-        da.insert(data);
+        CategoryDA.insert(data);
     }
 
     public void update(CategoryPOJO data){
-        CategoryDA da = new CategoryDA();
-        da.update(data);
+        CategoryDA.update(data);
     }
 
     public void delete(int id){
-        CategoryDA da = new CategoryDA();
         try {
-            da.delete(id);
+            CategoryDA.delete(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public List<CategoryPOJO> search(String s){
-        CategoryDA da = new CategoryDA();
-        return da.search(s);
+        return CategoryDA.search(s);
     }
 }

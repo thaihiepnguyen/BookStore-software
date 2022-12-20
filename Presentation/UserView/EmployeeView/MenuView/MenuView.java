@@ -4,6 +4,8 @@ import Pojo.UserPOJO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MenuView extends JPanel {
     JPanel header;
@@ -13,14 +15,14 @@ public class MenuView extends JPanel {
     JLabel userName;
     JPanel body;
 
-    JItem dashboard;
-    JItem book;
-    JItem promotion;
-    JItem customer;
-    JItem profile;
+    MenuItem dashboard;
+    MenuItem book;
+    MenuItem promotion;
+    MenuItem customer;
+    MenuItem profile;
     JPanel footer;
 
-    JItem logout;
+    MenuItem logout;
 
 
     public void prepareGUI(UserPOJO user) {
@@ -45,20 +47,20 @@ public class MenuView extends JPanel {
 
         body = new JPanel();
         {
-            dashboard = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+            dashboard = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
                     "/resources/1-white.png", "Dashboard");
-            book = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+            book = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
                     "/resources/2-white.png", "Book");
-            promotion = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+            promotion = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
                     "/resources/3-white.png", "Promotion");
-            customer = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+            customer = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
                     "/resources/4-white.png", "Customer");
-            profile = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+            profile = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
                     "/resources/5-white.png", "Profile");
         }
         footer = new JPanel();
         {
-            logout = new JItem("Presentation/UserView/EmployeeView/MenuView" +
+            logout = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
                     "/resources/6-white.png", "Logout");
         }
     }
@@ -111,6 +113,10 @@ public class MenuView extends JPanel {
 
         setLayout(null);
         setPreferredSize(new Dimension(200, 600));
+    }
+
+    public void addAnimationGUI() {
+
     }
 
     public MenuView(UserPOJO user) {

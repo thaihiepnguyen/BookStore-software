@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BookDA {
-    public List<BookPOJO> getAll(){
+    public static List<BookPOJO> getAll(){
         List<BookPOJO> ans = null;
         try {
             ans = new ArrayList<>();
@@ -62,7 +62,7 @@ public class BookDA {
 //        return ans;
     }
 
-    public List<BookPOJO> searchBook(String title){
+    public static List<BookPOJO> searchBook(String title){
         List<BookPOJO> ans = null;
         try {
             ans = new ArrayList<>();

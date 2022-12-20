@@ -5,8 +5,10 @@ import Presentation.UserView.EmployeeView.EmployeeView;
 
 import javax.swing.*;
 
+import Presentation.HomeView.HomeView;
 public class App {
     public static void main(String[] args) {
+
         final var DEFAULT_WINDOW_WIDTH = 1000;
         final var DEFAULT_WINDOW_HEIGHT = 600;
 
@@ -19,11 +21,11 @@ public class App {
             "book-store"
             );
 
-        HomeView homeView = new HomeView(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
+        HomeView.run(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                homeView.render();
+                HomeView.render();
             }
         });
     }

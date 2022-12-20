@@ -8,60 +8,40 @@ import java.awt.*;
 
 
 public class HomeView extends JFrame {
-    final String LOGIN_PAGE = "loginView";
-    final String EMPLOYEE_PAGE = "employeeView";
-    final int DEFAULT_WIDTH = 800;
-    final int DEFAULT_HEIGHT = 600;
-    CardLayout mainLayout = new CardLayout();
-    JPanel container = new JPanel();
-    private static HomeView instance = null;
-
-    public static HomeView getInstance() {
-        if (instance == null) {
-            return new HomeView();
-        }
-        else {
-            return instance;
-        }
+    static HomeView root = new HomeView();
+    static final String LOGIN_PAGE = "loginView";
+    static final String EMPLOYEE_PAGE = "employeeView";
+    static CardLayout mainLayout;
+    static JPanel container;
+    static void prepareGUI() {
+        mainLayout = new CardLayout();
+        container = new JPanel();
     }
-
-    public HomeView() {
+    
+    public static void designGUI(int width, int height) {
+        root.setLocationRelativeTo(null);
         container.setLayout(mainLayout);
 
-        this.setLayout(new BorderLayout());
-        setTitle("Book Library");
-        setDefaultCloseOperation(HomeView.EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(true);
-        this.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-
-        container.setBackground(Color.BLUE);
-        this.add(container, BorderLayout.CENTER);
-
-
-        instance = this;
-    }
-    public HomeView(int width, int height) {
-        container.setLayout(mainLayout);
-
-        setLayout(new BorderLayout());
-        setTitle("Book Management");
-        setDefaultCloseOperation(HomeView.EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(true);
-        add(container, BorderLayout.CENTER);
-
-        setSize(new Dimension(width, height));
-
-        instance = this;
+        root.setLayout(new BorderLayout());
+        root.setTitle("Book Management");
+        root.setDefaultCloseOperation(HomeView.EXIT_ON_CLOSE);
+        root.setResizable(false);
+        root.setVisible(true);
+        root.add(container, BorderLayout.CENTER);
+        root.setSize(new Dimension(width, height));
     }
 
-    public void render() {
+    public static void run(int width, int height) {
+        prepareGUI();
+        designGUI(width, height);
+    }
+
+    public static void render() {
         container.add(new LoginView(), LOGIN_PAGE);
         mainLayout.show(container, LOGIN_PAGE);
     }
 
-    public void render(EmployeeView employeeView) {
+    public static void render(EmployeeView employeeView) {
         container.add(employeeView, EMPLOYEE_PAGE);
         mainLayout.show(container, EMPLOYEE_PAGE);
     }
