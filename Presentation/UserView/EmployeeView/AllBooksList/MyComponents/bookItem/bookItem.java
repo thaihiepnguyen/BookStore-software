@@ -20,9 +20,9 @@ public class bookItem extends JPanel{
     private String author;
     private String publisher;
     private boolean status;
+    private boolean is_enable ;
 
-    private boolean is_enable;
-
+    private boolean view = true; // view = true if bookItem is enabled, else it's false
     public int getId() {
         return id;
     }
@@ -74,6 +74,10 @@ public class bookItem extends JPanel{
     }
 
     public bookItem(AllBooksList screen, int id, String name, String description , String author, String publisher, boolean status, boolean is_enable) {
+        if(is_enable == false){
+            view = false;
+        }
+
         setLayout(null);
         setBackground(Color.decode("#31414A"));
         setPreferredSize(new Dimension(800,40));
@@ -106,7 +110,12 @@ public class bookItem extends JPanel{
 
         MyButton editBtn = new MyButton("Edit", 10);
         editBtn.setBounds(620,5,60,30);
+
         MyButton disableBtn = new MyButton("Disable", 10);
+        if(!view){
+            // if book is disable at present
+            disableBtn.setText("Enable");
+        }
         disableBtn.setBounds(690,5,90,30);
 
         // DESCRIPTION SECTION
@@ -140,7 +149,9 @@ public class bookItem extends JPanel{
         add(_author);
         add(_publisher);
         add(_status);
-        add(editBtn);
+        if(view){
+            add(editBtn);
+        }
         add(disableBtn);
         add(textPanel);
 
@@ -181,13 +192,25 @@ public class bookItem extends JPanel{
         disableBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int input = JOptionPane.showConfirmDialog(null, "Do you want to disable "+ name + "?");
-                if(input == 0){
-                    BookDA.disableBook(id);
+                if(view) {
+                    int input = JOptionPane.showConfirmDialog(null, "Do you want to disable " + name + "?");
+                    if (input == 0) {
+                        BookDA.disableBook(id);
 //                    this.is_enable
-                    BookBU business = new BookBU();
-                    screen.updateScreen(business.getAll(), true);
-                    JOptionPane.showMessageDialog(null, "Disable " + name +" book successfully!");
+                        BookBU business = new BookBU();
+                        screen.updateScreen(business.getAll(), true);
+                        JOptionPane.showMessageDialog(null, "Disable " + name + " book successfully!");
+                    }
+                }
+                else{
+                    int input = JOptionPane.showConfirmDialog(null, "Do you want to Enable " + name + "?");
+                    if (input == 0) {
+                        BookDA.enableBook(id);
+//                    this.is_enable
+                        BookBU business = new BookBU();
+                        screen.updateScreen(business.getAll(), true);
+                        JOptionPane.showMessageDialog(null, "Enable " + name + " book successfully!");
+                    }
                 }
             }
         });

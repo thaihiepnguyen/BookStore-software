@@ -23,6 +23,7 @@ public class AllBooksList extends JPanel{
         add(mainPnCreate(books, true));
     }
     private JPanel mainPnCreate(List<BookPOJO>[] books, boolean viewStatus){
+//        System.out.println(viewStatus);
         JPanel rightPn = new JPanel();
         rightPn.setPreferredSize(new Dimension(800,600));
         rightPn.setLayout(null);
@@ -130,10 +131,12 @@ public class AllBooksList extends JPanel{
 //            System.out.println(books[0].get(i).getDescription());
             //            bookList[i] = item;
             item.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-
+//            System.out.println( books[0].get(i).getId() + ": " + books[0].get(i).isIs_enable());
             // ****************************************************************/
             // ADD BOOKS WHICH HAVE THE SAME VALUE WITH PAR viewStatus INTO LISPN
+
             if(books[0].get(i).isIs_enable() == viewStatus){
+//                System.out.println(1);
                 listPn.add(item);
                 listPn.add(Box.createVerticalStrut(12));
             }
@@ -161,7 +164,12 @@ public class AllBooksList extends JPanel{
             public void actionPerformed(ActionEvent e) {
                BookBU business = new BookBU();
                List<BookPOJO>[] result = business.searchBook(input.getText());
-               updateScreen(result, true);
+//               System.out.println(result[0].get(0));
+                for(int i = 0; i < result[0].size(); i++){
+                    System.out.println(result[0].get(i).getName() + ": " + result[0].get(i).isIs_enable());
+                }
+
+                updateScreen(result, true);
             }
         });
 
