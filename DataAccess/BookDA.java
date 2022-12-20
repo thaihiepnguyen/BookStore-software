@@ -17,7 +17,7 @@ public class BookDA {
             Connection connection = MyConnection.create();
             Statement statement;
             statement = connection.createStatement();
-            String query = "SELECT book.id, title, description , author.name as author, publisher.name as publisher\n" +
+            String query = "SELECT book.id, book.is_enable, title, description , author.name as author, publisher.name as publisher\n" +
                     "FROM book, author, publisher\n" +
                     "where book.author_id = author.id and book.publisher_id = publisher.id\n" +
                     "order by book.id asc;";
@@ -28,8 +28,9 @@ public class BookDA {
                 String author = rs.getString("author");
                 String publisher = rs.getString("publisher");
                 String description = rs.getString("description");
-                BookPOJO st = new BookPOJO(id, name, description, author, publisher);
-//                System.out.println(st);
+                boolean is_enable = rs.getBoolean("is_enable");
+                BookPOJO st = new BookPOJO(id, name, description, author, publisher, true, is_enable);
+//                System.out.println(is_enable);
                 ans.add(st);
             }
             rs.close();
@@ -71,10 +72,10 @@ public class BookDA {
             statement = connection.createStatement();
             String query = "" +
                     "SELECT DISTINCT book.id, title, description , author.name as author, publisher.name as publisher\n" +
-                    "FROM book, author, publisher\n" +
-                    "where book.author_id = author.id and book.publisher_id = publisher.id " +
+                    "FROM book, author, publisher, category\n" +
+                    "where book.author_id = author.id and book.publisher_id = publisher.id and book.category_id = category.id " +
                     "and (book.title like " + "'"+ title + "%'" + " or publisher.name like " + "'" + title + "%'"
-                    + " or author.name like " + "'"+ title + "%');";
+                    + " or author.name like " + "'"+ title + "%'" + " or category.name like " + "'" + title + "%');";
             ResultSet rs = statement.executeQuery(query);
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -207,4 +208,24 @@ public class BookDA {
         }
     }
 
+    public static void disableBook(int id){
+        try {
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+
+            PreparedStatement updateEXP1 = connection.prepareStatement(
+                    "UPDATE book SET book.is_enable = false WHERE book.id=?;");
+            updateEXP1.setInt(1, id);
+
+            int updateEXP_done1 = updateEXP1.executeUpdate();
+
+            System.out.println("disable successfully!!!");
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("disable failed");
+        }
+//        return ans;
+    }
 }

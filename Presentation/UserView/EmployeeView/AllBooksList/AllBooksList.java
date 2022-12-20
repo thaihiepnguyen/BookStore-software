@@ -16,12 +16,13 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class AllBooksList extends JPanel{
+    boolean viewState = true;
     public AllBooksList() {
         BookBU business = new BookBU();
         final List<BookPOJO>[] books = business.getAll();
-        add(mainPnCreate(books));
+        add(mainPnCreate(books, true));
     }
-    private JPanel mainPnCreate(List<BookPOJO>[] books){
+    private JPanel mainPnCreate(List<BookPOJO>[] books, boolean viewStatus){
         JPanel rightPn = new JPanel();
         rightPn.setPreferredSize(new Dimension(800,600));
         rightPn.setLayout(null);
@@ -42,7 +43,8 @@ public class AllBooksList extends JPanel{
         JPanel searchBar = new JPanel();
         searchBar.setLayout(null);
         searchBar.setBackground(Color.decode("#D6E4E5"));
-        searchBar.setPreferredSize(new Dimension(800,30));
+        // #D6E4E5
+        searchBar.setPreferredSize(new Dimension(800, 200));
         searchBar.setBounds(10, 100,800,30);
 
         // Search/Filter bar items
@@ -55,9 +57,16 @@ public class AllBooksList extends JPanel{
         MyButton searchBtn = new MyButton("Search", 20);
         searchBtn.setBounds(330,0,100,30);
 
+        MyButton viewDisBookBtn = new MyButton("View Disable Books", 20);
+        viewDisBookBtn.setBounds(450,0,180,30);
+        if(viewState == false){
+            viewDisBookBtn.setText("View Enable Books");
+        }
+
         searchBar.add(input);
         searchBar.add(searchBtn);
         searchBar.add(addBtn);
+        searchBar.add(viewDisBookBtn);
 
         // Title bar of the list
         JPanel titleBar = new JPanel(null);
@@ -96,8 +105,6 @@ public class AllBooksList extends JPanel{
 
         container.setPreferredSize(new Dimension(800,600));
 
-//        listPn.setLayout(new BoxLayout(listPn, BoxLayout.Y_AXIS));
-//        listPn.setLayout(new BoxLayout(listPn, BoxLayout.Y_AXIS));
         listPn.setLayout(new BoxLayout(listPn, BoxLayout.Y_AXIS));
         listPn.setBorder(new EmptyBorder(10,0,10,0));
         listPn.setBackground(Color.decode("#475E6B"));
@@ -117,12 +124,20 @@ public class AllBooksList extends JPanel{
                     books[0].get(i).getName(),
                     books[0].get(i).getDescription(),
                     books[0].get(i).getAuthor(),
-                    books[0].get(i).getPublisher());
+                    books[0].get(i).getPublisher(),
+                    books[0].get(i).isStatus(),
+                    books[0].get(i).isIs_enable());
 //            System.out.println(books[0].get(i).getDescription());
             //            bookList[i] = item;
-            item.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
-            listPn.add(item);
-            listPn.add(Box.createVerticalStrut(12));
+            item.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+
+            // ****************************************************************/
+            // ADD BOOKS WHICH HAVE THE SAME VALUE WITH PAR viewStatus INTO LISPN
+            if(books[0].get(i).isIs_enable() == viewStatus){
+                listPn.add(item);
+                listPn.add(Box.createVerticalStrut(12));
+            }
+            //***************************************************************/
         }
 
         // SCROLLING PANE
@@ -146,7 +161,7 @@ public class AllBooksList extends JPanel{
             public void actionPerformed(ActionEvent e) {
                BookBU business = new BookBU();
                List<BookPOJO>[] result = business.searchBook(input.getText());
-               updateScreen(result);
+               updateScreen(result, true);
             }
         });
 
@@ -157,16 +172,36 @@ public class AllBooksList extends JPanel{
                 dia.setVisible(true);
 
                 BookBU business = new BookBU();
-                updateScreen(business.getAll());
+                updateScreen(business.getAll(), true);
+            }
+        });
+
+        viewDisBookBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(viewState) {
+                    BookBU business = new BookBU();
+                    final List<BookPOJO>[] books = business.getAll();
+
+                    viewState = false;
+                    updateScreen(books,false);
+                }
+               else {
+                    BookBU business = new BookBU();
+                    final List<BookPOJO>[] books = business.getAll();
+
+                    viewState = true;
+                    updateScreen(books,true);
+                }
             }
         });
         return rightPn;
     }
-    public void updateScreen(List<BookPOJO>[] books) {
+    public void updateScreen(List<BookPOJO>[] books, boolean viewStatus) {
         removeAll();
         revalidate();
         repaint();
-        add(mainPnCreate(books));
+        add(mainPnCreate(books, viewStatus));
     }
 
     public static void main(String[] args) {
@@ -177,7 +212,7 @@ public class AllBooksList extends JPanel{
         JPanel sc = new AllBooksList();
         fr.add(sc, BorderLayout.CENTER);
         fr.add((new MenuView(new UserPOJO())), BorderLayout.WEST);
-         fr.setVisible(true);
+        fr.setVisible(true);
     }
 }
 

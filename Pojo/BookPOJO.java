@@ -6,6 +6,17 @@ public class BookPOJO {
     private String name;
     private String description;
     private String author;
+    private boolean status;
+
+    public boolean isIs_enable() {
+        return is_enable;
+    }
+
+    public void setIs_enable(boolean is_enable) {
+        this.is_enable = is_enable;
+    }
+
+    private boolean is_enable;
 
     public String getDescription() {
         return description;
@@ -16,7 +27,6 @@ public class BookPOJO {
     }
 
     private String publisher;
-    private boolean status;
 
     public int getId() {
         return id;
@@ -74,5 +84,14 @@ public class BookPOJO {
         this.description=description;
         this.author=author;
         this.publisher=publisher;
+    }
+    public BookPOJO(int id, String name, String description, String author, String publisher, boolean status, boolean is_enable) {
+        this.id=id;
+        this.name=name;
+        this.description=description;
+        this.author=author;
+        this.publisher=publisher;
+        this.status = status;
+        this.is_enable = is_enable;
     }
 }

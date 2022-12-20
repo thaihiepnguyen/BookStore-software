@@ -1,10 +1,10 @@
 package Presentation.UserView.EmployeeView.AllBooksList.MyComponents.bookItem;
 
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton.MyButton;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.editDialog.editDialog;
 import Business.UserBU.BookBU;
 import DataAccess.BookDA;
 import Presentation.UserView.EmployeeView.AllBooksList.AllBooksList;
+import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton.MyButton;
+import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.editDialog.editDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,9 +21,7 @@ public class bookItem extends JPanel{
     private String publisher;
     private boolean status;
 
-//    public int getHeight(){
-//        return 40;
-//    }
+    private boolean is_enable;
 
     public int getId() {
         return id;
@@ -36,6 +34,14 @@ public class bookItem extends JPanel{
     @Override
     public String getName() {
         return name;
+    }
+
+    public boolean isIs_enable() {
+        return is_enable;
+    }
+
+    public void setIs_enable(boolean is_enable) {
+        this.is_enable = is_enable;
     }
 
     @Override
@@ -67,7 +73,7 @@ public class bookItem extends JPanel{
         this.status = status;
     }
 
-    public bookItem(AllBooksList screen, int id, String name, String description , String author, String publisher) {
+    public bookItem(AllBooksList screen, int id, String name, String description , String author, String publisher, boolean status, boolean is_enable) {
         setLayout(null);
         setBackground(Color.decode("#31414A"));
         setPreferredSize(new Dimension(800,40));
@@ -100,8 +106,8 @@ public class bookItem extends JPanel{
 
         MyButton editBtn = new MyButton("Edit", 10);
         editBtn.setBounds(620,5,60,30);
-        MyButton deleteBtn = new MyButton("Delete", 10);
-        deleteBtn.setBounds(690,5,80,30);
+        MyButton disableBtn = new MyButton("Disable", 10);
+        disableBtn.setBounds(690,5,90,30);
 
         // DESCRIPTION SECTION
         JTextPane text = new JTextPane();
@@ -111,12 +117,20 @@ public class bookItem extends JPanel{
         text.setForeground(Color.WHITE);
         text.setEditable(false);
         text.setPreferredSize(new Dimension(500, 100));
-//        text.setVisible(true);
+
+        JTextPane is_e = new JTextPane();
+        is_e.setText(String.valueOf(is_enable));
+        is_e.setPreferredSize(new Dimension(500, 20));
+        is_e.setFont(new Font("", Font.PLAIN, 16));
+
         // PANEL contains description
         JPanel textPanel = new JPanel(null);
         textPanel.setPreferredSize(new Dimension(800, 100));
         text.setBounds(24, 5, 780, 100);
+        is_e.setBounds(24, 25, 780, 100);
+
         textPanel.add(text);
+        textPanel.add(is_e);
         textPanel.setBackground(Color.decode("#131A1D"));
         textPanel.setVisible(false);
         textPanel.setBounds(0,38,800,100);
@@ -127,8 +141,10 @@ public class bookItem extends JPanel{
         add(_publisher);
         add(_status);
         add(editBtn);
-        add(deleteBtn);
+        add(disableBtn);
         add(textPanel);
+
+//        System.out.println(id + ": " + is_enable);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -157,20 +173,21 @@ public class bookItem extends JPanel{
                editDialog dialog = new editDialog(id);
                dialog.setVisible(true);
                BookBU business = new BookBU();
-               screen.updateScreen(business.getAll());
+               screen.updateScreen(business.getAll(), true);
 //                System.out.println("edit Btn run");
             }
         });
 
-        deleteBtn.addActionListener(new ActionListener() {
+        disableBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int input = JOptionPane.showConfirmDialog(null, "Do you want to delete "+ name + "?");
+                int input = JOptionPane.showConfirmDialog(null, "Do you want to disable "+ name + "?");
                 if(input == 0){
-                    BookDA.deleteBook(id);
+                    BookDA.disableBook(id);
+//                    this.is_enable
                     BookBU business = new BookBU();
-                    screen.updateScreen(business.getAll());
-                    JOptionPane.showMessageDialog(null, "Delete " + name +" book successfully!");
+                    screen.updateScreen(business.getAll(), true);
+                    JOptionPane.showMessageDialog(null, "Disable " + name +" book successfully!");
                 }
             }
         });
