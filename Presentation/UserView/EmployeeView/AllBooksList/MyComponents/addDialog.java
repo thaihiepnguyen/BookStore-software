@@ -1,7 +1,5 @@
-package Presentation.UserView.EmployeeView.AllBooksList.MyComponents.addDialog;
+package Presentation.UserView.EmployeeView.AllBooksList.MyComponents;
 
-import Business.UserBU.BookBU;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton.MyButton;
 import DataAccess.BookDA;
 
 import javax.swing.*;
@@ -13,7 +11,6 @@ public class addDialog extends JDialog{
     JPanel mainPane = new JPanel();
     JTextField inputName = new JTextField();
     JTextField inputCategory = new JTextField();
-
     JTextField inputAuthor = new JTextField();
     JTextArea inputDescription = new JTextArea();
 
@@ -86,19 +83,18 @@ public class addDialog extends JDialog{
         category.setForeground(Color.WHITE);
         category.setFont(new Font("", Font.PLAIN, 18));
         category.setBounds(450,70,100,30);
-        inputCategory.setBounds(450,100,300,30);
 
         JLabel author = new JLabel("Author");
         author.setForeground(Color.WHITE);
         author.setFont(new Font("", Font.PLAIN, 18));
         author.setBounds(35,150,100,30);
-        inputAuthor.setBounds(35,180,300,30);
+//        inputAuthor.setBounds(35,180,300,30);
 
         JLabel publisher = new JLabel("Publisher");
         publisher.setForeground(Color.WHITE);
         publisher.setFont(new Font("", Font.PLAIN, 18));
         publisher.setBounds(450,150,100,30);
-        inputPublisher.setBounds(450,180,300,30);
+//        inputPublisher.setBounds(450,180,300,30);
 
         JLabel language = new JLabel("Language");
         language.setForeground(Color.WHITE);
@@ -123,14 +119,35 @@ public class addDialog extends JDialog{
         saveBtn.setBounds(550,350,100,30);
         cancelBtn.setBounds(660,350,100,30);
 
+
+        // JCOMBOX TEST
+        String []categoryList = BookDA.getDataForComboBox("category");
+        JComboBox cb = new JComboBox(categoryList);
+        cb.setBounds(450,100,200,30);
+
+        String []authorList = BookDA.getDataForComboBox("author");
+        JComboBox cb2 = new JComboBox(authorList);
+        cb2.setBounds(35,180,200,30);
+
+        String []publisherList = BookDA.getDataForComboBox("publisher");
+        JComboBox cb3 = new JComboBox(publisherList);
+        cb3.setBounds(450,180,200,30);
+
+//        cb.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println(cb.getSelectedItem());
+//            }
+//        });
+
         mainPane.add(name);
         mainPane.add(inputName);
         mainPane.add(category);
-        mainPane.add(inputCategory);
+        mainPane.add(cb);
         mainPane.add(author);
-        mainPane.add(inputAuthor);
+        mainPane.add(cb2);
         mainPane.add(publisher);
-        mainPane.add(inputPublisher);
+        mainPane.add(cb3);
         mainPane.add(description);
         mainPane.add(inputDescription);
         mainPane.add(language);
@@ -158,9 +175,9 @@ public class addDialog extends JDialog{
                 if(input == 0){
                     BookDA.addBook(
                             inputName.getText(),
-                            inputCategory.getText(),
-                            inputAuthor.getText(),
-                            inputPublisher.getText(),
+                            cb.getSelectedItem().toString(),
+                            cb2.getSelectedItem().toString(),
+                            cb3.getSelectedItem().toString(),
                             inputDescription.getText(),
                             Integer.parseInt(inputPrice.getText()),
                             inputLanguage.getText());

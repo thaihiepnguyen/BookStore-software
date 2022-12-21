@@ -7,6 +7,24 @@ public class BookPOJO {
     private String description;
     private String author;
     private boolean status;
+    private String category;
+    private String imgPath;
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public boolean isIs_enable() {
         return is_enable;
@@ -93,5 +111,12 @@ public class BookPOJO {
         this.publisher=publisher;
         this.status = status;
         this.is_enable = is_enable;
+    }
+
+    public BookPOJO(int id, String title, String category, String imgPath) {
+        this.id=id;
+        this.name=title;
+        this.category=category;
+        this.imgPath = imgPath;
     }
 }

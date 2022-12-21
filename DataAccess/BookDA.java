@@ -41,16 +41,101 @@ public class BookDA {
         }
         return ans;
     }
-
-    public static void editBook(int id, String newTitle, String newAuthor, String newPublisher){
+    public static BookPOJO getBook(int id){
+        try {
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+            String query = "SELECT book.id, book.title, category.name, book.image_path\n" +
+                    "FROM book, category\n" +
+                    "Where book.category_id = category.id";
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                int _id = rs.getInt("id");
+                if(id == _id) {
+                    String category = rs.getString("name");
+                    String title = rs.getString("title");
+                    String imgPath = rs.getString("image_path");
+                    BookPOJO book = new BookPOJO(id, title, category, imgPath);
+                    return book;
+                }
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public static void editBook(int id,
+                                String newTitle,
+                                String description,
+                                String newCategory,
+                                String newAuthor,
+                                String newPublisher,
+                                int newPrice,
+                                String newLanguage){
         try {
             Connection connection = MyConnection.create();
             Statement statement;
             statement = connection.createStatement();
 
-            PreparedStatement updateEXP = connection.prepareStatement("UPDATE book set book.title = ? where id = ?");
+            int id_author = -1;
+            int id_publisher = -1;
+            int id_category = -1;
+
+            String sqlAuthor = "Select * from author";
+            ResultSet rsAuthor = statement.executeQuery(sqlAuthor);
+
+            while(rsAuthor.next()){
+                if (rsAuthor.getString("name").equals(newAuthor)){
+//                    System.out.println("Correct Name");
+                    id_author = rsAuthor.getInt("id");
+                }
+            }
+
+            String sqlPublisher = "Select * from publisher";
+            ResultSet rsPublisher = statement.executeQuery(sqlPublisher);
+
+            while(rsPublisher.next()){
+                if (rsPublisher.getString("name").equals(newPublisher)){
+//                    System.out.println("Correct Publisher");
+                    id_publisher = rsPublisher.getInt("id");
+                }
+            }
+
+            String sqlCategory = "Select * from category";
+            ResultSet rsCategory = statement.executeQuery(sqlCategory);
+
+            while(rsCategory.next()){
+                if (rsCategory.getString("name").equals(newCategory)){
+//                    System.out.println("Correct Category");
+                    id_category = rsCategory.getInt("id");
+                }
+            }
+
+            if(id_author == -1 || id_publisher == -1 || id_category == -1){
+//                System.out.println(newAuthor + " - " + newPublisher + " - " + newCategory);
+                System.out.println("Author or Publisher or Category not exist");
+                return;
+            }
+
+            PreparedStatement updateEXP = connection.prepareStatement(
+                    "UPDATE book " +
+                            "set book.title = ?, book.description = ?, book.category_id = ?, " +
+                            "book.publisher_id = ?, book.author_id = ?, book.price = ?, " +
+                            "book.language = ? where id = ?;"
+            );
+
             updateEXP.setString(1, newTitle);
-            updateEXP.setInt(2,id);
+            updateEXP.setString(2,description);
+            updateEXP.setInt(3,id_category);
+            updateEXP.setInt(4,id_publisher);
+            updateEXP.setInt(5,id_author);
+            updateEXP.setInt(6,newPrice);
+            updateEXP.setString(7,newLanguage);
+            updateEXP.setInt(8,id);
+
             int updateEXP_done = updateEXP.executeUpdate();
 
             System.out.println("edit successfully!!!");
@@ -62,7 +147,6 @@ public class BookDA {
         }
 //        return ans;
     }
-
     public static List<BookPOJO> searchBook(String title){
         List<BookPOJO> ans = null;
         try {
@@ -194,7 +278,7 @@ public class BookDA {
             updateEXP.setInt(5, id_category);
             updateEXP.setInt(6, id_author);
             updateEXP.setInt(7, id_publisher);
-            updateEXP.setString(8, "/public/images/" + id + ".png");
+            updateEXP.setString(8, "Public/image/book/" + id + ".png");
             updateEXP.setInt(9, price);
             updateEXP.setString(10, language);
             updateEXP.setInt(11, 1);
@@ -208,7 +292,6 @@ public class BookDA {
             System.out.println("add failed");
         }
     }
-
     public static void disableBook(int id){
         try {
             Connection connection = MyConnection.create();
@@ -221,11 +304,11 @@ public class BookDA {
 
             int updateEXP_done1 = updateEXP1.executeUpdate();
 
-            System.out.println("disable successfully!!!");
+//            System.out.println("disable successfully!!!");
             statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("disable failed");
+//            System.out.println("disable failed");
         }
 //        return ans;
     }
@@ -241,12 +324,51 @@ public class BookDA {
 
             int updateEXP_done1 = updateEXP1.executeUpdate();
 
-            System.out.println("disable successfully!!!");
+//            System.out.println("disable successfully!!!");
             statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("disable failed");
+//            System.out.println("disable failed");
         }
 //        return ans;
+    }
+    public static String[] getDataForComboBox(String table_name){
+        // GET LENGHT OF TABLE
+        int line = 0 ;
+        try {
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+            String query = "SELECT " + table_name + ".name " + "FROM " + table_name;
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                String name = rs.getString("name");
+                line++;
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String list[] = new String[line];
+        int idx = 0;
+        try {
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+            String query = "SELECT " + table_name + ".name " + "FROM " + table_name;
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                String name = rs.getString("name");
+                list[idx++] = name;
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            list = null;
+        }
+        return list;
     }
 }
