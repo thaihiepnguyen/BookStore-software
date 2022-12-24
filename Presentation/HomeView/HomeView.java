@@ -29,6 +29,7 @@ public class HomeView extends JFrame {
         root.setVisible(true);
         root.add(container, BorderLayout.CENTER);
         root.setSize(new Dimension(width, height));
+        root.setLocationRelativeTo(null);
     }
 
     public static void run(int width, int height) {
@@ -38,6 +39,8 @@ public class HomeView extends JFrame {
 
     public static void render() {
         container.add(new LoginView(), LOGIN_PAGE);
+        container.repaint();
+        container.revalidate();
         mainLayout.show(container, LOGIN_PAGE);
     }
 
