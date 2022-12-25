@@ -15,13 +15,22 @@ import java.io.IOException;
 
 public class bookItem extends JPanel{
     private int id;
-
     private String category;
-
     private String name;
     private String author;
     private String publisher;
     private boolean status;
+
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     private boolean is_enable ;
 
     private boolean view = true; // view = true if bookItem is enabled, else it's false
@@ -82,7 +91,7 @@ public class bookItem extends JPanel{
         this.status = status;
     }
 
-    public bookItem(AllBooksList screen, int id, String name, String description , String author, String publisher, boolean status, boolean is_enable) {
+    public bookItem(AllBooksList screen, int id, String name, String description , String author, String publisher, int quantity, boolean is_enable) {
         if(is_enable == false){
             view = false;
         }
@@ -107,9 +116,9 @@ public class bookItem extends JPanel{
         _publisher.setFont(new Font("", Font.PLAIN, 18));
         _publisher.setBounds(400,10,150,20);
 
-        JLabel _status = new JLabel(Boolean.toString(status));
+        JLabel _status = new JLabel(String.valueOf(quantity));
         _status.setFont(new Font("", Font.PLAIN, 18));
-        _status.setBounds(560,10,200,20);
+        _status.setBounds(570,10,200,20);
 
         _id.setForeground(Color.WHITE);
         _name.setForeground(Color.WHITE);
@@ -164,7 +173,7 @@ public class bookItem extends JPanel{
             public void mouseClicked(MouseEvent e) {
                 try {
                     BookPOJO book = BookDA.getBook(id);
-                    detailDialog dia = new detailDialog(name, book.getCategory(), book.getImgPath(), description);
+                    detailDialog dia = new detailDialog(name, book.getCategory(), author, publisher, book.getImgPath(), description, quantity);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

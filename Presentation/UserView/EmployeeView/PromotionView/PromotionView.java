@@ -1,12 +1,12 @@
-package Presentation.UserView.EmployeeView.AllBooksList;
+package Presentation.UserView.EmployeeView.PromotionView;
 
-import Business.UserBU.BookBU;
-import Pojo.BookPOJO;
+import Business.UserBU.PromotionBU;
+import Pojo.PromotionPOJO;
 import Pojo.UserPOJO;
 import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.addDialog;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.bookItem;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
+import Presentation.UserView.EmployeeView.PromotionView.Components.PromotionItem;
+import Presentation.UserView.EmployeeView.PromotionView.Components.addDialog;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,21 +15,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class AllBooksList extends JPanel{
-    public AllBooksList() {
-        BookBU business = new BookBU();
-        final List<BookPOJO>[] books = business.getAll();
-        add(mainPnCreate(books, true));
+public class PromotionView extends JPanel {
+    PromotionView(){
+        PromotionBU bus = new PromotionBU();
+        final List<PromotionPOJO>[] pros = bus.getAll();
+        add(mainPnCreate(pros, true));
     }
-    private JPanel mainPnCreate(List<BookPOJO>[] books, boolean viewStatus){
-//        System.out.println(viewStatus);
+    private JPanel mainPnCreate(List<PromotionPOJO>[] pros, boolean viewStatus){
         JPanel rightPn = new JPanel();
         rightPn.setPreferredSize(new Dimension(800,600));
         rightPn.setLayout(null);
         rightPn.setBackground(Color.decode("#D6E4E5"));
 
         // Header
-        JLabel head = new JLabel("All Books List");
+        JLabel head = new JLabel("Promotions");
         head.setFont(new Font("", 1, 40));
         head.setForeground(Color.decode("#344D67"));
         head.setBounds(30,15,400,100);
@@ -57,7 +56,7 @@ public class AllBooksList extends JPanel{
         MyButton searchBtn = new MyButton("Search", 20);
         searchBtn.setBounds(330,0,100,30);
 
-        JComboBox cb = new JComboBox<>(new String[]{"View Disable Books", "View Enable Books", "View New Books", "View Out Of Stock"});
+        JComboBox cb = new JComboBox<>(new String[]{"View Past Pros", "View Current Pros", "View Upcoming Pros", "View Enable Pros", "View Disable Pros"});
         cb.setBounds(450,0,150,30);
 
         searchBar.add(input);
@@ -78,23 +77,23 @@ public class AllBooksList extends JPanel{
         nameLabel.setBounds(70,0,100,30);
         nameLabel.setFont(new Font("", Font.PLAIN, 18));
 
-        JLabel authorLabel = new JLabel("Author");
+        JLabel authorLabel = new JLabel("From date");
         authorLabel.setBounds(250,0,100,30);
         authorLabel.setFont(new Font("", Font.PLAIN, 18));
 
-        JLabel publisherLabel = new JLabel("Publisher");
+        JLabel publisherLabel = new JLabel("To date");
         publisherLabel.setBounds(400,0,100,30);
         publisherLabel.setFont(new Font("", Font.PLAIN, 18));
 
-        JLabel statusLabel = new JLabel("Quantity");
-        statusLabel.setBounds(550,0,100,30);
-        statusLabel.setFont(new Font("", Font.PLAIN, 18));
+//        JLabel statusLabel = new JLabel("Quantity");
+//        statusLabel.setBounds(550,0,100,30);
+//        statusLabel.setFont(new Font("", Font.PLAIN, 18));
 
         titleBar.add(idLabel);
         titleBar.add(nameLabel);
         titleBar.add(authorLabel);
         titleBar.add(publisherLabel);
-        titleBar.add(statusLabel);
+//        titleBar.add(statusLabel);
 
         // LIST SECTION
         JPanel listPn = new JPanel();
@@ -106,32 +105,22 @@ public class AllBooksList extends JPanel{
         listPn.setBorder(new EmptyBorder(10,0,10,0));
         listPn.setBackground(Color.decode("#475E6B"));
 
-        // ADD ITEMS INTO LISTPN
-//        BookBU business = new BookBU();
-//        books = new List[]{business.getAll()};
-//        System.out.println("id ** name ** author ** publisher");
-//        for(int i = 0; i < books[0].size(); i++){
-//            System.out.println(books[0].get(i));
-//        }
-//        System.out.println(books[0].size());
-//        bookItem bookList[] = new bookItem[10];
-        for (int i = 0; i < books[0].size(); i++){
-            bookItem item = new bookItem(this,
-                    books[0].get(i).getId(),
-                    books[0].get(i).getName(),
-                    books[0].get(i).getDescription(),
-                    books[0].get(i).getAuthor(),
-                    books[0].get(i).getPublisher(),
-                    books[0].get(i).getQuantity(),
-                    books[0].get(i).isIs_enable());
-//            System.out.println(books[0].get(i).getDescription());
+        for (int i = 0; i < pros[0].size(); i++){
+            PromotionItem item = new PromotionItem(this,
+                    pros[0].get(i).getId(),
+                    pros[0].get(i).getName(),
+                    pros[0].get(i).getFromDate(),
+                    pros[0].get(i).getToDate(),
+                    pros[0].get(i).isIs_enable()
+                    );
+//            System.out.println(pros[0].get(i));
             //            bookList[i] = item;
             item.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 //            System.out.println( books[0].get(i).getId() + ": " + books[0].get(i).isIs_enable());
             // ****************************************************************/
             // ADD BOOKS WHICH HAVE THE SAME VALUE WITH PAR viewStatus INTO LISPN
 
-            if(books[0].get(i).isIs_enable() == viewStatus){
+            if(pros[0].get(i).isIs_enable() == viewStatus){
 //                System.out.println(1);
                 listPn.add(item);
                 listPn.add(Box.createVerticalStrut(12));
@@ -151,67 +140,70 @@ public class AllBooksList extends JPanel{
         body.add(container, BorderLayout.NORTH);
         body.setBounds(0,180,800,600);
 
-        rightPn.add(searchBar);
-        rightPn.add(titleBar);
-        rightPn.add(body);
-
-        searchBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               BookBU business = new BookBU();
-               List<BookPOJO>[] result = business.searchBook(input.getText());
-//               System.out.println(result[0].get(0));
-                for(int i = 0; i < result[0].size(); i++){
-                    System.out.println(result[0].get(i).getName() + ": " + result[0].get(i).isIs_enable());
-                }
-
-                updateScreen(result, true);
-            }
-        });
-
-        addBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addDialog dia = new addDialog();
-                dia.setVisible(true);
-
-                BookBU business = new BookBU();
-                updateScreen(business.getAll(), true);
-            }
-        });
-
         cb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(cb.getSelectedIndex() == 0){
-                    BookBU business = new BookBU();
-                    final List<BookPOJO>[] books = business.getAll();
-                    updateScreen(books, false);
+                    PromotionBU bus = new PromotionBU();
+                    final List<PromotionPOJO>[] pros = bus.getPastPromotions();
+                    updateScreen(pros, true);
                 }
                 else if(cb.getSelectedIndex() == 1){
-                    BookBU business = new BookBU();
-                    final List<BookPOJO>[] books = business.getAll();
-                    updateScreen(books, true);
+                    PromotionBU bus = new PromotionBU();
+                    final List<PromotionPOJO>[] pros = bus.getCurrentPromotions();
+                    updateScreen(pros, true);
                 }
                 else if(cb.getSelectedIndex() == 2){
-                    BookBU business = new BookBU();
-                    final List<BookPOJO>[] books = business.getNewBooks();
-                    updateScreen(books, true);
+                    PromotionBU bus = new PromotionBU();
+                    final List<PromotionPOJO>[] pros = bus.getUpComingPromotions();
+                    updateScreen(pros, true);
                 }
                 else if(cb.getSelectedIndex() == 3){
-                    BookBU business = new BookBU();
-                    final List<BookPOJO>[] books = business.getBooksOutOfStock();
-                    updateScreen(books, true);
+                    PromotionBU bus = new PromotionBU();
+                    final List<PromotionPOJO>[] pros = bus.getAll();
+                    updateScreen(pros, true);
+                }
+                else if(cb.getSelectedIndex() == 4){
+                    PromotionBU bus = new PromotionBU();
+                    final List<PromotionPOJO>[] pros = bus.getAll();
+                    updateScreen(pros, false);
                 }
             }
         });
+
+        searchBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PromotionBU business = new PromotionBU();
+                List<PromotionPOJO>[] result = business.searchPromotion(input.getText());
+//               System.out.println(result[0].get(0));
+//                for(int i = 0; i < result[0].size(); i++){
+//                    System.out.println(result[0].get(i).getName() + ": " + result[0].get(i).isIs_enable());
+//                }
+                updateScreen(result, true);
+            }
+        });
+
+        rightPn.add(searchBar);
+        rightPn.add(titleBar);
+        rightPn.add(body);
+
+        addBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addDialog d = new addDialog();
+                d.setVisible(true);
+            }
+        });
+
         return rightPn;
     }
-    public void updateScreen(List<BookPOJO>[] books, boolean viewStatus) {
+
+    public void updateScreen(List<PromotionPOJO>[] pros, boolean viewStatus) {
         removeAll();
         revalidate();
         repaint();
-        add(mainPnCreate(books, viewStatus));
+        add(mainPnCreate(pros, viewStatus));
     }
 
     public static void main(String[] args) {
@@ -219,10 +211,9 @@ public class AllBooksList extends JPanel{
         fr.setLayout(new BorderLayout());
         fr.setSize(new Dimension(1000,600));
         fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JPanel sc = new AllBooksList();
+        JPanel sc = new PromotionView();
         fr.add(sc, BorderLayout.CENTER);
         fr.add((new MenuView(new UserPOJO())), BorderLayout.WEST);
         fr.setVisible(true);
     }
 }
-

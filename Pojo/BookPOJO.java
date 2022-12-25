@@ -7,6 +7,16 @@ public class BookPOJO {
     private String description;
     private String author;
     private boolean status;
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     private String category;
     private String imgPath;
 
@@ -103,13 +113,13 @@ public class BookPOJO {
         this.author=author;
         this.publisher=publisher;
     }
-    public BookPOJO(int id, String name, String description, String author, String publisher, boolean status, boolean is_enable) {
+    public BookPOJO(int id, String name, String description, String author, String publisher, int quantity, boolean is_enable) {
         this.id=id;
         this.name=name;
         this.description=description;
         this.author=author;
         this.publisher=publisher;
-        this.status = status;
+        this.quantity = quantity;
         this.is_enable = is_enable;
     }
 

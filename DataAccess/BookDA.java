@@ -17,7 +17,7 @@ public class BookDA {
             Connection connection = MyConnection.create();
             Statement statement;
             statement = connection.createStatement();
-            String query = "SELECT book.id, book.is_enable, title, description , author.name as author, publisher.name as publisher\n" +
+            String query = "SELECT book.id, book.is_enable, book.quantity, title, description , author.name as author, publisher.name as publisher\n" +
                     "FROM book, author, publisher\n" +
                     "where book.author_id = author.id and book.publisher_id = publisher.id\n" +
                     "order by book.id asc;";
@@ -29,7 +29,8 @@ public class BookDA {
                 String publisher = rs.getString("publisher");
                 String description = rs.getString("description");
                 boolean is_enable = rs.getBoolean("is_enable");
-                BookPOJO st = new BookPOJO(id, name, description, author, publisher, true, is_enable);
+                int quantity = rs.getInt("book.quantity");
+                BookPOJO st = new BookPOJO(id, name, description, author, publisher, quantity, is_enable);
 //                System.out.println(is_enable);
                 ans.add(st);
             }
@@ -67,14 +68,7 @@ public class BookDA {
         }
         return null;
     }
-    public static void editBook(int id,
-                                String newTitle,
-                                String description,
-                                String newCategory,
-                                String newAuthor,
-                                String newPublisher,
-                                int newPrice,
-                                String newLanguage){
+    public static void editBook(int id, String newTitle, String description, String newCategory, String newAuthor, String newPublisher, int newPrice, String newLanguage){
         try {
             Connection connection = MyConnection.create();
             Statement statement;
@@ -168,8 +162,60 @@ public class BookDA {
                 String publisher = rs.getString("publisher");
                 String description = rs.getString("description");
                 boolean is_enable = rs.getBoolean("is_enable");
-                BookPOJO st = new BookPOJO(id, name, description, author, publisher, true, is_enable);
+                int quantity = rs.getInt("book.quantity");
+                BookPOJO st = new BookPOJO(id, name, description, author, publisher, quantity, is_enable);
                 ans.add(st);
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            ans = null;
+        }
+        return ans;
+    }
+    public static String[] searchBookNameString(String title){
+        int line = 0;
+        String[] ans = null;
+        try {
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+            String query = "" +
+                    "SELECT DISTINCT book.id, book.is_enable, title, description , author.name as author, publisher.name as publisher\n" +
+                    "FROM book, author, publisher, category\n" +
+                    "where book.author_id = author.id and book.publisher_id = publisher.id and book.category_id = category.id " +
+                    "and (book.title like " + "'"+ title + "%'" + " or publisher.name like " + "'" + title + "%'"
+                    + " or author.name like " + "'"+ title + "%'" + " or category.name like " + "'" + title + "%');";
+            ResultSet rs = statement.executeQuery(query);
+            int i = 0;
+            while(rs.next()){
+                line++;
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            ans = null;
+        }
+        try {
+            ans = new String[line];
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+            String query = "" +
+                    "SELECT DISTINCT book.id, book.is_enable, title, description , author.name as author, publisher.name as publisher\n" +
+                    "FROM book, author, publisher, category\n" +
+                    "where book.author_id = author.id and book.publisher_id = publisher.id and book.category_id = category.id " +
+                    "and (book.title like " + "'"+ title + "%'" + " or publisher.name like " + "'" + title + "%'"
+                    + " or author.name like " + "'"+ title + "%'" + " or category.name like " + "'" + title + "%');";
+            ResultSet rs = statement.executeQuery(query);
+            int i = 0;
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("title");
+
+                ans[i++] = name;
             }
             rs.close();
             statement.close();
@@ -339,10 +385,11 @@ public class BookDA {
             Connection connection = MyConnection.create();
             Statement statement;
             statement = connection.createStatement();
-            String query = "SELECT " + table_name + ".name " + "FROM " + table_name;
+            String query = "SELECT * FROM " + table_name;
+
             ResultSet rs = statement.executeQuery(query);
             while(rs.next()){
-                String name = rs.getString("name");
+//                String name = rs.getString("name");
                 line++;
             }
             rs.close();
@@ -370,5 +417,123 @@ public class BookDA {
             list = null;
         }
         return list;
+    }
+    public static String[] getDataBookForComboBox(){
+        // GET LENGHT OF TABLE
+        int line = 0 ;
+        try {
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+            String query = "SELECT * FROM book";
+
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+//                String name = rs.getString("name");
+                line++;
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String list[] = new String[line];
+        int idx = 0;
+        try {
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+            String query = "SELECT book.title FROM book";
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                String title = rs.getString("title");
+                list[idx++] = title;
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            list = null;
+        }
+        return list;
+    }
+    public static List<BookPOJO> getNewBooks(){
+        List<BookPOJO> ans = null;
+        try {
+            ans = new ArrayList<>();
+//            JavaNetUriAccess MyConnection;
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+
+            String queryCount = "select count(*) as count from book;";
+            ResultSet rsCount = statement.executeQuery(queryCount);
+            int rows = 0;
+            int count = 1;
+            if(rsCount.next()) {
+                rows = rsCount.getInt("count");
+            }
+            System.out.println(rows);
+
+            String query = "SELECT book.id, book.is_enable, book.quantity, title, description , author.name as author, publisher.name as publisher\n" +
+                    "FROM book, author, publisher\n" +
+                    "where book.author_id = author.id and book.publisher_id = publisher.id\n" +
+                    "order by book.id asc;";
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                if(count > rows - 3) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("title");
+                    String author = rs.getString("author");
+                    String publisher = rs.getString("publisher");
+                    String description = rs.getString("description");
+                    boolean is_enable = rs.getBoolean("is_enable");
+                    int quantity = rs.getInt("book.quantity");
+                    BookPOJO st = new BookPOJO(id, name, description, author, publisher, quantity, is_enable);
+                    ans.add(st);
+                }
+                count++;
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            ans = null;
+        }
+        return ans;
+    }
+    public static List<BookPOJO> getBooksOutOfStock(){
+        List<BookPOJO> ans = null;
+        try {
+            ans = new ArrayList<>();
+//            JavaNetUriAccess MyConnection;
+            Connection connection = MyConnection.create();
+            Statement statement;
+            statement = connection.createStatement();
+            String query = "SELECT book.id, book.is_enable, book.quantity, title, description , author.name as author, publisher.name as publisher\n" +
+                    "FROM book, author, publisher\n" +
+                    "where book.author_id = author.id and book.publisher_id = publisher.id and book.quantity=0\n" +
+                    "order by book.id asc;";
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("title");
+                String author = rs.getString("author");
+                String publisher = rs.getString("publisher");
+                String description = rs.getString("description");
+                boolean is_enable = rs.getBoolean("is_enable");
+                int quantity = rs.getInt("book.quantity");
+                BookPOJO st = new BookPOJO(id, name, description, author, publisher, quantity, is_enable);
+//                System.out.println(is_enable);
+                ans.add(st);
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            ans = null;
+        }
+        return ans;
     }
 }

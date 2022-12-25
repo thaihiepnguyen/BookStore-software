@@ -115,6 +115,14 @@ public class addDialog extends JDialog{
         description.setBounds(35,230,100,30);
         inputDescription.setBounds(35,260,300,60);
 
+        JLabel img = new JLabel("ImageFile name");
+        img.setForeground(Color.WHITE);
+        img.setFont(new Font("", Font.PLAIN, 18));
+        img.setBounds(35,330,150,30);
+
+        JTextField inputImg = new JTextField();
+        inputImg.setBounds(180,330,100,30);
+
         // BUTTON
         saveBtn.setBounds(550,350,100,30);
         cancelBtn.setBounds(660,350,100,30);
@@ -150,6 +158,8 @@ public class addDialog extends JDialog{
         mainPane.add(cb3);
         mainPane.add(description);
         mainPane.add(inputDescription);
+//        mainPane.add(img);
+//        mainPane.add(inputImg);
         mainPane.add(language);
         mainPane.add(inputLanguage);
         mainPane.add(price);
