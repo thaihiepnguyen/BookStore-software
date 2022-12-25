@@ -1,10 +1,4 @@
 import DataAccess.MySQLDatabase;
-import Pojo.UserPOJO;
-import Presentation.HomeView.HomeView;
-import Presentation.UserView.EmployeeView.EmployeeView;
-
-import javax.swing.*;
-
 import Presentation.HomeView.HomeView;
 public class App {
     public static void main(String[] args) {
@@ -17,7 +11,7 @@ public class App {
             "127.0.0.1",
             3306,
             "root",
-            "reallyStrongPwd123",
+            "",
             "book-store"
             );
 

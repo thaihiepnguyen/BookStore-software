@@ -149,7 +149,7 @@ public class BookDA {
             Statement statement;
             statement = connection.createStatement();
             String query = "" +
-                    "SELECT DISTINCT book.id, book.is_enable, title, description , author.name as author, publisher.name as publisher\n" +
+                    "SELECT DISTINCT book.id, book.is_enable, book.quantity , title, description , author.name as author, publisher.name as publisher\n" +
                     "FROM book, author, publisher, category\n" +
                     "where book.author_id = author.id and book.publisher_id = publisher.id and book.category_id = category.id " +
                     "and (book.title like " + "'"+ title + "%'" + " or publisher.name like " + "'" + title + "%'"
@@ -162,7 +162,7 @@ public class BookDA {
                 String publisher = rs.getString("publisher");
                 String description = rs.getString("description");
                 boolean is_enable = rs.getBoolean("is_enable");
-                int quantity = rs.getInt("book.quantity");
+                int quantity = rs.getInt("quantity");
                 BookPOJO st = new BookPOJO(id, name, description, author, publisher, quantity, is_enable);
                 ans.add(st);
             }
