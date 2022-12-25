@@ -2,11 +2,9 @@ package Presentation.UserView.EmployeeView.AllBooksList;
 
 import Business.UserBU.BookBU;
 import Pojo.BookPOJO;
-import Pojo.UserPOJO;
 import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton;
 import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.addDialog;
 import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.bookItem;
-import Presentation.UserView.EmployeeView.MenuView.MenuView;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
