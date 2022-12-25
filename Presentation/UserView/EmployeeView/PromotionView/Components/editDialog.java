@@ -9,12 +9,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class addDialog extends JDialog {
+public class editDialog extends JDialog {
     JPanel mainPane = new JPanel();
     MyButton saveBtn = new MyButton("Save", 20);
     JButton cancelBtn = new JButton("Cancel");
-    public addDialog() {
-        setTitle("Add new promotion");
+    public editDialog(int id) {
+        setTitle("Edit promotion");
         // Block all another screens
         setModal(true);
         // Set layout
@@ -121,9 +121,10 @@ public class addDialog extends JDialog {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int input = JOptionPane.showConfirmDialog(null, "Do you want to create new promotion? ");
+                int input = JOptionPane.showConfirmDialog(null, "Do you want to save? ");
                 if (input == 0) {
-                    PromotionDA.createPromotion(
+                    PromotionDA.editPromotion(
+                            id,
                             inputName.getText(),
                             inputDescription.getText(),
                             inputStartDate.getText(),
@@ -133,10 +134,10 @@ public class addDialog extends JDialog {
                             boxes2[0].isSelected(),
                             boxes2[1].isSelected()
                     );
-                    int promotionID = PromotionDA.getFinalID();
+
                     for (int i = 0; i < boxes.length; i++) {
                         if (boxes[i].isSelected()) {
-                            PromotionDA.createBooksInPromotion(promotionID, i + 1);
+                            PromotionDA.createBooksInPromotion(id, i + 1);
                         }
                     }
                     dispose();
@@ -174,7 +175,8 @@ public class addDialog extends JDialog {
     }
 
     public static void main(String[] args) {
-        addDialog d = new addDialog();
+        editDialog d = new editDialog(2);
         d.setVisible(true);
     }
 }
+

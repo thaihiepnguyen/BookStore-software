@@ -184,7 +184,8 @@ public class bookItem extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                editDialog dialog = new editDialog(id);
-               dialog.setVisible(true);
+               dialog.setLocationRelativeTo(_name);
+                dialog.setVisible(true);
                BookBU business = new BookBU();
                screen.updateScreen(business.getAll(), true);
 //                System.out.println("edit Btn run");

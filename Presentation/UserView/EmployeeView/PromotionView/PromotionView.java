@@ -109,9 +109,14 @@ public class PromotionView extends JPanel {
             PromotionItem item = new PromotionItem(this,
                     pros[0].get(i).getId(),
                     pros[0].get(i).getName(),
+                    pros[0].get(i).getDescription(),
                     pros[0].get(i).getFromDate(),
                     pros[0].get(i).getToDate(),
-                    pros[0].get(i).isIs_enable()
+                    pros[0].get(i).isIs_enable(),
+                    pros[0].get(i).getDiscount(),
+                    pros[0].get(i).getOrder_limit(),
+                    pros[0].get(i).isApply_cus(),
+                    pros[0].get(i).isApply_ano()
                     );
 //            System.out.println(pros[0].get(i));
             //            bookList[i] = item;
@@ -176,25 +181,24 @@ public class PromotionView extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 PromotionBU business = new PromotionBU();
                 List<PromotionPOJO>[] result = business.searchPromotion(input.getText());
-//               System.out.println(result[0].get(0));
-//                for(int i = 0; i < result[0].size(); i++){
-//                    System.out.println(result[0].get(i).getName() + ": " + result[0].get(i).isIs_enable());
-//                }
                 updateScreen(result, true);
             }
         });
-
-        rightPn.add(searchBar);
-        rightPn.add(titleBar);
-        rightPn.add(body);
-
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addDialog d = new addDialog();
+                d.setLocationRelativeTo(rightPn);
                 d.setVisible(true);
+
+                PromotionBU bus = new PromotionBU();
+                final List<PromotionPOJO>[] pros = bus.getAll();
+                updateScreen(pros, true);
             }
         });
+        rightPn.add(searchBar);
+        rightPn.add(titleBar);
+        rightPn.add(body);
 
         return rightPn;
     }

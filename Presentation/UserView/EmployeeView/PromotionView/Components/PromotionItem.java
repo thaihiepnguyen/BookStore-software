@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class PromotionItem extends JPanel {
     private int id;
@@ -68,7 +71,17 @@ public class PromotionItem extends JPanel {
         this.is_enable = is_enable;
     }
 
-    public PromotionItem(PromotionView screen, int id, String name, String fromDate, String toDate, boolean is_enable){
+    public PromotionItem(PromotionView screen,
+                         int id,
+                         String name,
+                         String description,
+                         String fromDate,
+                         String toDate,
+                         boolean is_enable,
+                         float discount,
+                         int order_limit,
+                         boolean apply_cus,
+                         boolean apply_ano){
         if(is_enable == false){
             view = false;
         }
@@ -104,7 +117,10 @@ public class PromotionItem extends JPanel {
 
         // BUTTON
         MyButton editBtn = new MyButton("Edit", 10);
-        editBtn.setBounds(620,5,60,30);
+        editBtn.setBounds(530,5,60,30);
+
+        MyButton extendBtn = new MyButton("Extend", 10);
+        extendBtn.setBounds(595,5,90,30);
 
         MyButton disableBtn = new MyButton("Disable", 10);
         if(!view){
@@ -117,12 +133,35 @@ public class PromotionItem extends JPanel {
         add(_name);
         add(_fromDate);
         add(_toDate);
-//        add(_status);
+
         if(view){
             add(editBtn);
+            add(extendBtn);
         }
         add(disableBtn);
 
+        editBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editDialog d = new editDialog(id);
+                d.setLocationRelativeTo(_toDate);
+                d.setVisible(true);
+
+                PromotionBU business = new PromotionBU();
+                screen.updateScreen(business.getAll(), true);
+            }
+        });
+        extendBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                extendDialog d = new extendDialog(id);
+                d.setLocationRelativeTo(_name);
+                d.setVisible(true);
+
+                PromotionBU business = new PromotionBU();
+                screen.updateScreen(business.getAll(), true);
+            }
+        });
         disableBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -146,6 +185,30 @@ public class PromotionItem extends JPanel {
 //                        JOptionPane.showMessageDialog(null, "Enable " + name + " book successfully!");
                     }
                 }
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                System.out.println("clicked");
+                detailDialog d = null;
+                try {
+                    d = new detailDialog(
+                            id,
+                            name,
+                            description,
+                            fromDate,
+                            toDate,
+                            discount,
+                            order_limit,
+                            apply_cus,
+                            apply_ano
+                    );
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                d.setLocationRelativeTo(_fromDate);
+                d.setVisible(true);
             }
         });
     }
