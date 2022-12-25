@@ -6,6 +6,45 @@ public class BookPOJO {
     private String name;
     private String description;
     private String author;
+    private boolean status;
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    private String category;
+    private String imgPath;
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public boolean isIs_enable() {
+        return is_enable;
+    }
+
+    public void setIs_enable(boolean is_enable) {
+        this.is_enable = is_enable;
+    }
+
+    private boolean is_enable;
 
     public String getDescription() {
         return description;
@@ -16,7 +55,6 @@ public class BookPOJO {
     }
 
     private String publisher;
-    private boolean status;
 
     public int getId() {
         return id;
@@ -74,5 +112,21 @@ public class BookPOJO {
         this.description=description;
         this.author=author;
         this.publisher=publisher;
+    }
+    public BookPOJO(int id, String name, String description, String author, String publisher, int quantity, boolean is_enable) {
+        this.id=id;
+        this.name=name;
+        this.description=description;
+        this.author=author;
+        this.publisher=publisher;
+        this.quantity = quantity;
+        this.is_enable = is_enable;
+    }
+
+    public BookPOJO(int id, String title, String category, String imgPath) {
+        this.id=id;
+        this.name=title;
+        this.category=category;
+        this.imgPath = imgPath;
     }
 }

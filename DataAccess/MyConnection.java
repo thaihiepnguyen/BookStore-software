@@ -3,6 +3,7 @@ package DataAccess;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.Connection;
+//import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,7 +18,7 @@ public class MyConnection {
 
             String DB_URL = "jdbc:mysql://localhost/book-store";
             String USER = "root";
-            String PASS = "reallyStrongPwd123";
+            String PASS = "";
 
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             return connection;
