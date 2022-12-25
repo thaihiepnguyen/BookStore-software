@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class MenuItem extends JPanel {
-    JLabel tagIcon;
-    JLabel tagName;
+public class MenuItem extends JPanel {
+    public JLabel tagIcon;
+    public JLabel tagName;
 
     public void prepareGUI() {
         tagIcon = new JLabel();
@@ -27,7 +27,7 @@ class MenuItem extends JPanel {
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
-    public void addEffectGUI() {
+    public void actionGUI() {
         var that = this;
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -46,7 +46,7 @@ class MenuItem extends JPanel {
     public MenuItem(String iconPath, String text) {
         prepareGUI();
         designGUI(iconPath, text);
-        addEffectGUI();
+        actionGUI();
 
         this.add(tagIcon);
         this.add(tagName);

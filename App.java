@@ -17,7 +17,7 @@ public class App {
             "127.0.0.1",
             3306,
             "root",
-            "",
+            "reallyStrongPwd123",
             "book-store"
             );
 

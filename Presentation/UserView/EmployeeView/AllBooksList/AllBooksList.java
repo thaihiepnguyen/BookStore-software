@@ -22,7 +22,6 @@ public class AllBooksList extends JPanel{
         add(mainPnCreate(books, true));
     }
     private JPanel mainPnCreate(List<BookPOJO>[] books, boolean viewStatus){
-//        System.out.println(viewStatus);
         JPanel rightPn = new JPanel();
         rightPn.setPreferredSize(new Dimension(800,600));
         rightPn.setLayout(null);
@@ -212,17 +211,6 @@ public class AllBooksList extends JPanel{
         revalidate();
         repaint();
         add(mainPnCreate(books, viewStatus));
-    }
-
-    public static void main(String[] args) {
-        JFrame fr = new JFrame("test");
-        fr.setLayout(new BorderLayout());
-        fr.setSize(new Dimension(1000,600));
-        fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JPanel sc = new AllBooksList();
-        fr.add(sc, BorderLayout.CENTER);
-        fr.add((new MenuView(new UserPOJO())), BorderLayout.WEST);
-        fr.setVisible(true);
     }
 }
 

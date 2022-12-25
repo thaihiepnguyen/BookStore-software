@@ -13,14 +13,15 @@ public class MenuView extends JPanel {
     JLabel userName;
     JPanel body;
 
-    MenuItem dashboard;
-    MenuItem book;
-    MenuItem promotion;
-    MenuItem customer;
-    MenuItem profile;
+    public MenuItem dashboard;
+
+    public MenuItem book;
+    public MenuItem promotion;
+    public MenuItem customer;
+    public MenuItem profile;
     JPanel footer;
 
-    MenuItem logout;
+    public MenuItem logout;
 
 
     public void prepareGUI(UserPOJO user) {
@@ -113,7 +114,7 @@ public class MenuView extends JPanel {
         setPreferredSize(new Dimension(200, 600));
     }
 
-    public void addAnimationGUI() {
+    public void actionGUI() {
 
     }
 
