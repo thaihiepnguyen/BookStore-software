@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PromotionView extends JPanel {
-    PromotionView(){
+    public PromotionView(){
         PromotionBU bus = new PromotionBU();
         final List<PromotionPOJO>[] pros = bus.getAll();
         add(mainPnCreate(pros, true));

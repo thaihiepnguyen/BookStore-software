@@ -11,6 +11,8 @@ public class HomeView extends JFrame {
     static HomeView root = new HomeView();
     static final String LOGIN_PAGE = "loginView";
     static final String EMPLOYEE_PAGE = "employeeView";
+
+    static final String ADMIN_PAGE = "adminView";
     static CardLayout mainLayout;
     static JPanel container;
     static void prepareGUI() {
