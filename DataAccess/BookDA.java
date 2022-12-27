@@ -68,7 +68,7 @@ public class BookDA {
         }
         return null;
     }
-    public static void editBook(int id, String newTitle, String description, String newCategory, String newAuthor, String newPublisher, int newPrice, String newLanguage){
+    public static void editBook(int id, String newTitle, String description, String newCategory, String newAuthor, String newPublisher, int newPrice, String newLanguage, int newQuantity){
         try {
             Connection connection = MyConnection.create();
             Statement statement;
@@ -118,7 +118,7 @@ public class BookDA {
                     "UPDATE book " +
                             "set book.title = ?, book.description = ?, book.category_id = ?, " +
                             "book.publisher_id = ?, book.author_id = ?, book.price = ?, " +
-                            "book.language = ? where id = ?;"
+                            "book.language = ?, book.quantity = ? where id = ?;"
             );
 
             updateEXP.setString(1, newTitle);
@@ -128,7 +128,8 @@ public class BookDA {
             updateEXP.setInt(5,id_author);
             updateEXP.setInt(6,newPrice);
             updateEXP.setString(7,newLanguage);
-            updateEXP.setInt(8,id);
+            updateEXP.setInt(8,newQuantity);
+            updateEXP.setInt(9,id);
 
             int updateEXP_done = updateEXP.executeUpdate();
 

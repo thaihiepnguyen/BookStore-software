@@ -64,7 +64,7 @@ public class editDialog extends JDialog {
 //        setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 
         mainPane.setBackground(Color.decode("#475E6B"));
-        mainPane.setPreferredSize(new Dimension(700,400));
+        mainPane.setPreferredSize(new Dimension(700,470));
 
         JLabel name = new JLabel("Name");
         name.setForeground(Color.WHITE);
@@ -111,9 +111,15 @@ public class editDialog extends JDialog {
         language.setForeground(Color.WHITE);
         language.setFont(new Font("", Font.PLAIN, 18));
         language.setBounds(200,300,100,30);
-
         JTextField inputLanguage = new JTextField();
         inputLanguage.setBounds(200,330,150,30);
+
+        JLabel quantity = new JLabel("Quantity");
+        quantity.setForeground(Color.WHITE);
+        quantity.setFont(new Font("", Font.PLAIN, 18));
+        quantity.setBounds(450,300,100,30);
+        JTextField inputQuantity = new JTextField();
+        inputQuantity.setBounds(450,330,100,30);
 
         // JCOMBOBOX
         String []categoryList = BookDA.getDataForComboBox("category");
@@ -129,8 +135,8 @@ public class editDialog extends JDialog {
         cb3.setBounds(450,260,200,30);
 
         // BUTTON
-        saveBtn.setBounds(450,350,100,30);
-        cancelBtn.setBounds(560,350,100,30);
+        saveBtn.setBounds(450,400,100,30);
+        cancelBtn.setBounds(560,400,100,30);
 
         mainPane.add(name);
         mainPane.add(inputName);
@@ -146,6 +152,8 @@ public class editDialog extends JDialog {
         mainPane.add(cb2);
         mainPane.add(publisher);
         mainPane.add(cb3);
+        mainPane.add(quantity);
+        mainPane.add(inputQuantity);
         mainPane.add(saveBtn);
         mainPane.add(cancelBtn);
 
@@ -171,14 +179,16 @@ public class editDialog extends JDialog {
                         cb2.getSelectedItem().toString(),
                         cb3.getSelectedItem().toString(),
                         Integer.parseInt(inputPrice.getText()),
-                        inputLanguage.getText());
+                        inputLanguage.getText(),
+                        Integer.parseInt(inputQuantity.getText())
+                );
                 dispose();
             }
         });
     }
 
     public static void main(String[] args) {
-//        editDialog d = new editDialog();
-//        d.setVisible(true);
+        editDialog d = new editDialog(2);
+        d.setVisible(true);
     }
 }
