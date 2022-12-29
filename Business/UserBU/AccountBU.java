@@ -6,6 +6,8 @@ import Pojo.UserPOJO;
 import Presentation.HomeView.HomeView;
 import Presentation.UserView.EmployeeView.EmployeeView;
 
+import javax.swing.*;
+
 public class AccountBU {
     public static void employeeLogin(String username, String password) {
         UserPOJO user = EmployeeDA.findEmployeeDA(username, password);
@@ -16,7 +18,7 @@ public class AccountBU {
             );
         }
         else {
-            System.out.println("Login Khong Thanh Cong!");
+            JOptionPane.showMessageDialog(HomeView.root, "Invalid Username or Password");
         }
     }
 
@@ -27,7 +29,7 @@ public class AccountBU {
             HomeView.render();
         }
         else {
-            System.out.println("Login Khong Thanh Cong!");
+            JOptionPane.showMessageDialog(HomeView.root, "Invalid Username or Password");
         }
     }
 }

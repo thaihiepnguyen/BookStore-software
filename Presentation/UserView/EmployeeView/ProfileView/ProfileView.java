@@ -1,6 +1,7 @@
 package Presentation.UserView.EmployeeView.ProfileView;
 
 import Pojo.UserPOJO;
+import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.UserView.EmployeeView.MenuView.ImageIconUtil;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class ProfileView extends JPanel {
 
     JLabel hireDate; JLabel LHire = new JLabel("Hire Date: ");
 
+    MyButton edit = new MyButton("Edit");
 
     void prepareGUI(UserPOJO userPOJO) {
         head = new JLabel("My Profile");
@@ -39,6 +41,11 @@ public class ProfileView extends JPanel {
                         100, 100
                 )
         ));
+
+        edit.setTextColor(Color.WHITE);
+        edit.setRound(10,10,10,10);
+        edit.setBackgroundColor(new Color(52,77,103));
+
     }
 
     void designGUI() {
@@ -49,6 +56,8 @@ public class ProfileView extends JPanel {
         head.setFont(new Font("", 1, 40));
         head.setForeground(Color.decode("#344D67"));
         head.setBounds(30,35,400,100);
+
+        edit.setBounds(680, 85, 52, 20);
 
         avt.setBounds(550, 35, 100, 100);
 
@@ -117,6 +126,7 @@ public class ProfileView extends JPanel {
         body.add(hireDate); body.add(gender);
         body.add(basicInformation);
         body.add(avt);
+        add(edit);
         add(body);
     }
 }

@@ -7,6 +7,7 @@ import Presentation.UserView.EmployeeView.DashBoardView.ContentView;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
 import Presentation.UserView.EmployeeView.ProfileView.ProfileView;
 import Presentation.UserView.EmployeeView.PromotionView.PromotionView;
+import Presentation.UserView.LoginView.LoginView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class EmployeeView extends JPanel {
+
+    public static String usernameBuffer = "";
     MenuView menuView;
 
     final String DASHBOARD_PAGE = "dashboardView";
@@ -42,6 +45,7 @@ public class EmployeeView extends JPanel {
         promotionView = new PromotionView();
         profileView = new ProfileView(user);
 
+        usernameBuffer = user.getUsername();
     }
 
     public void designGUI() {
@@ -137,6 +141,7 @@ public class EmployeeView extends JPanel {
         menuView.logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
                 HomeView.render();
             }
         });

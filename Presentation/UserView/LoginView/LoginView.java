@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class LoginView extends JPanel implements ActionListener {
     JRadioButton employee, admin;
-    JTextField username;
+    public JTextField username;
     JPasswordField password;
 //
     JLabel title;
@@ -133,6 +133,9 @@ public class LoginView extends JPanel implements ActionListener {
 
 
         login.addActionListener(this);
+        password.addActionListener(e -> {
+            login.doClick();
+        });
 
         loginFrame.add(userLabel); loginFrame.add(passLabel);
         loginFrame.add(username); loginFrame.add(password);
