@@ -3,7 +3,7 @@ package Presentation.UserView.EmployeeView.PromotionView;
 import Business.UserBU.PromotionBU;
 import Pojo.PromotionPOJO;
 import Pojo.UserPOJO;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton;
+import Presentation.UserView.EmployeeView.BookView.MyComponents.MyButton;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
 import Presentation.UserView.EmployeeView.PromotionView.Components.PromotionItem;
 import Presentation.UserView.EmployeeView.PromotionView.Components.addDialog;

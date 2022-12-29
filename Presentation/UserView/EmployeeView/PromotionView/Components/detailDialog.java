@@ -1,7 +1,7 @@
 package Presentation.UserView.EmployeeView.PromotionView.Components;
 
 import DataAccess.PromotionDA;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton;
+import Presentation.UserView.EmployeeView.BookView.MyComponents.MyButton;
 
 import javax.swing.*;
 import java.awt.*;

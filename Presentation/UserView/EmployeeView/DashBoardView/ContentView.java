@@ -1,8 +1,7 @@
-package Presentation.UserView.EmployeeView.GeneralView;
-import Pojo.UserPOJO;
-import Presentation.UserView.EmployeeView.GeneralView.Author.Author;
-import Presentation.UserView.EmployeeView.GeneralView.Category.Category;
-import Presentation.UserView.EmployeeView.GeneralView.Publisher.Publisher;
+package Presentation.UserView.EmployeeView.DashBoardView;
+import Presentation.UserView.EmployeeView.DashBoardView.Author.Author;
+import Presentation.UserView.EmployeeView.DashBoardView.Category.Category;
+import Presentation.UserView.EmployeeView.DashBoardView.Publisher.Publisher;
 
 import javax.swing.*;
 import java.awt.*;

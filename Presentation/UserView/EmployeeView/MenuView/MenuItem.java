@@ -18,7 +18,7 @@ public class MenuItem extends JPanel {
     }
 
     public void designGUI(String iconPath, String text) {
-        tagIcon.setBounds(0,0,30, 30);
+        tagIcon.setBounds(10,0,30, 30);
         tagIcon.setIcon(ImageIconUtil.getIcon(iconPath, 30, 30));
         tagName.setText(text);
         tagName.setBounds(50, 0, 100, 30);

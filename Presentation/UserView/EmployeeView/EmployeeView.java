@@ -2,9 +2,10 @@ package Presentation.UserView.EmployeeView;
 
 import Pojo.UserPOJO;
 import Presentation.HomeView.HomeView;
-import Presentation.UserView.EmployeeView.AllBooksList.AllBooksList;
-import Presentation.UserView.EmployeeView.GeneralView.ContentView;
+import Presentation.UserView.EmployeeView.BookView.AllBooksList;
+import Presentation.UserView.EmployeeView.DashBoardView.ContentView;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
+import Presentation.UserView.EmployeeView.ProfileView.ProfileView;
 import Presentation.UserView.EmployeeView.PromotionView.PromotionView;
 
 import javax.swing.*;
@@ -29,6 +30,7 @@ public class EmployeeView extends JPanel {
     AllBooksList bookView;
 
     PromotionView promotionView;
+    ProfileView profileView;
 
     public void prepareGUI(UserPOJO user) {
         mainLayout = new CardLayout();
@@ -38,6 +40,8 @@ public class EmployeeView extends JPanel {
         contentView = new ContentView();
         bookView = new AllBooksList();
         promotionView = new PromotionView();
+        profileView = new ProfileView(user);
+
     }
 
     public void designGUI() {
@@ -49,6 +53,7 @@ public class EmployeeView extends JPanel {
         container.add(contentView, DASHBOARD_PAGE);
         container.add(bookView, BOOK_PAGE);
         container.add(promotionView, PROMOTION_PAGE);
+        container.add(profileView, PROFILE_PAGE);
 
         setLayout(new BorderLayout());
         setBackground(new Color(214,228,229));
