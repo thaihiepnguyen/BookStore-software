@@ -4,7 +4,6 @@ import Pojo.CustomerPOJO;
 import Pojo.PublisherPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.UserView.EmployeeView.CustomerView.CustomerItem.CustomerDetail.CustomerDetail;
-import Presentation.UserView.EmployeeView.GeneralFunction.Publisher.PublisherItem.PublisherDetail.PublisherDetail;
 
 import javax.swing.*;
 import java.awt.*;

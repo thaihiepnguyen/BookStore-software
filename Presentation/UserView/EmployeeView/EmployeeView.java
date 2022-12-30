@@ -46,7 +46,7 @@ public class EmployeeView extends JPanel {
         bookView = new AllBooksList();
         promotionView = new PromotionView();
         profileView = new ProfileView(user);
-        customer = new Customer();
+        customerView = new Customer();
 
         usernameBuffer = user.getUsername();
     }
@@ -61,6 +61,7 @@ public class EmployeeView extends JPanel {
         container.add(bookView, BOOK_PAGE);
         container.add(promotionView, PROMOTION_PAGE);
         container.add(profileView, PROFILE_PAGE);
+        container.add(customerView, CUSTOMER_PAGE);
 
         setLayout(new BorderLayout());
         setBackground(new Color(214,228,229));
