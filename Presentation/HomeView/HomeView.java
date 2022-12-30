@@ -1,5 +1,6 @@
 package Presentation.HomeView;
 
+import Presentation.UserView.AdminView.AdminView;
 import Presentation.UserView.EmployeeView.EmployeeView;
 import Presentation.UserView.LoginView.LoginView;
 
@@ -38,10 +39,12 @@ public class HomeView extends JFrame {
     }
 
     public static void render() {
-        container.add(new LoginView(), LOGIN_PAGE);
+//        container.add(new LoginView(), LOGIN_PAGE);
+        container.add(new AdminView(), "ADMIN");
         container.repaint();
         container.revalidate();
-        mainLayout.show(container, LOGIN_PAGE);
+//        mainLayout.show(container, LOGIN_PAGE);
+        mainLayout.show(container,"ADMIN");
     }
 
     public static void render(EmployeeView employeeView) {

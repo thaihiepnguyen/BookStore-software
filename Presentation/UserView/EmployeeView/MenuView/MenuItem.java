@@ -38,6 +38,7 @@ public class MenuItem extends JPanel {
             public void mouseExited(MouseEvent e) {
                 that.tagName.setForeground(new Color(200, 200, 200));
             }
+
         });
     }
 

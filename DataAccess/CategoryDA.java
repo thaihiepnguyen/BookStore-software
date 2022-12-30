@@ -64,24 +64,13 @@ public class CategoryDA {
     }
 
     public static List<CategoryPOJO> search(String s){
-        String sql = "select * from category where id like '%"+s+"%' or name like '%"+s+"%'";
         List<CategoryPOJO> ans = new ArrayList<>();
-        try{
-            ResultSet rs = db.getStatement().executeQuery(sql);
-            while (rs.next()){
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                Boolean is_enable = rs.getBoolean("is_enable");
-
-                CategoryPOJO ca = new CategoryPOJO(id,name,is_enable);
-                ans.add(ca);
+        List<CategoryPOJO> rs = getAll();
+        for(CategoryPOJO pu: rs){
+            if(pu.getName().toLowerCase().contains(s.trim().toLowerCase()) || Integer.toString(pu.getId()).contains(s.trim())){
+                ans.add(pu);
             }
         }
-        catch (SQLException ex){
-            System.out.println(ex);
-            ans = null;
-        }
         return ans;
-
     }
 }

@@ -10,6 +10,8 @@ public class detailDialog extends JDialog {
     JPanel mainPane = new JPanel();
     detailDialog(String title, String category, String author, String publisher, String imgPath, String description, int quantity) throws IOException {
         setTitle(title);
+        setResizable(false);
+        setLocation(410,180);
 
         mainPane.setLayout(null);
         mainPane.setBackground(Color.decode("#475E6B"));
