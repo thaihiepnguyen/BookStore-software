@@ -1,12 +1,14 @@
 package Presentation.UserView.EmployeeView.DashBoardView;
-import Presentation.UserView.EmployeeView.DashBoardView.Author.Author;
 import Presentation.UserView.EmployeeView.DashBoardView.Category.Category;
 import Presentation.UserView.EmployeeView.DashBoardView.Publisher.Publisher;
+import Presentation.UserView.EmployeeView.DashBoardView.Category.Category;
+import Presentation.UserView.EmployeeView.DashBoardView.Author.Author;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.concurrent.Flow;
 
 public class ContentView extends JPanel {
     JPanel navigationBar = new JPanel();
@@ -15,6 +17,8 @@ public class ContentView extends JPanel {
     JLabel publishers = new JLabel("Publishers",SwingConstants.CENTER);
     JLabel authors = new JLabel("Authors",SwingConstants.CENTER);
     Category category = new Category();
+
+
     Publisher publisher = new Publisher();
     Author author = new Author();
     CardLayout cardLayout = new CardLayout();

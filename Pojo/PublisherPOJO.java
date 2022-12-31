@@ -65,4 +65,5 @@ public class PublisherPOJO {
         this.is_enable = is_enable;
     }
 
+    public PublisherPOJO(){ };
 }

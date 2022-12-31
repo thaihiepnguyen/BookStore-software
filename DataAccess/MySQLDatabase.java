@@ -69,10 +69,6 @@ public class MySQLDatabase {
         return rows;
     }
 
-    // How to use?
-    // you can call the function with a table as argument
-    // Example: I have an "employee" table. It will access into database then returns a list of employees.
-    // var employees = findAll("employee");
     public ResultSet findAll(String table) {
         String sql = "Select * from " + table;
 

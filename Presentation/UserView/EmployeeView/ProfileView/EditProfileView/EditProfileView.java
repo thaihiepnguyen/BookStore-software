@@ -131,9 +131,4 @@ public class EditProfileView extends JDialog {
             }
         });
     }
-
-//    public static void main(String[] args) {
-//        EditProfileView d = new EditProfileView(new UserPOJO(1, ));
-//        d.setVisible(true);
-//    }
 }
