@@ -105,12 +105,12 @@ public class bookItem extends JPanel{
         _id.setBounds(24,10,30,20);
 
         JLabel _name = new JLabel(name);
-        _name.setBounds(70,10,200,20);
+        _name.setBounds(70,10,150,20);
         _name.setFont(new Font("", Font.PLAIN, 18));
 
         JLabel _author = new JLabel(author);
         _author.setFont(new Font("", Font.PLAIN, 18));
-        _author.setBounds(250,10,200,20);
+        _author.setBounds(250,10,120,20);
 
         JLabel _publisher = new JLabel(publisher);
         _publisher.setFont(new Font("", Font.PLAIN, 18));
