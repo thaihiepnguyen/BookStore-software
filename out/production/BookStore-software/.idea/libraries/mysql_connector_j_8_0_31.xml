@@ -2,6 +2,7 @@
   <library name="mysql-connector-j-8.0.31">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../Practive/JDBC-3-layer-20221112/mysql-connector-j-8.0.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mysql-connector-j-8.0.31.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

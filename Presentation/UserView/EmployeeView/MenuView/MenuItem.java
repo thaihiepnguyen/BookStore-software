@@ -46,6 +46,7 @@ public class MenuItem extends JPanel {
                     that.tagName.setForeground(new Color(255, 255, 255));
                 }
             }
+
 //            @Override
 //            public void mouseClicked(MouseEvent e) {
 ////                that.tagName.setForeground(new Color(255, 255, 255));
