@@ -1,16 +1,18 @@
 package Presentation.UserView.EmployeeView.MenuView;
 
 import Pojo.UserPOJO;
+import Presentation.LayoutView.RoundPanel.RoundPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.nio.channels.FileLock;
 
 public class MenuView extends JPanel {
     JPanel header;
 
-    JLabel avt;
+    JLabel avt; RoundPanel avtFrame;
     JLabel roleOfUser;
     JLabel userName;
     JPanel body;
@@ -27,14 +29,23 @@ public class MenuView extends JPanel {
 
 
     public void prepareGUI(UserPOJO user) {
+        avtFrame = new RoundPanel();
         header = new JPanel();
         {
-            avt = new JLabel((
-                    ImageIconUtil.getIcon(
-                            "Public/image/user/0.png",
-                            50, 50
-                    )
-            ));
+            if (user.getAvt() == null)
+                avt = new JLabel((
+                        ImageIconUtil.getIcon(
+                                "Public/image/user/0.png",
+                                50, 50
+                        )
+                ));
+            else
+                avt = new JLabel((
+                        ImageIconUtil.getIcon(
+                                user.getAvt(),
+                                50, 50
+                        )
+                ));
 
             roleOfUser = new JLabel("Employee");
             roleOfUser.setForeground(new Color(255,255, 255));
@@ -71,10 +82,17 @@ public class MenuView extends JPanel {
         header.setLayout(null);
         header.setOpaque(false);
         {
-            avt.setBounds(10, 10, 50, 50);
+//            avtFrame.setBounds(10, 10, 50, 50);
+//            avtFrame.setRoundBottomLeft(20);
+//            avtFrame.setRoundBottomRight(20);
+//            avtFrame.setRoundTopLeft(20);
+//            avtFrame.setRoundTopRight(20);
+//            avtFrame.setLayout(new BorderLayout());
+
             roleOfUser.setBounds(75, 10, 100, 30);
             userName.setBounds(75, 30, 100, 30);
-
+            avt.setBounds(10, 10,50, 50);
+//            avtFrame.add(avt, BorderLayout.CENTER);
             header.add(avt);
             header.add(userName);
             header.add(roleOfUser);
@@ -133,4 +151,3 @@ public class MenuView extends JPanel {
 //
     }
 }
-

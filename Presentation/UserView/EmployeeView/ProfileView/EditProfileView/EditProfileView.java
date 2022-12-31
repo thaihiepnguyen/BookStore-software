@@ -137,6 +137,7 @@ public class EditProfileView extends JDialog {
                 String oldpass = that.oldPassword.jTextField.getText();
                 String newpass = that.newPassword.jTextField.getText();
                 String confirmpass = that.confirmPassword.jTextField.getText();
+                String avatar = that.avatar.jTextField.getText();
 
                 Map<String, String> entity = new LinkedHashMap<>();
 
@@ -159,6 +160,10 @@ public class EditProfileView extends JDialog {
 
                 if (!address.equals("")) {
                     entity.put("address", address);
+                }
+
+                if (!avatar.equals("")) {
+                    entity.put("avt_path", avatar);
                 }
 
                 EmployeeBU.update(entity, id);
@@ -185,12 +190,15 @@ public class EditProfileView extends JDialog {
 
                 String dest = HomeView.currentPath + "/Public/image/user/" +
                         Integer.toString(userPOJO.getUserID()) + typeOfFile;
-
                 try {
                     copyFileUsingStream(new File(source), new File(dest));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+
+//                avatar.jTextField.setPlaceholder(dest);
+                avatar.jTextField.setText("Public/image/user/" +
+                Integer.toString(userPOJO.getUserID()) + typeOfFile);
             }
         });
     }
