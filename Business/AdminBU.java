@@ -1,10 +1,7 @@
-package Business.UserBU;
+package Business;
 
 import DataAccess.AdminDA;
 import Presentation.UserView.AdminView.AdminView;
-
-import javax.swing.*;
-import java.sql.SQLException;
 
 public class AdminBU {
     private AdminDA adminModel = null;

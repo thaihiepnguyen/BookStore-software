@@ -37,8 +37,9 @@ public class UserDA {
             Date hire_date = rs.getDate("hire_date");
             String tel = rs.getString("tel");
             Boolean status = rs.getBoolean("is_enable");
+            String avt = rs.getString("avt_path");
 
-            UserPOJO us = new UserPOJO(id,userName,password,firstname,lastname,gender,address,role_id,hire_date,tel,status);
+            UserPOJO us = new UserPOJO(id,userName,password,firstname,lastname,gender,address,role_id,hire_date,tel,status, avt);
             ans.add(us);
         }
       }

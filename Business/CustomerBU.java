@@ -1,4 +1,4 @@
-package Business.UserBU;
+package Business;
 
 import DataAccess.CategoryDA;
 import DataAccess.CustomerDA;

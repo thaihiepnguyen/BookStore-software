@@ -14,9 +14,11 @@ public class UserPOJO {
     private boolean status;
     private String tel;
 
+    private String avt;
+
     public UserPOJO() {
     }
-    public UserPOJO(int userID, String username, String password, String firstname, String lastname, String gender, String address, int role_id, Date hire_date, String tel, boolean status) {
+    public UserPOJO(int userID, String username, String password, String firstname, String lastname, String gender, String address, int role_id, Date hire_date, String tel, boolean status, String avt) {
         this.userID = userID;
         this.username = username;
         this.password = password;
@@ -28,6 +30,7 @@ public class UserPOJO {
         this.hire_date = hire_date;
         this.status = status;
         this.tel = tel;
+        this.avt = avt;
     }
 
     public int getUserID() {

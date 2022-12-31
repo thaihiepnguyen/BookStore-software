@@ -1,9 +1,22 @@
 import DataAccess.MySQLDatabase;
 import Presentation.HomeView.HomeView;
+
+import java.io.IOException;
+
 public class App {
+    public static String currentPath;
+
+    static {
+        try {
+            currentPath = new java.io.File(".").getCanonicalPath();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
-        final var DEFAULT_WINDOW_WIDTH = 1000;
-        final var DEFAULT_WINDOW_HEIGHT = 600;
+        final int DEFAULT_WINDOW_WIDTH = 1000;
+        final int DEFAULT_WINDOW_HEIGHT = 600;
 
         // create database.
         new MySQLDatabase(
@@ -15,6 +28,7 @@ public class App {
             );
 
         HomeView.run(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+        HomeView.setCurrentPath(currentPath);
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

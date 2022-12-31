@@ -1,6 +1,6 @@
 package Presentation.UserView.EmployeeView.PromotionView.Components;
 
-import Business.UserBU.PromotionBU;
+import Business.PromotionBU;
 import DataAccess.PromotionDA;
 import Presentation.UserView.EmployeeView.BookView.MyComponents.MyButton;
 import Presentation.UserView.EmployeeView.PromotionView.PromotionView;

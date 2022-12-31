@@ -1,10 +1,12 @@
 package Presentation.UserView.EmployeeView.ProfileView.EditProfileView;
 
-import DataAccess.EmployeeDA;
+import Business.EmployeeBU;
 import Pojo.UserPOJO;
+import Presentation.HomeView.HomeView;
 import Presentation.LayoutView.MyButton.MyButton;
 
 import javax.swing.*;
+import java.io.*;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -22,13 +24,15 @@ public class EditProfileView extends JDialog {
     InputComponent address;
     InputComponent firstName;
     InputComponent lastName;
+    InputComponent avatar;
 
     MyButton update = new MyButton("Update");
+    MyButton add = new MyButton("Add");
 
     public EditProfileView(UserPOJO userPOJO) {
         prepareGUI(userPOJO);
         designGUI();
-        actionGUI();
+        actionGUI(userPOJO);
     }
 
     public void prepareGUI(UserPOJO userPOJO) {
@@ -43,6 +47,7 @@ public class EditProfileView extends JDialog {
         firstName = new InputComponent("First Name", userPOJO.getFirstname());
         lastName = new InputComponent("Last Name", userPOJO.getLastname());
         address = new InputComponent("Your Address", userPOJO.getAddress());
+        avatar = new InputComponent("Your Avatar", "/images/avatar....");
     }
 
     public void designGUI() {
@@ -62,6 +67,13 @@ public class EditProfileView extends JDialog {
         address.setBounds(30,340, 540, 75);
         address.setOpaque(false);
 
+        avatar.setBounds(30,420, 180, 75);
+        avatar.setOpaque(false);
+
+        add.setTextColor(Color.WHITE);
+        add.setRound(10,10,10,10);
+        add.setBackgroundColor(new Color(52,77,103));
+        add.setBounds(220,464, 80, 30);
 
         oldPassword.setBounds(320,100, 250, 75);
         oldPassword.setOpaque(false);
@@ -89,14 +101,30 @@ public class EditProfileView extends JDialog {
         container.add(phoneNumber);
         container.add(title);
         container.add(firstName); container.add(lastName); container.add(address);
-        container.add(update);
+        container.add(update); container.add(add); container.add(avatar);
 
         setContentPane(container);
         pack();
 //        this.setVisible(true);
     }
+    private static void copyFileUsingStream(File source, File dest) throws IOException {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
+        }
+    }
 
-    public void actionGUI() {
+    public void actionGUI(UserPOJO userPOJO) {
         var that = this;
         update.addMouseListener(new MouseAdapter() {
             @Override
@@ -111,29 +139,59 @@ public class EditProfileView extends JDialog {
                 String confirmpass = that.confirmPassword.jTextField.getText();
 
                 Map<String, String> entity = new LinkedHashMap<>();
-                if (username != "") {
+
+                int id = userPOJO.getUserID();
+                if (!username.equals("")) {
                     entity.put("username", username);
                 }
 
-                if (firstname != "") {
+                if (!firstname.equals("")) {
                     entity.put("firstname", firstname);
                 }
 
-                if (lastname != "") {
+                if (!lastname.equals("")) {
                     entity.put("lastname", lastname);
                 }
 
+                if (!phonenumber.equals("")) {
+                    entity.put("tel", phonenumber);
+                }
 
-                System.out.println(
-                        username + ", " + firstname + ", " + lastname + ", " + phonenumber+ ", " + oldpass + ", "
-                );
-//                EmployeeDA.patch();
+                if (!address.equals("")) {
+                    entity.put("address", address);
+                }
+
+                EmployeeBU.update(entity, id);
+
+                that.setVisible(false);
+            }
+        });
+
+        add.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.showOpenDialog(that);
+
+                File f = chooser.getSelectedFile();
+                String source = f.getAbsolutePath();
+
+                int lastIndexOf = source.lastIndexOf(".");
+                if (lastIndexOf == -1) {
+                    return; // error
+                }
+
+                String typeOfFile = source.substring(lastIndexOf);
+
+                String dest = HomeView.currentPath + "/Public/image/user/" +
+                        Integer.toString(userPOJO.getUserID()) + typeOfFile;
+
+                try {
+                    copyFileUsingStream(new File(source), new File(dest));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
-
-//    public static void main(String[] args) {
-//        EditProfileView d = new EditProfileView(new UserPOJO(1, ));
-//        d.setVisible(true);
-//    }
 }

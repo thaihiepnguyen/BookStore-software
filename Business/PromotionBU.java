@@ -1,4 +1,4 @@
-package Business.UserBU;
+package Business;
 
 import DataAccess.PromotionDA;
 import Pojo.PromotionPOJO;

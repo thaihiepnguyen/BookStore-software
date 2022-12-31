@@ -1,6 +1,6 @@
 package Presentation.UserView.LoginView;
 
-import Business.UserBU.AccountBU;
+import Business.AccountBU;
 
 import javax.swing.*;
 import java.awt.*;

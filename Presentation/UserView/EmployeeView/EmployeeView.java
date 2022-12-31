@@ -25,9 +25,9 @@ public class EmployeeView extends JPanel {
     final String CUSTOMER_PAGE = "customerView";
     final String PROFILE_PAGE = "profileView";
 
-    CardLayout mainLayout;
+    public CardLayout mainLayout;
 
-    JPanel container;
+    public JPanel container;
 
     ContentView contentView;
     AllBooksList bookView;
