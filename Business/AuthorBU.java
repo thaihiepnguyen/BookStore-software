@@ -1,4 +1,4 @@
-package Business.UserBU;
+package Business;
 
 import DataAccess.AuthorDA;
 import DataAccess.PublisherDA;

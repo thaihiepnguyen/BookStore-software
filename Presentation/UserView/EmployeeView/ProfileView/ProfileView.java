@@ -20,7 +20,7 @@ public class ProfileView extends JPanel {
     JLabel address; JLabel LAddress = new JLabel("Address: ");
 
     JLabel basicInformation;
-    JLabel email; JLabel LEmail = new JLabel("Email: ");
+//    JLabel email; JLabel LEmail = new JLabel("Email: ");
     JLabel gender; JLabel LGender = new JLabel("Gender: ");
 
     JLabel hireDate; JLabel LHire = new JLabel("Hire Date: ");
@@ -42,7 +42,7 @@ public class ProfileView extends JPanel {
         basicInformation = new JLabel("BASIC INFORMATION");
         avt = new JLabel((
                 ImageIconUtil.getIcon(
-                        "Public/image/user/1.png",
+                        "Public/image/user/0.png",
                         100, 100
                 )
         ));
@@ -65,6 +65,7 @@ public class ProfileView extends JPanel {
         edit.setBounds(630, 75, 85, 30);
 
         avt.setBounds(550, 35, 100, 100);
+
 
         body.setBounds(30,130,700,380);
         body.setBackground(Color.decode("#ffffff"));
@@ -91,7 +92,7 @@ public class ProfileView extends JPanel {
         LAddress.setForeground(Color.decode("#404040"));
         address.setForeground(new Color(57, 77, 101));
         address.setFont(new Font(name.getName(), Font.PLAIN, 14));
-        address.setBounds(120,180,350,30);
+        address.setBounds(120,180,400,30);
 
         basicInformation.setForeground(Color.decode("#A9A9A9"));
         basicInformation.setFont(new Font(name.getName(), Font.PLAIN, 14));

@@ -4,8 +4,8 @@ import Pojo.UserPOJO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.File;
+import java.nio.channels.FileLock;
 
 public class MenuView extends JPanel {
     JPanel header;
@@ -31,7 +31,7 @@ public class MenuView extends JPanel {
         {
             avt = new JLabel((
                     ImageIconUtil.getIcon(
-                            "Public/image/user/1.png",
+                            "Public/image/user/0.png",
                             50, 50
                     )
             ));

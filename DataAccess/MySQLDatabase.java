@@ -104,25 +104,18 @@ public class MySQLDatabase {
         return entity;
     }
 
-    public Map<String, Object> findOne(String table, int id) {
+    public ResultSet findOne(String table, int id) {
         String sql = "select * from "+table+" where" +
                 " id = " + id;
-        List<Map<String, Object>> list = null;
-        Map<String, Object> result = null;
-        ResultSet rs;
+
+        ResultSet result = null;
         try {
-            rs = this.statement.executeQuery(sql);
+            result = this.statement.executeQuery(sql);
 
-            if (rs == null) return null;
+            if (result == null) return null;
 
-            list = this.resultSetToList(rs);
         } catch (SQLException ex) {
             System.out.println(ex);
-        }
-
-        for (var item : list) {
-            result = item;
-            break;
         }
 
         return result;
