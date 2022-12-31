@@ -2,12 +2,12 @@ package DataAccess;
 
 import Pojo.UserPOJO;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Date;
 
 public class EmployeeDA extends UserPOJO {
     static MySQLDatabase db;
@@ -23,7 +23,6 @@ public class EmployeeDA extends UserPOJO {
 //    public static ResultSet EmployeeDATOResultSetConvertBack(List<EmployeeDA> employeeDA) {
 //
 //    }
-
 
 
     public static List<EmployeeDA> ResultSetToEmployeeDAConverter(ResultSet entity) {
@@ -63,7 +62,9 @@ public class EmployeeDA extends UserPOJO {
         return employeeModels;
     }
 
-    public EmployeeDA() { }
+    public EmployeeDA() {
+    }
+
     public EmployeeDA(
             int userID,
             String username,
@@ -76,7 +77,7 @@ public class EmployeeDA extends UserPOJO {
             Date hire_date,
             String tel,
             Boolean status
-            ) {
+    ) {
         super(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status);
     }
 
@@ -84,7 +85,7 @@ public class EmployeeDA extends UserPOJO {
     public static EmployeeDA findEmployeeDA(String username, String password) {
         ResultSet entity = db.findOneUser("user", username, password);
 
-        if (entity == null ) return null;
+        if (entity == null) return null;
 
         List<EmployeeDA> employeeModel;
         employeeModel = ResultSetToEmployeeDAConverter(entity);
@@ -92,11 +93,12 @@ public class EmployeeDA extends UserPOJO {
         if (employeeModel.size() == 0) return null;
         else return employeeModel.get(0);
     }
+
     public static List<EmployeeDA> loadAllEmployeeDA() {
         List<EmployeeDA> employees;
 
         ResultSet dataOfEmployees = db.findAll("user");
-        
+
         if (dataOfEmployees == null) return null;
 
         employees = ResultSetToEmployeeDAConverter(dataOfEmployees);
@@ -123,5 +125,15 @@ public class EmployeeDA extends UserPOJO {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+    }
+
+    public static String getEmployeeName(int id) throws SQLException {
+        ResultSet rs = db.findAll("user");
+        while (rs.next()) {
+            if (rs.getInt("role_id") == 2 && rs.getInt("id") == id){
+                return rs.getString("firstname") + " " + rs.getString("lastname");
+            }
+        }
+        return null;
     }
 }

@@ -4,8 +4,6 @@ import Pojo.UserPOJO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MenuView extends JPanel {
     JPanel header;
@@ -21,6 +19,7 @@ public class MenuView extends JPanel {
     public MenuItem promotion;
     public MenuItem customer;
     public MenuItem profile;
+
     JPanel footer;
 
     public MenuItem logout;

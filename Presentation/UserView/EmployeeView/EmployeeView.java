@@ -5,6 +5,7 @@ import Presentation.HomeView.HomeView;
 import Presentation.UserView.EmployeeView.BookView.AllBooksList;
 import Presentation.UserView.EmployeeView.CustomerView.CustomerView;
 import Presentation.UserView.EmployeeView.DashBoardView.ContentView;
+import Presentation.UserView.EmployeeView.ImportSheetView.ImportSheet;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
 import Presentation.UserView.EmployeeView.ProfileView.ProfileView;
 import Presentation.UserView.EmployeeView.PromotionView.PromotionView;
@@ -24,6 +25,7 @@ public class EmployeeView extends JPanel {
     final String PROMOTION_PAGE = "promotionView";
     final String CUSTOMER_PAGE = "customerView";
     final String PROFILE_PAGE = "profileView";
+    final String IMPORTSHEET_PAGE = "importSheetView";
 
     CardLayout mainLayout;
 
@@ -35,6 +37,7 @@ public class EmployeeView extends JPanel {
     PromotionView promotionView;
     ProfileView profileView;
     CustomerView customerView;
+    ImportSheet importSheetView;
 
     public void prepareGUI(UserPOJO user) {
         mainLayout = new CardLayout();
@@ -46,6 +49,7 @@ public class EmployeeView extends JPanel {
         promotionView = new PromotionView();
         profileView = new ProfileView(user);
         customerView = new CustomerView();
+        importSheetView = new ImportSheet(user);
 
         usernameBuffer = user.getUsername();
     }
@@ -61,6 +65,7 @@ public class EmployeeView extends JPanel {
         container.add(promotionView, PROMOTION_PAGE);
         container.add(profileView, PROFILE_PAGE);
         container.add(customerView, CUSTOMER_PAGE);
+        container.add(importSheetView, IMPORTSHEET_PAGE);
 
         setLayout(new BorderLayout());
         setBackground(new Color(214,228,229));
@@ -156,7 +161,7 @@ public class EmployeeView extends JPanel {
         prepareGUI(user);
         designGUI();
         actionGUI();
-
-        mainLayout.show(container, DASHBOARD_PAGE);
+//        container.add(new ImportSheet(user),"test");
+//        mainLayout.show(container, "test");
     }
 }
