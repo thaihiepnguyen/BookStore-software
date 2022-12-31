@@ -33,7 +33,6 @@ public class MySQLDatabase {
             conn = DriverManager.getConnection(url, username, password);
 
             statement = conn.createStatement();
-
         }catch(SQLException | ClassNotFoundException e) {
             System.out.println(e);
         }
@@ -110,8 +109,8 @@ public class MySQLDatabase {
     }
 
     public Map<String, Object> findOne(String table, int id) {
-        var sql = "select * from "+table+" where" +
-                " id = \"" + id;
+        String sql = "select * from "+table+" where" +
+                " id = " + id;
         List<Map<String, Object>> list = null;
         Map<String, Object> result = null;
         ResultSet rs;
@@ -156,9 +155,10 @@ public class MySQLDatabase {
         }
     }
 
-    public void update(String table,int id,Map<String,Object> data) {
+
+    public void update(String table,int id,Map<String,Object> entity) {
         String values = "";
-        for (Map.Entry<String,Object> entry : data.entrySet()){
+        for (Map.Entry<String,Object> entry : entity.entrySet()){
             values+=entry.getKey()+"='"+entry.getValue()+"',";
         }
         StringBuffer sb= new StringBuffer(values);

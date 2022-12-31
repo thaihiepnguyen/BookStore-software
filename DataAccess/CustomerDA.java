@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDA {
-
     static MySQLDatabase db;
 
     static {
