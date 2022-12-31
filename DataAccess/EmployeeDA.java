@@ -8,11 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-=======
+
 import java.sql.Date;
 import java.util.Map;
->>>>>>> 62b83b9f0cf12651b9954dce2c0a351e0524613a
 
 public class EmployeeDA extends UserPOJO {
     static MySQLDatabase db;

@@ -5,17 +5,6 @@ import Presentation.LayoutView.RoundPanel.RoundPanel;
 
 import javax.swing.*;
 import java.awt.*;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-=======
-import java.awt.geom.RoundRectangle2D;
->>>>>>> 2a2a425e86280221222c7e2b76536a1f77f09ee0
-import java.io.File;
-import java.nio.channels.FileLock;
->>>>>>> 62b83b9f0cf12651b9954dce2c0a351e0524613a
 
 public class MenuView extends JPanel {
     public JPanel header;
@@ -31,12 +20,10 @@ public class MenuView extends JPanel {
     public MenuItem sheet;
     public MenuItem promotion;
     public MenuItem customer;
-<<<<<<< HEAD
+
     public MenuItem profile;
 
-=======
     public MenuItem order;
->>>>>>> 62b83b9f0cf12651b9954dce2c0a351e0524613a
     JPanel footer;
 
     public MenuItem logout;
