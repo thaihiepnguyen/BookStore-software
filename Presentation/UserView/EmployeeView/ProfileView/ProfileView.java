@@ -9,10 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 public class ProfileView extends JPanel {
     JLabel head;
-    JLabel avt;
+    JLabel avt; JPanel avtFrame;
     JPanel body;
     JLabel contactInformation;
     JLabel name;
@@ -30,6 +31,7 @@ public class ProfileView extends JPanel {
     EditProfileView editView;
 
     void prepareGUI(UserPOJO userPOJO) {
+
         head = new JLabel("My Profile");
         body = new JPanel();
         name = new JLabel(userPOJO.getFirstname() + " " +userPOJO.getLastname());
@@ -40,12 +42,26 @@ public class ProfileView extends JPanel {
         hireDate = new JLabel(userPOJO.getHire_date().toString());
         contactInformation = new JLabel("CONTACT INFORMATION");
         basicInformation = new JLabel("BASIC INFORMATION");
-        avt = new JLabel((
-                ImageIconUtil.getIcon(
-                        "Public/image/user/0.png",
-                        100, 100
-                )
-        ));
+
+
+        if (userPOJO.getAvt() == null) {
+
+            avt = new JLabel((
+                    ImageIconUtil.getIcon(
+                            "Public/image/user/0.png",
+                            100, 100
+                    )
+            ));
+        }
+        else {
+            avt = new JLabel((
+                    ImageIconUtil.getIcon(
+                            userPOJO.getAvt(),
+                            100, 100
+                    )
+            ));
+        }
+
 
         edit.setTextColor(Color.WHITE);
         edit.setRound(10,10,10,10);

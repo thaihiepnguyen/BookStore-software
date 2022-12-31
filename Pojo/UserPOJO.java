@@ -121,6 +121,14 @@ public class UserPOJO {
         this.tel = tel;
     }
 
+    public String getAvt() {
+        return avt;
+    }
+
+    public void setAvt(String avt) {
+        this.avt = avt;
+    }
+
     @Override
     public String toString() {
         return "UserModel{" +
