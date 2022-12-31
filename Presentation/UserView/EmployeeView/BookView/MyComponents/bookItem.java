@@ -1,6 +1,6 @@
 package Presentation.UserView.EmployeeView.BookView.MyComponents;
 
-import Business.UserBU.BookBU;
+import Business.BookBU;
 import DataAccess.BookDA;
 import Pojo.BookPOJO;
 import Presentation.UserView.EmployeeView.BookView.AllBooksList;

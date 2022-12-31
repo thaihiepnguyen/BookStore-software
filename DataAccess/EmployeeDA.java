@@ -8,6 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.sql.Date;
+import java.util.Map;
+>>>>>>> 62b83b9f0cf12651b9954dce2c0a351e0524613a
 
 public class EmployeeDA extends UserPOJO {
     static MySQLDatabase db;
@@ -39,6 +44,7 @@ public class EmployeeDA extends UserPOJO {
         Date hire_date = null;
         boolean status = false;
         String tel = "";
+        String avt = "";
         try {
             while (entity.next()) {
                 userID = entity.getInt("id");
@@ -50,10 +56,25 @@ public class EmployeeDA extends UserPOJO {
                 address = entity.getString("address");
                 role_id = entity.getInt("role_id");
                 hire_date = entity.getDate("hire_date");
-                status = entity.getBoolean("is_enable");
                 tel = entity.getString("tel");
+                status = entity.getBoolean("is_enable");
 
-                employeeModels.add(new EmployeeDA(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status));
+                avt = entity.getString("avt_path");
+
+                employeeModels.add(new EmployeeDA(
+                        userID,
+                        username,
+                        password,
+                        firstname,
+                        lastname,
+                        gender,
+                        address,
+                        role_id,
+                        hire_date,
+                        tel,
+                        status,
+                        avt
+                ));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -76,9 +97,16 @@ public class EmployeeDA extends UserPOJO {
             int role_id,
             Date hire_date,
             String tel,
+<<<<<<< HEAD
             Boolean status
     ) {
         super(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status);
+=======
+            Boolean status,
+            String avt
+            ) {
+        super(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status, avt);
+>>>>>>> 62b83b9f0cf12651b9954dce2c0a351e0524613a
     }
 
     // The codes below to get data from database
@@ -94,6 +122,20 @@ public class EmployeeDA extends UserPOJO {
         else return employeeModel.get(0);
     }
 
+<<<<<<< HEAD
+=======
+    public static EmployeeDA findEmployeeDA(int id) {
+        ResultSet entity = db.findOne("user", id);
+
+        if (entity == null ) return null;
+
+        List<EmployeeDA> employeeModel;
+        employeeModel = ResultSetToEmployeeDAConverter(entity);
+
+        if (employeeModel.size() == 0) return null;
+        else return employeeModel.get(0);
+    }
+>>>>>>> 62b83b9f0cf12651b9954dce2c0a351e0524613a
     public static List<EmployeeDA> loadAllEmployeeDA() {
         List<EmployeeDA> employees;
 
@@ -106,21 +148,25 @@ public class EmployeeDA extends UserPOJO {
         return employees;
     }
 
-    public static void patch(UserPOJO entity) {
+    public static void patch(Map<String, String> entity, int id) {
+        String values = "";
 
-        String sql = "update user where username = ? and password = ?";
+        for (var entry : entity.entrySet()) {
+            values += entry.getKey() + "='" + entry.getValue() + "',";
+        }
+        if (values.length() == 0) {
+            return;
+        }
 
+        values = values.substring(0, values.length() - 1);
+        String sql = "update user set " + values + "where id = " + id;
+
+        System.out.println(sql);
 
         try {
-            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
-
-//            preparedStatement.setString(1, user);
-//            preparedStatement.setString(2, pass);
-//
-//            entity = preparedStatement.executeQuery();
-//
-//            if (entity == null) {
-//                return null;
+//            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+//            db.statement.executeQuery(sql);
+            db.statement.executeUpdate(sql);
 //            }
         } catch (SQLException ex) {
             System.out.println(ex);

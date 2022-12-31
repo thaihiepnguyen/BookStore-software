@@ -1,13 +1,9 @@
 package Presentation.UserView.EmployeeView.DashBoardView.Publisher;
 
-import Business.UserBU.CategoryBU;
-import Business.UserBU.PublisherBU;
-import Pojo.CategoryPOJO;
+import Business.PublisherBU;
 import Pojo.PublisherPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.LayoutView.RoundPanel.RoundPanel;
-import Presentation.UserView.EmployeeView.DashBoardView.Category.CategoryForm.CategoryForm;
-import Presentation.UserView.EmployeeView.DashBoardView.Category.CategoryItem.CategoryItem;
 import Presentation.UserView.EmployeeView.DashBoardView.Publisher.PublisherForm.PublisherForm;
 import Presentation.UserView.EmployeeView.DashBoardView.Publisher.PublisherItem.PublisherItem;
 
@@ -16,7 +12,6 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 
 public class Publisher extends JPanel {
     JLabel title = new JLabel("All Publishers");

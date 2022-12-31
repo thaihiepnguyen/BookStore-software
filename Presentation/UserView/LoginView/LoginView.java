@@ -1,6 +1,6 @@
 package Presentation.UserView.LoginView;
 
-import Business.UserBU.AccountBU;
+import Business.AccountBU;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,12 +99,15 @@ public class LoginView extends JPanel implements ActionListener {
 
         employee.setForeground(new Color(57, 77, 101));
         employee.setFont(new Font(titleDescription.getName(), Font.PLAIN, 12));
+        employee.setOpaque(false);
+
 
         admin.setForeground(new Color(57, 77, 101));
         admin.setFont(new Font(titleDescription.getName(), Font.PLAIN, 12));
-
+        admin.setOpaque(false);
         employee.setBounds(0, 165, 125, 25);
         admin.setBounds(125, 165, 125, 25);
+
 
 
         login.setBounds(0, 200, 100, 45);

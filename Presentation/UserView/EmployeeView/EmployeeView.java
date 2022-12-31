@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+
 public class EmployeeView extends JPanel {
 
     public static String usernameBuffer = "";
@@ -27,9 +28,9 @@ public class EmployeeView extends JPanel {
     final String PROFILE_PAGE = "profileView";
     final String IMPORTSHEET_PAGE = "importSheetView";
 
-    CardLayout mainLayout;
+    public CardLayout mainLayout;
 
-    JPanel container;
+    public JPanel container;
 
     ContentView contentView;
     AllBooksList bookView;
@@ -78,7 +79,7 @@ public class EmployeeView extends JPanel {
         menuView.customer.holdClick = false;
         menuView.dashboard.holdClick = false;
         menuView.promotion.holdClick = false;
-        menuView.profile.holdClick = false;
+        menuView.order.holdClick = false;
         menuView.book.holdClick = false;
     }
     public void resetForeground() {
@@ -86,7 +87,7 @@ public class EmployeeView extends JPanel {
         menuView.book.tagName.setForeground(new Color(200,200, 200));
         menuView.promotion.tagName.setForeground(new Color(200,200, 200));
         menuView.customer.tagName.setForeground(new Color(200,200, 200));
-        menuView.profile.tagName.setForeground(new Color(200,200, 200));
+        menuView.order.tagName.setForeground(new Color(200,200, 200));
     }
 
 
@@ -136,16 +137,23 @@ public class EmployeeView extends JPanel {
             }
         });
 
-        menuView.profile.addMouseListener(new MouseAdapter() {
+        menuView.order.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 resetClicked();
                 resetForeground();
-                menuView.profile.holdClick = true;
-                menuView.profile.tagName.setForeground(new Color(255, 255, 255));
+                menuView.order.holdClick = true;
+                menuView.order.tagName.setForeground(new Color(255, 255, 255));
+            }
+        });
+
+        menuView.header.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 mainLayout.show(container, PROFILE_PAGE);
             }
         });
+
         menuView.logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

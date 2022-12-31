@@ -104,7 +104,7 @@ public class BookPOJO {
         this.status = status;
     }
     public String toString(){
-        return id + " ** " + name + " ** " + author + " ** " + publisher;
+        return id + " ** " + name + " ** " + author + " ** " + publisher + "++" + category;
     }
     public BookPOJO(int id, String name, String description, String author, String publisher) {
         this.id=id;
@@ -113,12 +113,13 @@ public class BookPOJO {
         this.author=author;
         this.publisher=publisher;
     }
-    public BookPOJO(int id, String name, String description, String author, String publisher, int quantity, boolean is_enable) {
+    public BookPOJO(int id, String name, String description, String author, String publisher,String category, int quantity, boolean is_enable) {
         this.id=id;
         this.name=name;
         this.description=description;
         this.author=author;
         this.publisher=publisher;
+        this.category =  category;
         this.quantity = quantity;
         this.is_enable = is_enable;
     }
