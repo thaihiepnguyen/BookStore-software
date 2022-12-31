@@ -74,6 +74,7 @@ public class LoginView extends JPanel implements ActionListener {
         tinyTitle.setForeground(new Color(221, 221, 221));
 
         leftComponent.setBackground(new Color(57, 77, 101));
+//        leftComponent.setBackground(Color.decode("#FF7F50"));
         leftComponent.setLayout(new GridLayout(2, 1));
 
 
@@ -83,8 +84,8 @@ public class LoginView extends JPanel implements ActionListener {
 
         loginLabel.setFont(new Font(loginLabel.getName(), Font.BOLD, 40));
         loginLabel.setForeground(new Color(57, 77, 101));
+//        loginLabel.setForeground(Color.decode("#FF7F50"));
         loginLabel.setBounds(0, 10, 150, 75);
-
 
         userLabel.setBounds(15, 90, 125,25);
         userLabel.setFont(new Font(titleDescription.getName(), Font.PLAIN, 14));
