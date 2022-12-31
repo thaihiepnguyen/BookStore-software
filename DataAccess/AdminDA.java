@@ -33,6 +33,7 @@ public class AdminDA extends UserPOJO {
         Date hire_date = null;
         boolean status = false;
         String tel = "";
+        String avt = "";
         while (entity.next()) {
             userID = entity.getInt("id");
             username = entity.getString("username");
@@ -45,8 +46,9 @@ public class AdminDA extends UserPOJO {
             hire_date = entity.getDate("hire_date");
             status = entity.getBoolean("is_enable");
             tel = entity.getString("tel");
+            avt = entity.getString("avt_path");
 
-            adminModels.add(new AdminDA(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status));
+            adminModels.add(new AdminDA(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status, avt));
         }
         return adminModels;
     }
@@ -65,9 +67,10 @@ public class AdminDA extends UserPOJO {
             int role_id,
             Date hire_date,
             String tel,
-            Boolean status
+            Boolean status,
+            String avt
     ) {
-        super(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status);
+        super(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status, avt);
     }
 
     public static void saveAdmin(UserPOJO userPOJO) {
