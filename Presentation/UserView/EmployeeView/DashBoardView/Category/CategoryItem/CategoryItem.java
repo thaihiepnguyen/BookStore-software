@@ -1,8 +1,8 @@
-package Presentation.UserView.EmployeeView.GeneralView.Category.CategoryItem;
+package Presentation.UserView.EmployeeView.DashBoardView.Category.CategoryItem;
 
 import Pojo.CategoryPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
-import Presentation.UserView.EmployeeView.GeneralView.Category.CategoryItem.CategoryDetail.CategoryDetail;
+import Presentation.UserView.EmployeeView.DashBoardView.Category.CategoryItem.CategoryDetail.CategoryDetail;
 
 
 import javax.swing.*;

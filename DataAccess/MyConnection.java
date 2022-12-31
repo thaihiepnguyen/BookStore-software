@@ -18,7 +18,7 @@ public class MyConnection {
 
             String DB_URL = "jdbc:mysql://localhost/book-store";
             String USER = "root";
-            String PASS = "";
+            String PASS = "reallyStrongPwd123";
 
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             return connection;

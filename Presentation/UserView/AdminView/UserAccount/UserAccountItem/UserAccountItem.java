@@ -3,7 +3,6 @@ package Presentation.UserView.AdminView.UserAccount.UserAccountItem;
 import Pojo.CategoryPOJO;
 import Pojo.UserPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
-import Presentation.UserView.EmployeeView.GeneralView.Category.CategoryItem.CategoryDetail.CategoryDetail;
 
 import javax.swing.*;
 import java.awt.*;

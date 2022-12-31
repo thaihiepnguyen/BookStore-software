@@ -9,11 +9,14 @@ import java.awt.*;
 
 
 public class HomeView extends JFrame {
-    static HomeView root = new HomeView();
+    public static HomeView root = new HomeView();
     static final String LOGIN_PAGE = "loginView";
     static final String EMPLOYEE_PAGE = "employeeView";
+    static final String ADMIN_PAGE = "adminView";
     static CardLayout mainLayout;
     static JPanel container;
+
+    public static LoginView loginView;
     static void prepareGUI() {
         mainLayout = new CardLayout();
         container = new JPanel();
@@ -39,12 +42,15 @@ public class HomeView extends JFrame {
     }
 
     public static void render() {
-//        container.add(new LoginView(), LOGIN_PAGE);
-        container.add(new AdminView(), "ADMIN");
+
+        loginView = new LoginView();
+        if (EmployeeView.usernameBuffer != "") {
+            loginView.username.setText(EmployeeView.usernameBuffer);
+        }
+        container.add(loginView, LOGIN_PAGE);
         container.repaint();
         container.revalidate();
-//        mainLayout.show(container, LOGIN_PAGE);
-        mainLayout.show(container,"ADMIN");
+        mainLayout.show(container, LOGIN_PAGE);
     }
 
     public static void render(EmployeeView employeeView) {

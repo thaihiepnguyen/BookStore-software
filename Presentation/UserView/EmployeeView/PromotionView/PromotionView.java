@@ -3,7 +3,7 @@ package Presentation.UserView.EmployeeView.PromotionView;
 import Business.UserBU.PromotionBU;
 import Pojo.PromotionPOJO;
 import Pojo.UserPOJO;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton;
+import Presentation.UserView.EmployeeView.BookView.MyComponents.MyButton;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
 import Presentation.UserView.EmployeeView.PromotionView.Components.PromotionItem;
 import Presentation.UserView.EmployeeView.PromotionView.Components.addDialog;
@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PromotionView extends JPanel {
-    PromotionView(){
+    public PromotionView(){
         PromotionBU bus = new PromotionBU();
         final List<PromotionPOJO>[] pros = bus.getAll();
         add(mainPnCreate(pros, true));

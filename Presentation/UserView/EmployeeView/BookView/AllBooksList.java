@@ -1,10 +1,10 @@
-package Presentation.UserView.EmployeeView.AllBooksList;
+package Presentation.UserView.EmployeeView.BookView;
 
 import Business.UserBU.BookBU;
 import Pojo.BookPOJO;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.MyButton;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.addDialog;
-import Presentation.UserView.EmployeeView.AllBooksList.MyComponents.bookItem;
+import Presentation.UserView.EmployeeView.BookView.MyComponents.MyButton;
+import Presentation.UserView.EmployeeView.BookView.MyComponents.addDialog;
+import Presentation.UserView.EmployeeView.BookView.MyComponents.bookItem;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

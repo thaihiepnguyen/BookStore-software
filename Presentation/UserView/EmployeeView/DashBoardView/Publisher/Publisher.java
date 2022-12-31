@@ -1,12 +1,12 @@
-package Presentation.UserView.EmployeeView.GeneralView.Author;
+package Presentation.UserView.EmployeeView.DashBoardView.Publisher;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Author extends JPanel {
-    JLabel title = new JLabel("All Authors");
+public class Publisher extends JPanel {
+    JLabel title = new JLabel("All Publishers");
 
-    public Author(){
+    public Publisher(){
         setOpaque(false);
         setLayout(null);
 
@@ -15,6 +15,7 @@ public class Author extends JPanel {
         title.setForeground(new Color(52,77,103));
         title.setFont(new Font("Inter", Font.BOLD, 32));
         add(title);
-    }
 
+
+    }
 }

@@ -1,4 +1,4 @@
-package Presentation.UserView.EmployeeView.GeneralView.Category.CategoryItem.CategoryDetail;
+package Presentation.UserView.EmployeeView.DashBoardView.Category.CategoryItem.CategoryDetail;
 
 import Pojo.CategoryPOJO;
 import Presentation.LayoutView.MyButton.MyButton;

@@ -1,9 +1,9 @@
-package Presentation.UserView.EmployeeView.AllBooksList.MyComponents;
+package Presentation.UserView.EmployeeView.BookView.MyComponents;
 
 import Business.UserBU.BookBU;
 import DataAccess.BookDA;
 import Pojo.BookPOJO;
-import Presentation.UserView.EmployeeView.AllBooksList.AllBooksList;
+import Presentation.UserView.EmployeeView.BookView.AllBooksList;
 
 import javax.swing.*;
 import java.awt.*;

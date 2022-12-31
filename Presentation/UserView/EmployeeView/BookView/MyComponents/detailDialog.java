@@ -1,4 +1,4 @@
-package Presentation.UserView.EmployeeView.AllBooksList.MyComponents;
+package Presentation.UserView.EmployeeView.BookView.MyComponents;
 
 import javax.swing.*;
 import java.awt.*;

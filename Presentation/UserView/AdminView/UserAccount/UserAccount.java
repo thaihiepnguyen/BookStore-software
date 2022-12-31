@@ -8,8 +8,6 @@ import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.LayoutView.RoundPanel.RoundPanel;
 import Presentation.UserView.AdminView.UserAccount.UserAccountForm.UserAccountForm;
 import Presentation.UserView.AdminView.UserAccount.UserAccountItem.UserAccountItem;
-import Presentation.UserView.EmployeeView.GeneralView.Category.CategoryForm.CategoryForm;
-import Presentation.UserView.EmployeeView.GeneralView.Category.CategoryItem.CategoryItem;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;

@@ -1,11 +1,11 @@
-package Presentation.UserView.EmployeeView.GeneralView.Category;
+package Presentation.UserView.EmployeeView.DashBoardView.Category;
 
 import Business.UserBU.CategoryBU;
 import Pojo.CategoryPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.LayoutView.RoundPanel.RoundPanel;
-import Presentation.UserView.EmployeeView.GeneralView.Category.CategoryForm.CategoryForm;
-import Presentation.UserView.EmployeeView.GeneralView.Category.CategoryItem.CategoryItem;
+import Presentation.UserView.EmployeeView.DashBoardView.Category.CategoryForm.CategoryForm;
+import Presentation.UserView.EmployeeView.DashBoardView.Category.CategoryItem.CategoryItem;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;

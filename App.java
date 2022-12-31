@@ -2,7 +2,6 @@ import DataAccess.MySQLDatabase;
 import Presentation.HomeView.HomeView;
 public class App {
     public static void main(String[] args) {
-
         final var DEFAULT_WINDOW_WIDTH = 1000;
         final var DEFAULT_WINDOW_HEIGHT = 600;
 
@@ -11,7 +10,7 @@ public class App {
             "127.0.0.1",
             3306,
             "root",
-            "",
+            "reallyStrongPwd123",
             "book-store"
             );
 

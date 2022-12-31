@@ -6,20 +6,23 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MenuItem extends JPanel {
+
+    public boolean holdClick;
     public JLabel tagIcon;
     public JLabel tagName;
 
     public void prepareGUI() {
+        holdClick = false;
         tagIcon = new JLabel();
         tagName = new JLabel();
     }
 
     public void designGUI(String iconPath, String text) {
-        tagIcon.setBounds(0,0,30, 30);
+        tagIcon.setBounds(10,0,30, 30);
         tagIcon.setIcon(ImageIconUtil.getIcon(iconPath, 30, 30));
         tagName.setText(text);
         tagName.setBounds(50, 0, 100, 30);
-        tagName.setForeground(new Color(200,200, 200));
+        tagName.setForeground(new Color(200, 200, 200));
         tagName.setFont(new Font(tagName.getName(), Font.PLAIN, 16));
 
         this.setOpaque(false);
@@ -32,13 +35,23 @@ public class MenuItem extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                that.tagName.setForeground(new Color(255, 255, 255));
+                if (!holdClick)
+                    that.tagName.setForeground(new Color(255, 255, 255));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                that.tagName.setForeground(new Color(200, 200, 200));
+                if (!holdClick)
+                    that.tagName.setForeground(new Color(200, 200, 200));
+                else {
+                    that.tagName.setForeground(new Color(255, 255, 255));
+                }
             }
 
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+////                that.tagName.setForeground(new Color(255, 255, 255));
+//                that.holdClick = true;
+//            }
         });
     }
 
