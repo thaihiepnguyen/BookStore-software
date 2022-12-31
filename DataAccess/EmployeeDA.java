@@ -105,9 +105,14 @@ public class EmployeeDA extends UserPOJO {
         if (entity == null ) return null;
 
         List<EmployeeDA> employeeModel;
+
         employeeModel = ResultSetToEmployeeDAConverter(entity);
 
         if (employeeModel.size() == 0) return null;
+
+        if (employeeModel.get(0).getRole_id() == 1) {
+            return null;
+        }
         else return employeeModel.get(0);
     }
 

@@ -15,12 +15,12 @@ public class HomeView extends JFrame {
     static final String ADMIN_PAGE = "adminView";
     public static CardLayout mainLayout;
     public static JPanel container;
-
     public static LoginView loginView;
 
     public static String currentPath;
 
     public static EmployeeView employeeView;
+    public static AdminView adminView;
     static void prepareGUI() {
         mainLayout = new CardLayout();
         container = new JPanel();
@@ -61,6 +61,12 @@ public class HomeView extends JFrame {
         employeeView = e;
         container.add(employeeView, EMPLOYEE_PAGE);
         mainLayout.show(container, EMPLOYEE_PAGE);
+    }
+
+    public static void render(AdminView a) {
+        adminView = a;
+        container.add(adminView, ADMIN_PAGE);
+        mainLayout.show(container, ADMIN_PAGE);
     }
 
     public static void setCurrentPath(String curr) {

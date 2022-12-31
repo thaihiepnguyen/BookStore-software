@@ -5,9 +5,6 @@ import Presentation.LayoutView.RoundPanel.RoundPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
-import java.io.File;
-import java.nio.channels.FileLock;
 
 public class MenuView extends JPanel {
     JPanel header;
@@ -82,13 +79,6 @@ public class MenuView extends JPanel {
         header.setLayout(null);
         header.setOpaque(false);
         {
-//            avtFrame.setBounds(10, 10, 50, 50);
-//            avtFrame.setRoundBottomLeft(20);
-//            avtFrame.setRoundBottomRight(20);
-//            avtFrame.setRoundTopLeft(20);
-//            avtFrame.setRoundTopRight(20);
-//            avtFrame.setLayout(new BorderLayout());
-
             roleOfUser.setBounds(75, 10, 100, 30);
             userName.setBounds(75, 30, 100, 30);
             avt.setBounds(10, 10,50, 50);

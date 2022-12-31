@@ -79,7 +79,7 @@ public class AdminDA extends UserPOJO {
 
     // The codes below to get data from database
     public static AdminDA findAdmin(String username, String password) {
-        ResultSet dataOfAdmins = db.findOneUser("admin", username, password);
+        ResultSet dataOfAdmins = db.findOneUser("user", username, password);
 
         if (dataOfAdmins == null ) return null;
 
@@ -89,6 +89,8 @@ public class AdminDA extends UserPOJO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        if (adminModel.get(0).getRole_id() == 2) return null;
         return adminModel.get(0);
     }
     public static List<AdminDA> loadAllAdmins() {
