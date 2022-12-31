@@ -9,7 +9,6 @@ import java.sql.SQLException;
 public class AdminBU {
     private AdminDA adminModel = null;
     private AdminView adminView = null;
-//    HomeView homeView = HomeView.getInstance();
 
     private static AdminBU instance = null;
 

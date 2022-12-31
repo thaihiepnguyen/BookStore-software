@@ -2,6 +2,7 @@ package DataAccess;
 
 import Pojo.UserPOJO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +19,12 @@ public class EmployeeDA extends UserPOJO {
             throw new RuntimeException(e);
         }
     }
+
+//    public static ResultSet EmployeeDATOResultSetConvertBack(List<EmployeeDA> employeeDA) {
+//
+//    }
+
+
 
     public static List<EmployeeDA> ResultSetToEmployeeDAConverter(ResultSet entity) {
         List<EmployeeDA> employeeModels = new ArrayList<>();
@@ -95,5 +102,26 @@ public class EmployeeDA extends UserPOJO {
         employees = ResultSetToEmployeeDAConverter(dataOfEmployees);
 
         return employees;
+    }
+
+    public static void patch(UserPOJO entity) {
+
+        String sql = "update user where username = ? and password = ?";
+
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+
+//            preparedStatement.setString(1, user);
+//            preparedStatement.setString(2, pass);
+//
+//            entity = preparedStatement.executeQuery();
+//
+//            if (entity == null) {
+//                return null;
+//            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 }

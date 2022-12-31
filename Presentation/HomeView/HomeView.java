@@ -1,5 +1,6 @@
 package Presentation.HomeView;
 
+import Presentation.UserView.AdminView.AdminView;
 import Presentation.UserView.EmployeeView.EmployeeView;
 import Presentation.UserView.LoginView.LoginView;
 
@@ -41,6 +42,7 @@ public class HomeView extends JFrame {
     }
 
     public static void render() {
+
         loginView = new LoginView();
         if (EmployeeView.usernameBuffer != "") {
             loginView.username.setText(EmployeeView.usernameBuffer);

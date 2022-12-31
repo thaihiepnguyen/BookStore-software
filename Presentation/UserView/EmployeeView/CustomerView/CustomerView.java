@@ -1,9 +1,7 @@
 package Presentation.UserView.EmployeeView.CustomerView;
 
 import Business.UserBU.CustomerBU;
-import Business.UserBU.PublisherBU;
 import Pojo.CustomerPOJO;
-import Pojo.PublisherPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.LayoutView.RoundPanel.RoundPanel;
 import Presentation.UserView.EmployeeView.CustomerView.CustomerForm.CustomerForm;
@@ -15,7 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Customer extends JPanel {
+public class CustomerView extends JPanel {
     JLabel title = new JLabel("All Customers");
     MyButton searchBtn = new MyButton("Search");
     JTextField searchField = new JTextField();
@@ -30,7 +28,7 @@ public class Customer extends JPanel {
     JPanel list = new JPanel();
     JPanel box = new JPanel();
 
-    public Customer(){
+    public CustomerView(){
 //        setOpaque(false);
         setLayout(null);
 

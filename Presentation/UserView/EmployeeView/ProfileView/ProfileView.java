@@ -3,9 +3,12 @@ package Presentation.UserView.EmployeeView.ProfileView;
 import Pojo.UserPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
 import Presentation.UserView.EmployeeView.MenuView.ImageIconUtil;
+import Presentation.UserView.EmployeeView.ProfileView.EditProfileView.EditProfileView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ProfileView extends JPanel {
     JLabel head;
@@ -22,7 +25,9 @@ public class ProfileView extends JPanel {
 
     JLabel hireDate; JLabel LHire = new JLabel("Hire Date: ");
 
-    MyButton edit = new MyButton("Edit");
+    MyButton edit = new MyButton("Edit Profile");
+
+    EditProfileView editView;
 
     void prepareGUI(UserPOJO userPOJO) {
         head = new JLabel("My Profile");
@@ -57,7 +62,7 @@ public class ProfileView extends JPanel {
         head.setForeground(Color.decode("#344D67"));
         head.setBounds(30,35,400,100);
 
-        edit.setBounds(680, 85, 52, 20);
+        edit.setBounds(630, 75, 85, 30);
 
         avt.setBounds(550, 35, 100, 100);
 
@@ -107,13 +112,21 @@ public class ProfileView extends JPanel {
         hireDate.setBounds(120,290,350,30);
     }
 
-    void actionGUI() {}
+    void actionGUI(UserPOJO userPOJO) {
+        edit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                editView = new EditProfileView(userPOJO);
+                editView.setVisible(true);
+            }
+        });
+    }
     ProfileView() {}
 
     public ProfileView(UserPOJO userPOJO) {
         prepareGUI(userPOJO);
         designGUI();
-        actionGUI();
+        actionGUI(userPOJO);
 
         add(head);
 

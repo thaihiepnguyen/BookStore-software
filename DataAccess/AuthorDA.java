@@ -1,7 +1,6 @@
 package DataAccess;
 
 import Pojo.AuthorPOJO;
-import Pojo.CustomerPOJO;
 import Pojo.PublisherPOJO;
 
 import java.sql.PreparedStatement;
@@ -10,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDA {
+public class AuthorDA {
     static MySQLDatabase db;
 
     static {
@@ -20,20 +19,20 @@ public class CustomerDA {
             throw new RuntimeException(e);
         }
     }
-    public List<CustomerPOJO> getAll() {
-        List<CustomerPOJO> ans = new ArrayList<>();
+    public List<AuthorPOJO> getAll() {
+        List<AuthorPOJO> ans = new ArrayList<>();
         try{
-            ResultSet rs = db.findAll("customer");
+            ResultSet rs = db.findAll("author");
             while (rs.next()){
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                String address = rs.getString("address");
+                String gender = rs.getString("gender");
+                String birthday = rs.getString("date_of_birth");
                 String email = rs.getString("email");
                 String tel = rs.getString("tel");
-                String age = rs.getString("age");
                 Boolean is_enable = rs.getBoolean("is_enable");
 
-                CustomerPOJO ca = new CustomerPOJO(id,name,address,email,tel,age,is_enable);
+                AuthorPOJO ca = new AuthorPOJO(id,name,gender,birthday,email,tel,is_enable);
                 ans.add(ca);
             }
         }
@@ -44,17 +43,17 @@ public class CustomerDA {
         return ans;
     }
 
-    public void insert(CustomerPOJO data){
-        String sql = "Insert into customer (id, name, address, email, tel, age, is_enable) values (?, ?, ?, ?, ?, ?, ?)";
+    public void insert(AuthorPOJO data){
+        String sql = "Insert into author (id, name, gender, date_of_birth, email, tel, is_enable) " + "values (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = db.getConn().prepareStatement(sql);
             preparedStatement.setInt(1, data.getId());
             preparedStatement.setString(2, data.getName());
-            preparedStatement.setString(3,data.getAddress());
-            preparedStatement.setString(4,data.getEmail());
-            preparedStatement.setString(5,data.getTel());
-            preparedStatement.setString(6,data.getAge());
+            preparedStatement.setString(3,data.getGender());
+            preparedStatement.setString(4,data.getDate_of_birth());
+            preparedStatement.setString(5,data.getEmail());
+            preparedStatement.setString(6,data.getTel());
             preparedStatement.setBoolean(7, data.getIs_enable());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -62,16 +61,16 @@ public class CustomerDA {
         }
     }
 
-    public void update(CustomerPOJO data){
-        String sql = "Update customer set name=?, address=?, email=?, tel=?, age=?, is_enable=? where id=?";
+    public void update(AuthorPOJO data){
+        String sql = "Update author set name=?, gender=?, date_of_birth=?, email=?, tel=?, is_enable=? where id=?";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = db.getConn().prepareStatement(sql);
             preparedStatement.setString(1, data.getName());
-            preparedStatement.setString(2,data.getAddress());
-            preparedStatement.setString(3,data.getEmail());
-            preparedStatement.setString(4,data.getTel());
-            preparedStatement.setString(5,data.getAge());
+            preparedStatement.setString(2,data.getGender());
+            preparedStatement.setString(3,data.getDate_of_birth());
+            preparedStatement.setString(4,data.getEmail());
+            preparedStatement.setString(5,data.getTel());
             preparedStatement.setBoolean(6, data.getIs_enable());
             preparedStatement.setInt(7, data.getId());
 
@@ -82,7 +81,7 @@ public class CustomerDA {
     }
 
     public void delete(int id) {
-        String sql = "Delete from customer where id= "+id;
+        String sql = "Delete from author where id= "+id;
         try {
             db.getStatement().executeUpdate(sql);
         } catch (SQLException e) {
@@ -90,10 +89,10 @@ public class CustomerDA {
         }
     }
 
-    public List<CustomerPOJO> search(String s){
-        List<CustomerPOJO> ans = new ArrayList<>();
-        List<CustomerPOJO> rs = getAll();
-        for(CustomerPOJO pu: rs){
+    public List<AuthorPOJO> search(String s){
+        List<AuthorPOJO> ans = new ArrayList<>();
+        List<AuthorPOJO> rs = getAll();
+        for(AuthorPOJO pu: rs){
             if(pu.getName().toLowerCase().contains(s.trim().toLowerCase())
                     ||pu.getEmail().toLowerCase().contains(s.trim().toLowerCase())
                     || Integer.toString(pu.getId()).contains(s.trim())){

@@ -3,12 +3,11 @@ package Presentation.UserView.EmployeeView;
 import Pojo.UserPOJO;
 import Presentation.HomeView.HomeView;
 import Presentation.UserView.EmployeeView.BookView.AllBooksList;
-import Presentation.UserView.EmployeeView.CustomerView.Customer;
+import Presentation.UserView.EmployeeView.CustomerView.CustomerView;
 import Presentation.UserView.EmployeeView.DashBoardView.ContentView;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
 import Presentation.UserView.EmployeeView.ProfileView.ProfileView;
 import Presentation.UserView.EmployeeView.PromotionView.PromotionView;
-import Presentation.UserView.LoginView.LoginView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +34,7 @@ public class EmployeeView extends JPanel {
 
     PromotionView promotionView;
     ProfileView profileView;
-    Customer customerView;
+    CustomerView customerView;
 
     public void prepareGUI(UserPOJO user) {
         mainLayout = new CardLayout();
@@ -46,7 +45,7 @@ public class EmployeeView extends JPanel {
         bookView = new AllBooksList();
         promotionView = new PromotionView();
         profileView = new ProfileView(user);
-        customerView = new Customer();
+        customerView = new CustomerView();
 
         usernameBuffer = user.getUsername();
     }
