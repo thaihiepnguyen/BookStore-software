@@ -5,12 +5,9 @@ import Presentation.LayoutView.RoundPanel.RoundPanel;
 
 import javax.swing.*;
 import java.awt.*;
-<<<<<<< HEAD
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-=======
-import java.awt.geom.RoundRectangle2D;
->>>>>>> 2a2a425e86280221222c7e2b76536a1f77f09ee0
+
 import java.io.File;
 import java.nio.channels.FileLock;
 

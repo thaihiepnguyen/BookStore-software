@@ -39,7 +39,7 @@ public class CategoryForm extends JDialog {
     public CategoryForm(){
         setModal(true);
         setSize(new Dimension(520,390));
-        setLocation(512,230);
+        setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle(title);
