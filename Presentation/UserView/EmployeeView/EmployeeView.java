@@ -5,6 +5,7 @@ import Presentation.HomeView.HomeView;
 import Presentation.UserView.EmployeeView.BookView.AllBooksList;
 import Presentation.UserView.EmployeeView.CustomerView.CustomerView;
 import Presentation.UserView.EmployeeView.DashBoardView.ContentView;
+import Presentation.UserView.EmployeeView.ImportSheetView.ImportSheet;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
 import Presentation.UserView.EmployeeView.ProfileView.ProfileView;
 import Presentation.UserView.EmployeeView.PromotionView.PromotionView;
@@ -25,6 +26,7 @@ public class EmployeeView extends JPanel {
     final String PROMOTION_PAGE = "promotionView";
     final String CUSTOMER_PAGE = "customerView";
     final String PROFILE_PAGE = "profileView";
+    final String IMPORTSHEET_PAGE = "importSheetView";
 
     public CardLayout mainLayout;
 
@@ -36,6 +38,7 @@ public class EmployeeView extends JPanel {
     PromotionView promotionView;
     ProfileView profileView;
     CustomerView customerView;
+    ImportSheet importSheetView;
 
     public void prepareGUI(UserPOJO user) {
         mainLayout = new CardLayout();
@@ -47,6 +50,7 @@ public class EmployeeView extends JPanel {
         promotionView = new PromotionView();
         profileView = new ProfileView(user);
         customerView = new CustomerView();
+        importSheetView = new ImportSheet(user);
 
         usernameBuffer = user.getUsername();
     }
@@ -62,6 +66,7 @@ public class EmployeeView extends JPanel {
         container.add(promotionView, PROMOTION_PAGE);
         container.add(profileView, PROFILE_PAGE);
         container.add(customerView, CUSTOMER_PAGE);
+        container.add(importSheetView, IMPORTSHEET_PAGE);
 
         setLayout(new BorderLayout());
         setBackground(new Color(214,228,229));
@@ -76,12 +81,14 @@ public class EmployeeView extends JPanel {
         menuView.promotion.holdClick = false;
         menuView.order.holdClick = false;
         menuView.book.holdClick = false;
+        menuView.sheet.holdClick = false;
     }
     public void resetForeground() {
         menuView.dashboard.tagName.setForeground(new Color(200, 200, 200));
         menuView.book.tagName.setForeground(new Color(200,200, 200));
         menuView.promotion.tagName.setForeground(new Color(200,200, 200));
         menuView.customer.tagName.setForeground(new Color(200,200, 200));
+        menuView.sheet.tagName.setForeground(new Color(200,200, 200));
         menuView.order.tagName.setForeground(new Color(200,200, 200));
     }
 
@@ -132,6 +139,17 @@ public class EmployeeView extends JPanel {
             }
         });
 
+        menuView.sheet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                resetClicked();
+                resetForeground();
+                menuView.sheet.holdClick = true;
+                menuView.sheet.tagName.setForeground(new Color(255, 255, 255));
+                mainLayout.show(container, IMPORTSHEET_PAGE);
+            }
+        });
+
         menuView.order.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -164,7 +182,7 @@ public class EmployeeView extends JPanel {
         prepareGUI(user);
         designGUI();
         actionGUI();
-
-        mainLayout.show(container, DASHBOARD_PAGE);
+//        container.add(new ImportSheet(user),"test");
+//        mainLayout.show(container, "test");
     }
 }

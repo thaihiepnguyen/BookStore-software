@@ -170,7 +170,7 @@ public class AllBooksList extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 addDialog dia = new addDialog();
-                dia.setLocationRelativeTo(rightPn);
+                dia.setLocationRelativeTo(null);
                 dia.setVisible(true);
 
                 BookBU business = new BookBU();

@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.nio.channels.FileLock;
 
+
 public class MenuView extends JPanel {
     public JPanel header;
 
@@ -25,6 +26,9 @@ public class MenuView extends JPanel {
     public MenuItem sheet;
     public MenuItem promotion;
     public MenuItem customer;
+
+    public MenuItem profile;
+
     public MenuItem order;
     JPanel footer;
 

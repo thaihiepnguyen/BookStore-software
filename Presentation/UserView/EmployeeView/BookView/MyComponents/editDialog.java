@@ -59,6 +59,7 @@ public class editDialog extends JDialog {
         setTitle("Edit Book");
         // Block all another screens
         setModal(true);
+
         // Set layout
         mainPane.setLayout(null);
 //        setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);

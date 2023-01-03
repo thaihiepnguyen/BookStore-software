@@ -144,7 +144,7 @@ public class PromotionItem extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 editDialog d = new editDialog(id);
-                d.setLocationRelativeTo(_toDate);
+                d.setLocationRelativeTo(null);
                 d.setVisible(true);
 
                 PromotionBU business = new PromotionBU();
@@ -155,7 +155,7 @@ public class PromotionItem extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 extendDialog d = new extendDialog(id);
-                d.setLocationRelativeTo(_name);
+                d.setLocationRelativeTo(null);
                 d.setVisible(true);
 
                 PromotionBU business = new PromotionBU();
@@ -207,7 +207,8 @@ public class PromotionItem extends JPanel {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                d.setLocationRelativeTo(_fromDate);
+//                d.setLocationRelativeTo(_fromDate);
+                d.setLocationRelativeTo(null);
                 d.setVisible(true);
             }
         });

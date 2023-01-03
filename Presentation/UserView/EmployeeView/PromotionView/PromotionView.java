@@ -188,7 +188,7 @@ public class PromotionView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addDialog d = new addDialog();
-                d.setLocationRelativeTo(rightPn);
+                d.setLocationRelativeTo(null);
                 d.setVisible(true);
 
                 PromotionBU bus = new PromotionBU();

@@ -14,6 +14,7 @@ public class detailDialog extends JDialog {
     detailDialog(int id, String name, String description, String start_date, String end_date, float discount, int order_limit, boolean apply_cus, boolean apply_ano) throws IOException {
         setTitle(name);
 
+
         mainPane.setLayout(null);
         mainPane.setBackground(Color.decode("#475E6B"));
         mainPane.setPreferredSize(new Dimension(700,450));

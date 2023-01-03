@@ -78,10 +78,6 @@ public class BookDA {
     }
     public static void editBook(int id, String newTitle, String description, String newCategory, String newAuthor, String newPublisher, int newPrice, String newLanguage, int newQuantity){
         try {
-//            Connection connection = MyConnection.create();
-//            Statement statement;
-//            statement = connection.createStatement();
-
             int id_author = -1;
             int id_publisher = -1;
             int id_category = -1;
