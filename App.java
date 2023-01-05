@@ -1,8 +1,10 @@
 import DataAccess.MySQLDatabase;
+import DataAccess.RevenueDA;
 import Presentation.HomeView.HomeView;
 
 import java.io.IOException;
 import java.io.File;
+import java.sql.Date;
 
 public class App {
     public static void main(String[] args) {
@@ -17,7 +19,7 @@ public class App {
 
         // create database.
         new MySQLDatabase(
-            "127.0.0.1",
+            "localhost",
             3306,
             "root",
             "",
