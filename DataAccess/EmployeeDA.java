@@ -81,6 +81,8 @@ public class EmployeeDA {
 
         return employeeModels;
     }
+
+
     // The codes below to get data from database
     public static EmployeePOJO findEmployeeDA(String username, String password) {
         ResultSet entity = db.findOneUser("user", username, password);
@@ -99,7 +101,9 @@ public class EmployeeDA {
         else return employeeModel.get(0);
     }
 
+
     public static EmployeePOJO findEmployeeDA(int id) {
+
         ResultSet entity = db.findOne("user", id);
 
         if (entity == null ) return null;
@@ -110,6 +114,7 @@ public class EmployeeDA {
         if (employeeModel.size() == 0) return null;
         else return employeeModel.get(0);
     }
+
 
     public static List<EmployeePOJO> loadAllEmployeeDA() {
         List<EmployeePOJO> employees;

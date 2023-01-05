@@ -15,6 +15,7 @@ public class extendDialog extends JDialog{
 
     extendDialog(int id){
         setModal(true);
+
         // Set layout
         mainPane.setLayout(null);
         mainPane.setBackground(Color.decode("#475E6B"));

@@ -32,7 +32,7 @@ public class addNewDialog extends JDialog {
     public addNewDialog(int user_id) throws SQLException {
         setModal(true);
         setSize(new Dimension(520, 490));
-        setLocation(512, 230);
+        setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle(title);

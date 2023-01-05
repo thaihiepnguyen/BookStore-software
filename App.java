@@ -18,7 +18,7 @@ public class App {
 
         // create database.
         new MySQLDatabase(
-            "127.0.0.1",
+            "localhost",
             3306,
             "root",
             "reallyStrongPwd123",

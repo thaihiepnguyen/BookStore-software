@@ -174,6 +174,7 @@ public class bookItem extends JPanel{
                 try {
                     BookPOJO book = BookDA.getBook(id);
                     detailDialog dia = new detailDialog(name, book.getCategory(), author, publisher, book.getImgPath(), description, quantity);
+                    dia.setLocationRelativeTo(null);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -184,7 +185,7 @@ public class bookItem extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                editDialog dialog = new editDialog(id);
-               dialog.setLocationRelativeTo(_name);
+               dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
                BookBU business = new BookBU();
                screen.updateScreen(business.getAll(), true);

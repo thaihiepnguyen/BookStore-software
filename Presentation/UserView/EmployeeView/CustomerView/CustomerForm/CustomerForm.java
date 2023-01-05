@@ -85,7 +85,7 @@ public class CustomerForm extends JDialog {
     public CustomerForm(){
         setModal(true);
         setSize(new Dimension(520,390));
-        setLocation(512,230);
+        setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle(title);

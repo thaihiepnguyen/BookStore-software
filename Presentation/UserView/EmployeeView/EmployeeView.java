@@ -89,12 +89,14 @@ public class EmployeeView extends JPanel {
         menuView.promotion.holdClick = false;
         menuView.order.holdClick = false;
         menuView.book.holdClick = false;
+        menuView.sheet.holdClick = false;
     }
     public void resetForeground() {
         menuView.dashboard.tagName.setForeground(new Color(200, 200, 200));
         menuView.book.tagName.setForeground(new Color(200,200, 200));
         menuView.promotion.tagName.setForeground(new Color(200,200, 200));
         menuView.customer.tagName.setForeground(new Color(200,200, 200));
+        menuView.sheet.tagName.setForeground(new Color(200,200, 200));
         menuView.order.tagName.setForeground(new Color(200,200, 200));
     }
 
@@ -142,6 +144,17 @@ public class EmployeeView extends JPanel {
                 menuView.customer.holdClick = true;
                 menuView.customer.tagName.setForeground(new Color(255, 255, 255));
                 mainLayout.show(container, CUSTOMER_PAGE);
+            }
+        });
+
+        menuView.sheet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                resetClicked();
+                resetForeground();
+                menuView.sheet.holdClick = true;
+                menuView.sheet.tagName.setForeground(new Color(255, 255, 255));
+                mainLayout.show(container, IMPORTSHEET_PAGE);
             }
         });
 
