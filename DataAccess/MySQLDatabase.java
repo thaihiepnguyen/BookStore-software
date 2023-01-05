@@ -84,7 +84,6 @@ public class MySQLDatabase {
 
     public ResultSet findOneUser(String table, String user, String pass) {
         ResultSet entity = null;
-
         String sql = "select * from "+table+" where username = ? and password = ?";
 
         try {

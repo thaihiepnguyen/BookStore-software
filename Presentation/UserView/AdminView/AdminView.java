@@ -3,12 +3,8 @@ package Presentation.UserView.AdminView;
 import Pojo.UserPOJO;
 import Presentation.HomeView.HomeView;
 import Presentation.UserView.AdminView.UserAccount.UserAccount;
-import Presentation.UserView.EmployeeView.BookView.AllBooksList;
-import Presentation.UserView.EmployeeView.CustomerView.CustomerView;
-import Presentation.UserView.EmployeeView.DashBoardView.ContentView;
-import Presentation.UserView.EmployeeView.MenuView.MenuView;
+import Presentation.UserView.AdminView.MenuView.MenuView;
 import Presentation.UserView.EmployeeView.ProfileView.ProfileView;
-import Presentation.UserView.EmployeeView.PromotionView.PromotionView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -114,16 +110,16 @@ public class AdminView extends JPanel {
             }
         });
 
-        menuView.profile.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                resetClicked();
-                resetForeground();
-                menuView.profile.holdClick = true;
-                menuView.profile.tagName.setForeground(new Color(255, 255, 255));
-                mainLayout.show(container, DASHBOARD_PAGE);
-            }
-        });
+//        menuView.profile.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                resetClicked();
+//                resetForeground();
+//                menuView.profile.holdClick = true;
+//                menuView.profile.tagName.setForeground(new Color(255, 255, 255));
+//                mainLayout.show(container, DASHBOARD_PAGE);
+//            }
+//        });
         menuView.logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

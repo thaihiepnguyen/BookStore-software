@@ -20,9 +20,7 @@ public class ProfileView extends JPanel {
     JLabel address; JLabel LAddress = new JLabel("Address: ");
 
     JLabel basicInformation;
-//    JLabel email; JLabel LEmail = new JLabel("Email: ");
     JLabel gender; JLabel LGender = new JLabel("Gender: ");
-
     JLabel hireDate; JLabel LHire = new JLabel("Hire Date: ");
 
     MyButton edit = new MyButton("Edit Profile");
@@ -41,7 +39,6 @@ public class ProfileView extends JPanel {
         hireDate = new JLabel(userPOJO.getHire_date().toString());
         contactInformation = new JLabel("CONTACT INFORMATION");
         basicInformation = new JLabel("BASIC INFORMATION");
-
 
         if (userPOJO.getAvt() == null) {
 
@@ -145,7 +142,6 @@ public class ProfileView extends JPanel {
         actionGUI(userPOJO);
 
         add(head);
-
         body.add(name);
         body.add(contactInformation);
         body.add(LPhone);

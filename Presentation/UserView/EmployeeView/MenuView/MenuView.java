@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuView extends JPanel {
-    JPanel header;
+    public JPanel header;
 
     JLabel avt; RoundPanel avtFrame;
     JLabel roleOfUser;
@@ -17,9 +17,10 @@ public class MenuView extends JPanel {
     public MenuItem dashboard;
 
     public MenuItem book;
+    public MenuItem sheet;
     public MenuItem promotion;
     public MenuItem customer;
-    public MenuItem profile;
+    public MenuItem order;
     JPanel footer;
 
     public MenuItem logout;
@@ -29,7 +30,7 @@ public class MenuView extends JPanel {
         avtFrame = new RoundPanel();
         header = new JPanel();
         {
-            if (user.getAvt() == null)
+            if (user.getAvt().equals(""))
                 avt = new JLabel((
                         ImageIconUtil.getIcon(
                                 "Public/image/user/0.png",
@@ -64,8 +65,10 @@ public class MenuView extends JPanel {
                     "/resources/3-white.png", "Promotion");
             customer = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
                     "/resources/4-white.png", "Customer");
-            profile = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
-                    "/resources/5-white.png", "Profile");
+            order = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
+                    "/resources/8-white.png", "Order");
+            sheet = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
+                    "/resources/7-white.png", "Sheet");
         }
         footer = new JPanel();
         {
@@ -89,6 +92,7 @@ public class MenuView extends JPanel {
         }
 
         header.setBounds(0,0, 201, 75);
+        header.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
         body.setLayout(null);
@@ -98,15 +102,17 @@ public class MenuView extends JPanel {
             book.setBounds(10, 50, 200, 50);
             promotion.setBounds(10, 100, 200, 50);
             customer.setBounds(10, 150, 200, 50);
-            profile.setBounds(10, 200, 200, 50);
+            order.setBounds(10, 200, 200, 50);
+            sheet.setBounds(10,250,200,50);
             body.add(dashboard);
             body.add(book);
             body.add(promotion);
             body.add(customer);
-            body.add(profile);
+            body.add(order);
+            body.add(sheet);
         }
 
-        body.setBounds(0,150, 201, 350);
+        body.setBounds(0,120, 201, 350);
 
         footer.setLayout(null);
         footer.setOpaque(false);
@@ -121,7 +127,7 @@ public class MenuView extends JPanel {
         setBackground(new Color(57, 77, 101));
 
         setLayout(null);
-        setPreferredSize(new Dimension(200, 600));
+        setPreferredSize(new Dimension(201, 600));
     }
 
     public void actionGUI() {

@@ -8,7 +8,8 @@ public class App {
     public static void main(String[] args) {
         final int DEFAULT_WINDOW_WIDTH = 1000;
         final int DEFAULT_WINDOW_HEIGHT = 600;
-        String currentPath = null;
+        String currentPath;
+
         try {
             currentPath = new File(".").getCanonicalPath();
         } catch (IOException e) {
@@ -23,13 +24,8 @@ public class App {
             "reallyStrongPwd123",
             "book-store"
             );
-
-        HomeView.run(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
-
-        if (currentPath == null) {
-            return;
-        }
         HomeView.setCurrentPath(currentPath);
+        HomeView.run(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
