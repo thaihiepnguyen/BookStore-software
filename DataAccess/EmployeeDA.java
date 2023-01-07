@@ -1,5 +1,6 @@
 package DataAccess;
 
+import Pojo.EmployeePOJO;
 import Pojo.UserPOJO;
 
 import java.sql.Date;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.sql.Date;
 import java.util.Map;
 
-public class EmployeeDA extends UserPOJO {
+public class EmployeeDA {
     static MySQLDatabase db;
 
     static {
@@ -28,8 +29,8 @@ public class EmployeeDA extends UserPOJO {
 //    }
 
 
-    public static List<EmployeeDA> ResultSetToEmployeeDAConverter(ResultSet entity) {
-        List<EmployeeDA> employeeModels = new ArrayList<>();
+    public static List<EmployeePOJO> ResultSetToEmployeePOJOConverter(ResultSet entity) {
+        List<EmployeePOJO> employeeModels = new ArrayList<>();
 
         int userID = 0;
         String username = "";
@@ -59,7 +60,7 @@ public class EmployeeDA extends UserPOJO {
 
                 avt = entity.getString("avt_path");
 
-                employeeModels.add(new EmployeeDA(
+                employeeModels.add(new EmployeePOJO(
                         userID,
                         username,
                         password,
@@ -81,58 +82,48 @@ public class EmployeeDA extends UserPOJO {
         return employeeModels;
     }
 
-    public EmployeeDA() {
-    }
-
-    public EmployeeDA(
-            int userID,
-            String username,
-            String password,
-            String firstname,
-            String lastname,
-            String gender,
-            String address,
-            int role_id,
-            Date hire_date,
-            String tel,
-            Boolean status,
-            String avt
-            ) {
-        super(userID, username, password, firstname, lastname, gender, address, role_id, hire_date, tel, status, avt);
-    }
 
     // The codes below to get data from database
-    public static EmployeeDA findEmployeeDA(String username, String password) {
+    public static EmployeePOJO findEmployeeDA(String username, String password) {
         ResultSet entity = db.findOneUser("user", username, password);
 
         if (entity == null) return null;
 
-        List<EmployeeDA> employeeModel;
-        employeeModel = ResultSetToEmployeeDAConverter(entity);
+        List<EmployeePOJO> employeeModel;
+
+        employeeModel = ResultSetToEmployeePOJOConverter(entity);
 
         if (employeeModel.size() == 0) return null;
+
+        if (employeeModel.get(0).getRole_id() == 1) {
+            return null;
+        }
         else return employeeModel.get(0);
     }
 
-    public static EmployeeDA findEmployeeDA(int id) {
+
+    public static EmployeePOJO findEmployeeDA(int id) {
+
         ResultSet entity = db.findOne("user", id);
 
         if (entity == null ) return null;
 
-        List<EmployeeDA> employeeModel;
-        employeeModel = ResultSetToEmployeeDAConverter(entity);
+        List<EmployeePOJO> employeeModel;
+        employeeModel = ResultSetToEmployeePOJOConverter(entity);
 
         if (employeeModel.size() == 0) return null;
         else return employeeModel.get(0);
     }
-    public static List<EmployeeDA> loadAllEmployeeDA() {
-        List<EmployeeDA> employees;
+
+
+    public static List<EmployeePOJO> loadAllEmployeeDA() {
+        List<EmployeePOJO> employees;
 
         ResultSet dataOfEmployees = db.findAll("user");
 
         if (dataOfEmployees == null) return null;
 
-        employees = ResultSetToEmployeeDAConverter(dataOfEmployees);
+        employees = ResultSetToEmployeePOJOConverter(dataOfEmployees);
 
         return employees;
     }

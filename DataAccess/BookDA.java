@@ -23,10 +23,7 @@ public class BookDA {
         List<BookPOJO> ans = null;
         try {
             ans = new ArrayList<>();
-//            JavaNetUriAccess MyConnection;
-//            Connection connection = MyConnection.create();
-//            Statement statement;
-//            statement = connection.createStatement();
+
             String query = "SELECT book.id, book.is_enable, book.quantity, title, description,category.name as category , author.name as author, publisher.name as publisher\n" +
                     "FROM book, author, publisher,category\n" +
                     "where book.author_id = author.id and book.category_id = category.id and book.publisher_id = publisher.id\n" +

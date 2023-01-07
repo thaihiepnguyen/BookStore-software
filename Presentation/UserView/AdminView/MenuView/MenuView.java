@@ -1,17 +1,13 @@
-package Presentation.UserView.EmployeeView.MenuView;
+package Presentation.UserView.AdminView.MenuView;
 
 import Pojo.UserPOJO;
 import Presentation.LayoutView.RoundPanel.RoundPanel;
 //import Presentation.LayoutView.RoundPanel.RoundPanel;
+import Presentation.UserView.AdminView.MenuView.ImageIconUtil;
+import Presentation.UserView.AdminView.MenuView.MenuItem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import java.io.File;
-import java.nio.channels.FileLock;
-
 
 public class MenuView extends JPanel {
     public JPanel header;
@@ -24,12 +20,14 @@ public class MenuView extends JPanel {
     public MenuItem dashboard;
 
     public MenuItem book;
-    public MenuItem sheet;
+    MenuItem sheet;
     public MenuItem promotion;
     public MenuItem customer;
-    public MenuItem order;
-    JPanel footer;
 
+    public MenuItem profile;
+
+    MenuItem order;
+    JPanel footer;
     public MenuItem logout;
 
 
@@ -37,7 +35,7 @@ public class MenuView extends JPanel {
         avtFrame = new RoundPanel();
         header = new JPanel();
         {
-            if (user.getAvt().equals(""))
+            if (user.getAvt() == null)
                 avt = new JLabel((
                         ImageIconUtil.getIcon(
                                 "Public/image/user/0.png",
@@ -52,7 +50,7 @@ public class MenuView extends JPanel {
                         )
                 ));
 
-            roleOfUser = new JLabel("Employee");
+            roleOfUser = new JLabel("Admin");
             roleOfUser.setForeground(new Color(255,255, 255));
             roleOfUser.setFont(new Font(roleOfUser.getName(), Font.PLAIN, 18));
 
@@ -64,22 +62,22 @@ public class MenuView extends JPanel {
 
         body = new JPanel();
         {
-            dashboard = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
+            dashboard = new MenuItem("Presentation/UserView/AdminView/MenuView" +
                     "/resources/1-white.png", "Dashboard");
-            book = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
+            book = new MenuItem("Presentation/UserView/AdminView/MenuView" +
                     "/resources/2-white.png", "Book");
-            promotion = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
+            promotion = new MenuItem("Presentation/UserView/AdminView/MenuView" +
                     "/resources/3-white.png", "Promotion");
-            customer = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
+            customer = new MenuItem("Presentation/UserView/AdminView/MenuView" +
                     "/resources/4-white.png", "Customer");
-            order = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
-                    "/resources/8-white.png", "Order");
-            sheet = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
+            order = new MenuItem("Presentation/UserView/AdminView/MenuView" +
+                    "/resources/5-white.png", "Order");
+            sheet = new MenuItem("Presentation/UserView/AdminView/MenuView" +
                     "/resources/7-white.png", "Sheet");
         }
         footer = new JPanel();
         {
-            logout = new MenuItem("Presentation/UserView/EmployeeView/MenuView" +
+            logout = new MenuItem("Presentation/UserView/AdminView/MenuView" +
                     "/resources/6-white.png", "Logout");
         }
     }
@@ -134,7 +132,7 @@ public class MenuView extends JPanel {
         setBackground(new Color(57, 77, 101));
 
         setLayout(null);
-        setPreferredSize(new Dimension(201, 600));
+        setPreferredSize(new Dimension(200, 600));
     }
 
     public void actionGUI() {
