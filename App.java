@@ -21,7 +21,7 @@ public class App {
             "localhost",
             3306,
             "root",
-            "reallyStrongPwd123",
+            "",
             "book-store"
             );
         HomeView.setCurrentPath(currentPath);
