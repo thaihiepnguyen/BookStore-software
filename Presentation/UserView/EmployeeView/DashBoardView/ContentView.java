@@ -17,8 +17,6 @@ public class ContentView extends JPanel {
     JLabel publishers = new JLabel("Publishers",SwingConstants.CENTER);
     JLabel authors = new JLabel("Authors",SwingConstants.CENTER);
     Category category = new Category();
-
-
     Publisher publisher = new Publisher();
     Author author = new Author();
     CardLayout cardLayout = new CardLayout();

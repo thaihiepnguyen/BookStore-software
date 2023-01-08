@@ -1,8 +1,11 @@
+import DataAccess.CategoryRevenueDA;
 import DataAccess.MySQLDatabase;
+import DataAccess.RevenueDA;
 import Presentation.HomeView.HomeView;
 
 import java.io.IOException;
 import java.io.File;
+import java.sql.Date;
 
 public class App {
     public static void main(String[] args) {
@@ -24,6 +27,7 @@ public class App {
             "",
             "book-store"
             );
+
         HomeView.setCurrentPath(currentPath);
         HomeView.run(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 
