@@ -80,21 +80,21 @@ public class EditProfileView extends JPanel {
         body.setBackground(Color.decode("#ffffff"));
         body.setLayout(null);
 
-        userName.setBounds(30,10, 250, 75);
+        userName.setBounds(40,10, 250, 75);
         userName.setOpaque(false);
 
-        firstName.setBounds(30,90, 120, 75);
+        firstName.setBounds(40,90, 120, 75);
         firstName.setOpaque(false);
-        lastName.setBounds(160,90, 120, 75);
+        lastName.setBounds(170,90, 120, 75);
         lastName.setOpaque(false);
 
-        phoneNumber.setBounds(30,170, 250, 75);
+        phoneNumber.setBounds(40,170, 250, 75);
         phoneNumber.setOpaque(false);
 
-        address.setBounds(30,250, 600, 75);
+        address.setBounds(40,250, 600, 75);
         address.setOpaque(false);
 
-        avatar.setBounds(30,330, 180, 75);
+        avatar.setBounds(40,330, 180, 75);
         avatar.setOpaque(false);
 
         add.setTextColor(Color.WHITE);
@@ -196,6 +196,30 @@ public class EditProfileView extends JPanel {
                 if (!avatar.equals("")) {
                     entity.put("avt_path", avatar);
                 }
+
+                if (!oldpass.equals(""))
+                    if (userPOJO.getPassword().equals(oldpass)) {
+                        if (newpass.equals(confirmpass)) {
+                            entity.put("password", newpass);
+                            JOptionPane.showMessageDialog(
+                                    that,
+                                    "Add Successfully!",
+                                    "Message",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(
+                                    that,
+                                    "Add Error!",
+                                    "Message",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(
+                                that,
+                                "Add Error!",
+                                "Message",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
 
                 if(userPOJO.getRole_id()==2){
                     EmployeeBU.update(entity, id);

@@ -23,13 +23,16 @@ public class CustomerDA {
 
     public static List<String> getAllCustomerName() {
         List<String> name = new ArrayList<>();
-        String sql = "select name from customer";
+        String sql = "select * from customer";
 
         try {
             ResultSet rs = db.statement.executeQuery(sql);
 
             while (rs.next()) {
-                name.add(rs.getString("name"));
+                String _name = rs.getString("name");
+                boolean status = rs.getBoolean("is_enable");
+                if (status)
+                    name.add(_name);
             }
             return name;
         } catch (SQLException e) {

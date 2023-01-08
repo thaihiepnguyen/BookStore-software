@@ -85,7 +85,7 @@ public class ContentView extends JPanel {
         proBox = new JComboBox(promotions); proBox.setBounds(0, 40, 170, 20);
         customer = new JLabel("Customer"); customer.setBounds(175, 20, 75, 20);
         cusBox = new JComboBox(customers); cusBox.setBounds(170, 40, 170, 20);
-        client = new JLabel("Client"); client.setBounds(345, 20, 75, 20);
+        client = new JLabel("Employee"); client.setBounds(345, 20, 75, 20);
         cliBox = new JComboBox(clients); cliBox.setBounds(340, 40, 150, 20);
 //        date = new JLabel("Order Date"); date.setBounds(505, 20, 75,20);
 //        dateField = new JTextField(); dateField.setBounds(500, 40, 150, 20);
@@ -117,7 +117,7 @@ public class ContentView extends JPanel {
 
         head.setFont(new Font("", 1, 40));
         head.setForeground(Color.decode("#344D67"));
-        head.setBounds(10,10,400,70);
+        head.setBounds(44,10,400,70);
 
         listOfOrder.add(vwOrder, BorderLayout.CENTER);
 
@@ -254,7 +254,7 @@ public class ContentView extends JPanel {
     }
 
     public ContentView(String[][] orders, String[] promotions, String[] customers, String[] clients) {
-        String[] columns = { "ID", "Title", "Quantity",  "Client", "Promotion", "Date", "Price" };
+        String[] columns = { "ID", "Title", "Quantity",  "Employee", "Promotion", "Date", "Price" };
         table = new JTable(orders, columns);
 
         prepareGUI(table);

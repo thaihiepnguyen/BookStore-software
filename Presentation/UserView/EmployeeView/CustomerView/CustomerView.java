@@ -35,7 +35,7 @@ public class CustomerView extends JPanel {
         setBackground(new Color(214,228,229));
 
         // title
-        title.setBounds(44,5,500,50);
+        title.setBounds(44,30,500,50);
         title.setForeground(new Color(52,77,103));
         title.setFont(new Font("Inter", Font.BOLD, 32));
         add(title);

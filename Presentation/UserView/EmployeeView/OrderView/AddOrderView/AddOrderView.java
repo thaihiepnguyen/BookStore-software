@@ -60,6 +60,7 @@ public class AddOrderView extends JPanel {
     }
 
     public void prepareGUI(JTable books, JTable orders, UserPOJO user, String[] promotions, String[] customers) {
+
         title.setFont(new Font("", 1, 40));
         title.setForeground(Color.decode("#344D67"));
         title.setBounds(20,10,400,100);
@@ -257,6 +258,12 @@ public class AddOrderView extends JPanel {
                 OrderDA.insertOrderBook(id, bookList, quantities);
 
                 OrderDA.updateBook(bookList, quantities);
+
+                JOptionPane.showMessageDialog(
+                        that,
+                        "Add Successfully!",
+                        "Message",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }

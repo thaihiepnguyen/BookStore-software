@@ -390,14 +390,18 @@ public class PromotionDA {
 
     public static List<String> getAllPromotionName() {
         List<String> name = new ArrayList<>();
-        String sql = "select name from promotion";
+        String sql = "select * from promotion";
 
         try {
             ResultSet rs = db.statement.executeQuery(sql);
 
             while (rs.next()) {
-                name.add(rs.getString("name"));
+                String _name = rs.getString("name");
+                boolean isenable = rs.getBoolean("is_enable");
+                if (isenable)
+                    name.add(_name);
             }
+
             return name;
         } catch (SQLException e) {
             throw new RuntimeException(e);

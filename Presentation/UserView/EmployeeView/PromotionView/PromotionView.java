@@ -58,7 +58,7 @@ public class PromotionView extends JPanel {
         MyButton searchBtn = new MyButton("Search", 20);
         searchBtn.setBounds(330,0,100,30);
 
-        JComboBox cb = new JComboBox<>(new String[]{"View Past Pros", "View Current Pros", "View Upcoming Pros", "View Enable Pros", "View Disable Pros"});
+        JComboBox cb = new JComboBox<>(new String[]{"View Current Pros", "View Past Pros", "View Upcoming Pros", "View Enable Pros", "View Disable Pros"});
         cb.setBounds(450,0,150,30);
 
         searchBar.add(input);
@@ -119,7 +119,7 @@ public class PromotionView extends JPanel {
                     pros[0].get(i).getOrder_limit(),
                     pros[0].get(i).isApply_cus(),
                     pros[0].get(i).isApply_ano()
-                    );
+            );
 //            System.out.println(pros[0].get(i));
             //            bookList[i] = item;
             item.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
@@ -150,12 +150,12 @@ public class PromotionView extends JPanel {
         cb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cb.getSelectedIndex() == 0){
+                if(cb.getSelectedIndex() == 1){
                     PromotionBU bus = new PromotionBU();
                     final List<PromotionPOJO>[] pros = bus.getPastPromotions();
-                    updateScreen(pros, true);
+                    updateScreen(pros, false);
                 }
-                else if(cb.getSelectedIndex() == 1){
+                else if(cb.getSelectedIndex() == 0){
                     PromotionBU bus = new PromotionBU();
                     final List<PromotionPOJO>[] pros = bus.getCurrentPromotions();
                     updateScreen(pros, true);
@@ -163,7 +163,7 @@ public class PromotionView extends JPanel {
                 else if(cb.getSelectedIndex() == 2){
                     PromotionBU bus = new PromotionBU();
                     final List<PromotionPOJO>[] pros = bus.getUpComingPromotions();
-                    updateScreen(pros, true);
+                    updateScreen(pros, false);
                 }
                 else if(cb.getSelectedIndex() == 3){
                     PromotionBU bus = new PromotionBU();
