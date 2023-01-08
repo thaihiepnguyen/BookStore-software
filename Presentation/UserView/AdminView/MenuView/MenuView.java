@@ -32,7 +32,7 @@ public class MenuView extends JPanel {
         avtFrame = new RoundPanel();
         header = new JPanel();
         {
-            if (user.getAvt() == null)
+            if (user.getAvt().length() == 0)
                 avt = new JLabel((
                         ImageIconUtil.getIcon(
                                 "Public/image/user/0.png",

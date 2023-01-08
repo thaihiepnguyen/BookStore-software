@@ -51,7 +51,7 @@ public class UserDA {
     }
 
     public static void insert(UserPOJO data) throws SQLException {
-        String sql = "INSERT INTO user (id, username, password,firstname,lastname,gender,address,role_id,hire_date,tel,is_enable) " + "VALUES (?,?, ?, ?,?, ?, ?,?,?,?,?)";
+        String sql = "INSERT INTO user (id, username, password,firstname,lastname,gender,address,role_id,hire_date,tel,avt_path,is_enable) " + "VALUES (?,?,?, ?, ?,?, ?, ?,?,?,?,?)";
         PreparedStatement preparedStatement = db.getConn().prepareStatement(sql);
         preparedStatement.setInt(1, data.getUserID());
         preparedStatement.setString(2,data.getUsername());
@@ -63,7 +63,8 @@ public class UserDA {
         preparedStatement.setInt(8, data.getRole_id());
         preparedStatement.setDate(9, data.getHire_date());
         preparedStatement.setString(10, data.getTel());
-        preparedStatement.setBoolean(11, data.isStatus());
+        preparedStatement.setString(11, "");
+        preparedStatement.setBoolean(12, data.isStatus());
 
         preparedStatement.executeUpdate();
     }
