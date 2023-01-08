@@ -37,6 +37,22 @@ public class EditProfileView extends JPanel {
         actionGUI(userPOJO);
     }
 
+    public JLabel getTitle() {
+        return title;
+    }
+
+    public MyButton getUpdate() {
+        return update;
+    }
+
+    public MyButton getAdd() {
+        return add;
+    }
+
+    public MyButton getBack() {
+        return back;
+    }
+
     public void prepareGUI(UserPOJO userPOJO) {
         title.setFont(new Font("", 1, 40));
         title.setForeground(Color.decode("#344D67"));

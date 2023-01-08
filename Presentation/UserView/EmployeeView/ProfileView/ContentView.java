@@ -25,6 +25,18 @@ public class ContentView extends JPanel {
 
     MyButton edit = new MyButton("Edit Profile");
 
+    public EditProfileView getEditView() {
+        return editView;
+    }
+
+    public JLabel getHead() {
+        return head;
+    }
+
+    public MyButton getEdit() {
+        return edit;
+    }
+
     EditProfileView editView;
 
     void prepareGUI(UserPOJO userPOJO) {

@@ -12,6 +12,19 @@ public class ProfileView extends JPanel{
     CardLayout cardLayout = new CardLayout();
     JPanel content = new JPanel();
 
+
+    ContentView contentView = null;
+    EditProfileView editProfileView = null;
+
+
+    public EditProfileView getEditProfileView() {
+        return editProfileView;
+    }
+
+    public ContentView getContentView() {
+        return contentView;
+    }
+
     public ProfileView(UserPOJO user) {
         content.setLayout(cardLayout);
         content.setOpaque(false);
@@ -20,7 +33,7 @@ public class ProfileView extends JPanel{
         add(content, BorderLayout.CENTER);
         setOpaque(false);
 
-        ContentView contentView = new ContentView(user);
+        contentView = new ContentView(user);
         contentView.edit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -28,7 +41,7 @@ public class ProfileView extends JPanel{
             }
         });
 
-        EditProfileView editProfileView = new EditProfileView(user);
+        editProfileView = new EditProfileView(user);
         editProfileView.back.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
