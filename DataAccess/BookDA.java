@@ -581,6 +581,21 @@ public class BookDA {
 
         return result;
     }
+
+    public static int getQuantityByName(String name) {
+        String sql = "select quantity from book where title = ?";
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.next(); return rs.getInt("quantity");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static int findIdByName(String name) {
         String sql = "select id from book where title = ?";
 

@@ -2,7 +2,9 @@ package Presentation.UserView.EmployeeView.OrderView.AddOrderView;
 
 import Business.EmployeeBU;
 import Business.OrderBU;
+import DataAccess.BookDA;
 import DataAccess.OrderDA;
+import DataAccess.PromotionDA;
 import DataAccess.PromotionStatisticDA;
 import Pojo.UserPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
@@ -253,6 +255,8 @@ public class AddOrderView extends JPanel {
                 OrderBU.insert(id, customer, employee, promotion);
 
                 OrderDA.insertOrderBook(id, bookList, quantities);
+
+                OrderDA.updateBook(bookList, quantities);
             }
         });
     }

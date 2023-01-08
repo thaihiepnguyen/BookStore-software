@@ -161,7 +161,10 @@ public class ContentView extends JPanel {
         searchBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[][] orders = OrderBU.searchEngine(searchField.getText());
+                String[][] orders;
+                if (searchField.getText().length() == 0)
+                    orders = OrderBU.getAll();
+                else orders = OrderBU.searchEngine(searchField.getText());
 
                 table = new JTable(orders, colums);
                 paintTableGUI(table, promotions, customers, clients);

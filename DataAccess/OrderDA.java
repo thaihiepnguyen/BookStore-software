@@ -1,6 +1,8 @@
 package DataAccess;
 
+import Business.BookBU;
 import Business.OrderBU;
+import Pojo.BookPOJO;
 import Pojo.OrderPOJO;
 
 import java.sql.*;
@@ -136,6 +138,25 @@ public class OrderDA {
         }
     }
 
+    public static void updateBook(List<String> bookList, List<String> quantities) {
+        String sql = "update `book`" +
+                "\nset book.quantity = ?" +
+                "\nwhere book.title = ?";
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+            for (int i = 0; i < bookList.size(); i++) {
+                preparedStatement.setInt(1, BookDA.getQuantityByName(bookList.get(i)) - Integer.parseInt(quantities.get(i)));
+                preparedStatement.setString(2, bookList.get(i));
+                preparedStatement.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     static class Utils {
         public static List<OrderPOJO> ResultSetToOrderPOJOConverter(ResultSet entity) {
             List<OrderPOJO> orders = new ArrayList<>();
@@ -241,6 +262,37 @@ public class OrderDA {
                     dateSet.add(order.getDate());
                 }
             }
+
+            return orders;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<OrderPOJO> findAllRaw() {
+        String sql = "select `order`.id as id, customer.name as customer, user.username as employee, book.title as book, promotion.name as promotion, `order`.date_time as date, book.price as price, order_book.quantity as quantity\n" +
+                "from `order`, customer, user, promotion, order_book, book\n" +
+                "where `order`.cus_id = customer.id and `order`.employee_id = user.id\n" +
+                "  and user.role_id = 2 and `order`.promotion_id = promotion.id and\n" +
+                "      `order`.id = order_book.order_id and book.id = order_book.book_id order by `order`.id";
+
+//=======
+//        String sql = "select `order`.id, customer.name as customer, user.username employee ,book.title as book, promotion.name as promotion, `order`.date_time as date, book.price as price\n" +
+//                "from user, customer, book, promotion, `order`\n" +
+//                "where `order`.cus_id = customer.id\n" +
+//                "and `order`.employee_id = user.id and user.role_id = 2 and promotion.id = `order`.promotion_id\n" +
+//                "order by `order`.id";
+//>>>>>>> 70ae405e12ab53b2fea9703650cc52e5927fe7a8
+
+        Statement statement = db.getStatement();
+        try {
+            ResultSet entity = statement.executeQuery(sql);
+
+            if (entity == null) return null;
+
+            List<OrderPOJO> orders = Utils.ResultSetToOrderPOJOConverter(entity);
+
+            if (orders.size() == 0) return null;
 
             return orders;
         } catch (SQLException e) {

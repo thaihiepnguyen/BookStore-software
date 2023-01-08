@@ -30,7 +30,7 @@ public class OrderBU {
         String[][] data;
 
         List<OrderPOJO> filter = new ArrayList<>();
-        List<OrderPOJO> orders = OrderDA.findAll();
+        List<OrderPOJO> orders = OrderDA.findAllRaw();
 
         for(OrderPOJO order: orders){
             if(order.getCusName().toLowerCase().contains(s.trim().toLowerCase())
@@ -59,6 +59,8 @@ public class OrderBU {
     public static void insert(int id, String cus, String emId, String proId) {
         OrderDA.insert(id, cus, emId, proId);
     }
+
+
     static class Utils {
         public static String[][] listToStringConverter(List<OrderPOJO> orders) {
             List<List<String>> list= new ArrayList<>();
