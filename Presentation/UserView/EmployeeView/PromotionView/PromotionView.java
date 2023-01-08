@@ -182,7 +182,7 @@ public class PromotionView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PromotionBU business = new PromotionBU();
-                List<PromotionPOJO>[] result = business.searchPromotion(input.getText());
+                List<PromotionPOJO>[] result = business.search(input.getText());
                 updateScreen(result, true);
             }
         });

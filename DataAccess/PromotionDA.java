@@ -1,5 +1,6 @@
 package DataAccess;
 
+import Pojo.AuthorPOJO;
 import Pojo.PromotionPOJO;
 
 import java.sql.*;
@@ -401,5 +402,18 @@ public class PromotionDA {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static List<PromotionPOJO> search(String s){
+        List<PromotionPOJO> ans = new ArrayList<>();
+        List<PromotionPOJO> rs = getAll();
+        for(PromotionPOJO pu: rs){
+            if(pu.getName().toLowerCase().contains(s.trim().toLowerCase())
+                    || Integer.toString(pu.getId()).contains(s.trim())
+                    || pu.getFromDate().toLowerCase().contains(s.trim().toLowerCase())
+                    || pu.getToDate().toLowerCase().contains(s.trim().toLowerCase())){
+                ans.add(pu);
+            }
+        }
+        return ans;
     }
 }
