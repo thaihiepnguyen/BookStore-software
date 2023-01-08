@@ -178,7 +178,7 @@ public class Publisher extends JPanel {
                         String email = addNewView.getEmailTF().getText();
                         String tel = addNewView.getTelTF().getText();
 
-                        if(name.length()>0){
+                        if(name.length()>0 && address.length()>0 &&email.length()>0 && tel.length()>0){
                             PublisherPOJO pu = new PublisherPOJO();
                             pu.setId(bu.getAll().get(bu.getAll().size()-1).getId()+1);
                             pu.setName(name);
@@ -229,7 +229,7 @@ public class Publisher extends JPanel {
                         String address = editItem.getAddressTF().getText();
                         String email = editItem.getEmailTF().getText();
                         String tel = editItem.getTelTF().getText();
-                        if(name.length()>0) {
+                        if(name.length()>0 && address.length()>0 &&email.length()>0 && tel.length()>0) {
                             pu.setName(name);
                             pu.setAddress(address);
                             pu.setEmail(email);

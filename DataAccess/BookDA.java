@@ -1,5 +1,6 @@
 package DataAccess;
 
+import Pojo.AuthorPOJO;
 import Pojo.BookPOJO;
 import Pojo.UserPOJO;
 

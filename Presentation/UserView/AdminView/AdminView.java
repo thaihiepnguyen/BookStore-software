@@ -6,6 +6,7 @@ import Presentation.UserView.AdminView.PromotionStatisticsView.PromotionStatisti
 import Presentation.UserView.AdminView.Revenue.Revenue;
 import Presentation.UserView.AdminView.UserAccount.UserAccount;
 import Presentation.UserView.AdminView.MenuView.MenuView;
+import Presentation.UserView.EmployeeView.ProfileView.ProfileView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,9 @@ public class AdminView extends JPanel {
     final String USERS_PAGE = "usersView";
     final String REVENUE_PAGE = "revenueView";
     final String STATISTIC = "statisticPromotionView";
+    final String PROFILE_PAGE = "profileView";
     public CardLayout mainLayout;
+    ProfileView profileView;
 
     public JPanel container;
 
@@ -34,6 +37,16 @@ public class AdminView extends JPanel {
         mainLayout = new CardLayout();
         container = new JPanel();
 
+
+        profileView = new ProfileView(user);
+        profileView.setOpaque(true);
+        profileView.setBackground(new Color(255,222,235));
+        profileView.getContentView().getHead().setForeground(new Color(166, 30, 77));
+        profileView.getContentView().getEdit().setBackgroundColor(new Color(166, 30, 77));
+        profileView.getEditProfileView().getTitle().setForeground(new Color(166, 30, 77));
+        profileView.getEditProfileView().getAdd().setBackgroundColor(new Color(166, 30, 77));
+        profileView.getEditProfileView().getUpdate().setBackgroundColor(new Color(166, 30, 77));
+        profileView.getEditProfileView().getBack().setBackgroundColor(new Color(166, 30, 77));
         menuView = new MenuView(user);
         userAccount = new UserAccount();
         revenueView = new Revenue();
@@ -52,6 +65,7 @@ public class AdminView extends JPanel {
         container.add(userAccount,USERS_PAGE);
         container.add(revenueView,REVENUE_PAGE);
         container.add(promotionStatisticView,STATISTIC);
+        container.add(profileView, PROFILE_PAGE);
 
         setLayout(new BorderLayout());
         setBackground(new Color(214,228,229));
@@ -107,17 +121,14 @@ public class AdminView extends JPanel {
             }
         });
 
-
-//        menuView.profile.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                resetClicked();
-//                resetForeground();
-//                menuView.profile.holdClick = true;
-//                menuView.profile.tagName.setForeground(new Color(255, 255, 255));
-//                mainLayout.show(container, DASHBOARD_PAGE);
-//            }
-//        });
+        menuView.header.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                resetClicked();
+                resetForeground();
+                mainLayout.show(container, PROFILE_PAGE);
+            }
+        });
         menuView.logout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

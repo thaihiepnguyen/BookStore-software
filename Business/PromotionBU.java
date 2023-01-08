@@ -21,6 +21,9 @@ public class PromotionBU {
     public List<PromotionPOJO>[] searchPromotion(String title){
         return new List[]{PromotionDA.searchPromotion(title)};
     }
+    public List<PromotionPOJO>[] search(String s){
+        return new List[]{PromotionDA.search(s)};
+    }
     public static String[] getAllPromotionName() {
         List<String> entity = PromotionDA.getAllPromotionName();
 
