@@ -1,22 +1,24 @@
 package Presentation.UserView.EmployeeView;
 
-import Pojo.OrderPOJO;
+import Business.*;
+import DataAccess.BookDA;
+import Pojo.BookPOJO;
+import Pojo.PromotionPOJO;
 import Pojo.UserPOJO;
 import Presentation.HomeView.HomeView;
 import Presentation.UserView.EmployeeView.BookView.AllBooksList;
 import Presentation.UserView.EmployeeView.CustomerView.CustomerView;
-import Presentation.UserView.EmployeeView.DashBoardView.ContentView;
 import Presentation.UserView.EmployeeView.ImportSheetView.ImportSheet;
 import Presentation.UserView.EmployeeView.MenuView.MenuView;
 import Presentation.UserView.EmployeeView.OrderView.OrderView;
 import Presentation.UserView.EmployeeView.ProfileView.ProfileView;
 import Presentation.UserView.EmployeeView.PromotionView.PromotionView;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -37,7 +39,7 @@ public class EmployeeView extends JPanel {
 
     public JPanel container;
 
-    ContentView contentView;
+    Presentation.UserView.EmployeeView.DashBoardView.ContentView contentView;
     AllBooksList bookView;
     PromotionView promotionView;
     ProfileView profileView;
@@ -46,16 +48,15 @@ public class EmployeeView extends JPanel {
     ImportSheet importSheetView;
 
 
-    public void prepareGUI(UserPOJO user, String[][] orders) {
+    public void prepareGUI(UserPOJO user) {
         mainLayout = new CardLayout();
         container = new JPanel();
 
         menuView = new MenuView(user);
-        contentView = new ContentView();
+        contentView = new Presentation.UserView.EmployeeView.DashBoardView.ContentView();
         bookView = new AllBooksList();
         promotionView = new PromotionView();
         profileView = new ProfileView(user);
-        orderView = new OrderView(user, orders);
         customerView = new CustomerView();
         importSheetView = new ImportSheet(user);
 
@@ -72,7 +73,6 @@ public class EmployeeView extends JPanel {
         container.add(bookView, BOOK_PAGE);
         container.add(promotionView, PROMOTION_PAGE);
         container.add(profileView, PROFILE_PAGE);
-        container.add(orderView, ORDER_PAGE);
         container.add(customerView, CUSTOMER_PAGE);
         container.add(importSheetView, IMPORTSHEET_PAGE);
 
@@ -101,7 +101,7 @@ public class EmployeeView extends JPanel {
     }
 
 
-    public void actionGUI() {
+    public void actionGUI(UserPOJO user) {
         var that = this;
         menuView.dashboard.addMouseListener(new MouseAdapter() {
             @Override
@@ -165,6 +165,17 @@ public class EmployeeView extends JPanel {
                 resetForeground();
                 menuView.order.holdClick = true;
                 menuView.order.tagName.setForeground(new Color(255, 255, 255));
+
+                String[][] orders = OrderBU.getAll();
+                String[] promotions = PromotionBU.getAllPromotionName();
+                String[] customers = CustomerBU.getAllCustomerName();
+                String[] clients = EmployeeBU.getAllEmployeeName();
+                String[][] books = BookBU.getBookByName();
+                List<PromotionPOJO>[] promotion = PromotionBU.getAll();
+
+
+                that.orderView = new OrderView(books, user, orders, promotions, customers, clients);
+                container.add(orderView, ORDER_PAGE);
                 mainLayout.show(container, ORDER_PAGE);
             }
         });
@@ -189,10 +200,10 @@ public class EmployeeView extends JPanel {
 
 
     public EmployeeView() {}
-    public EmployeeView(UserPOJO user, String[][] orders) {
-        prepareGUI(user, orders);
+    public EmployeeView(UserPOJO user) {
+        prepareGUI(user);
         designGUI();
-        actionGUI();
+        actionGUI(user);
 //        container.add(new ImportSheet(user),"test");
 //        mainLayout.show(container, "test");
     }

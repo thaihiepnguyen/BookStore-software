@@ -6,7 +6,7 @@ import Pojo.PromotionPOJO;
 import java.util.List;
 
 public class PromotionBU {
-    public List<PromotionPOJO>[] getAll(){
+    public static List<PromotionPOJO>[] getAll(){
         return new List[]{PromotionDA.getAll()};
     }
     public List<PromotionPOJO>[] getPastPromotions(){
@@ -21,5 +21,12 @@ public class PromotionBU {
     public List<PromotionPOJO>[] searchPromotion(String title){
         return new List[]{PromotionDA.searchPromotion(title)};
     }
+    public static String[] getAllPromotionName() {
+        List<String> entity = PromotionDA.getAllPromotionName();
 
+        String[] promotions = new String[entity.size()];
+
+        entity.toArray(promotions);
+        return promotions;
+    }
 }

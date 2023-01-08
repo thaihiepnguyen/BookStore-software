@@ -20,6 +20,23 @@ public class CustomerDA {
             throw new RuntimeException(e);
         }
     }
+
+    public static List<String> getAllCustomerName() {
+        List<String> name = new ArrayList<>();
+        String sql = "select name from customer";
+
+        try {
+            ResultSet rs = db.statement.executeQuery(sql);
+
+            while (rs.next()) {
+                name.add(rs.getString("name"));
+            }
+            return name;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<CustomerPOJO> getAll() {
         List<CustomerPOJO> ans = new ArrayList<>();
         try{
@@ -101,5 +118,19 @@ public class CustomerDA {
             }
         }
         return ans;
+    }
+    public static int findIdByName(String name) {
+        String sql = "select id from customer where name = ?";
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.next(); return rs.getInt("id");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

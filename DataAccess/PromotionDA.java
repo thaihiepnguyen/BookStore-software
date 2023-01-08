@@ -9,11 +9,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PromotionDA {
+
     static MySQLDatabase db;
 
     static {
         try {
             db = MySQLDatabase.getInstance();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static int findIdByName(String name) {
+        String sql = "select id from promotion where name = ?";
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.next(); return rs.getInt("id");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -370,5 +385,21 @@ public class PromotionDA {
             Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
         }
         return books;
+    }
+
+    public static List<String> getAllPromotionName() {
+        List<String> name = new ArrayList<>();
+        String sql = "select name from promotion";
+
+        try {
+            ResultSet rs = db.statement.executeQuery(sql);
+
+            while (rs.next()) {
+                name.add(rs.getString("name"));
+            }
+            return name;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

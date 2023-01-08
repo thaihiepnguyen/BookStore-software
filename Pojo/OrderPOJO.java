@@ -3,16 +3,54 @@ package Pojo;
 import java.sql.Date;
 
 public class OrderPOJO {
+    public static class OrderBook {
+        String bookName;
+        long price;
+        long quantity;
+
+        public String getBookName() {
+            return bookName;
+        }
+
+        public long getPrice() {
+            return price;
+        }
+
+        public void setPrice(long price) {
+            this.price = price;
+        }
+
+        public void setBookName(String bookName) {
+            this.bookName = bookName;
+        }
+
+        public OrderBook(String bookName, long quantity) {
+            this.bookName = bookName;
+            this.quantity = quantity;
+        }
+
+        public OrderBook() {
+
+        }
+
+        public long getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(long quantity) {
+            this.quantity = quantity;
+        }
+    }
     int id;
     String cusName;
     String emName;
-    String bookName;
+    OrderBook bookName;
 
     String proName;
     Date date;
     long price;
 
-    public OrderPOJO(int id, String cusName, String emName, String bookName, String proName, Date date, long price) {
+    public OrderPOJO(int id, String cusName, String emName, OrderBook bookName, String proName, Date date, long price) {
         this.id = id;
         this.cusName = cusName;
         this.emName = emName;
@@ -48,11 +86,11 @@ public class OrderPOJO {
         this.emName = emName;
     }
 
-    public String getBookName() {
+    public OrderBook getBook() {
         return bookName;
     }
 
-    public void setBookName(String bookName) {
+    public void setBookName(OrderBook bookName) {
         this.bookName = bookName;
     }
 

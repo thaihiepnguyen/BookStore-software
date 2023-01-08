@@ -6,16 +6,17 @@ import Presentation.HomeView.HomeView;
 import Presentation.LayoutView.MyButton.MyButton;
 
 import javax.swing.*;
-import java.io.*;
-import java.util.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class EditProfileView extends JDialog {
-    JPanel container = new JPanel();
+public class EditProfileView extends JPanel {
     JLabel title = new JLabel("Edit Profile");
 
+    JPanel body;
     InputComponent userName;
     InputComponent oldPassword;
     InputComponent newPassword;
@@ -29,6 +30,7 @@ public class EditProfileView extends JDialog {
     MyButton update = new MyButton("Update");
     MyButton add = new MyButton("Add");
 
+    public MyButton back = new MyButton("<  Back");
     public EditProfileView(UserPOJO userPOJO) {
         prepareGUI(userPOJO);
         designGUI();
@@ -39,6 +41,8 @@ public class EditProfileView extends JDialog {
         title.setFont(new Font("", 1, 40));
         title.setForeground(Color.decode("#344D67"));
         title.setBounds(20,10,400,100);
+
+        body = new JPanel();
         userName = new InputComponent("User Name", userPOJO.getUsername());
         oldPassword = new InputComponent("Old Password", "enter previous password");
         newPassword = new InputComponent("New Password", "enter new password");
@@ -51,60 +55,69 @@ public class EditProfileView extends JDialog {
     }
 
     public void designGUI() {
+        setLayout(null);
+        setOpaque(false);
 
-        this.setTitle("Edit Profile");
-        userName.setBounds(30,100, 250, 75);
+        body.setBounds(44,120,700,430);
+        body.setBackground(Color.decode("#ffffff"));
+        body.setLayout(null);
+
+        userName.setBounds(30,10, 250, 75);
         userName.setOpaque(false);
 
-        firstName.setBounds(30,180, 120, 75);
+        firstName.setBounds(30,90, 120, 75);
         firstName.setOpaque(false);
-        lastName.setBounds(160,180, 120, 75);
+        lastName.setBounds(160,90, 120, 75);
         lastName.setOpaque(false);
 
-        phoneNumber.setBounds(30,260, 250, 75);
+        phoneNumber.setBounds(30,170, 250, 75);
         phoneNumber.setOpaque(false);
 
-        address.setBounds(30,340, 540, 75);
+        address.setBounds(30,250, 600, 75);
         address.setOpaque(false);
 
-        avatar.setBounds(30,420, 180, 75);
+        avatar.setBounds(30,330, 180, 75);
         avatar.setOpaque(false);
 
         add.setTextColor(Color.WHITE);
         add.setRound(10,10,10,10);
         add.setBackgroundColor(new Color(52,77,103));
-        add.setBounds(220,464, 80, 30);
+        add.setBounds(224,373, 80, 30);
 
-        oldPassword.setBounds(320,100, 250, 75);
+        oldPassword.setBounds(384,10, 250, 75);
         oldPassword.setOpaque(false);
 
-        newPassword.setBounds(320,180, 250, 75);
+        newPassword.setBounds(384,90, 250, 75);
         newPassword.setOpaque(false);
 
-        confirmPassword.setBounds(320,260, 250, 75);
+        confirmPassword.setBounds(384,170, 250, 75);
         confirmPassword.setOpaque(false);
 
         update.setTextColor(Color.WHITE);
         update.setRound(10,10,10,10);
         update.setBackgroundColor(new Color(52,77,103));
-        update.setBounds(480,530, 80, 30);
+        update.setBounds(550,375, 80, 30);
 
 
-        container.setLayout(null);
-        container.setBackground(Color.decode("#FFFFFF"));
-        container.setPreferredSize(new Dimension(605,600));
-        container.add(userName);
+        back.setBounds(654, 75, 85, 30);
+        back.setTextColor(Color.WHITE);
+        back.setRound(10,10,10,10);
+        back.setBackgroundColor(new Color(52,77,103));
 
-        container.add(oldPassword);
-        container.add(newPassword);
-        container.add(confirmPassword);
-        container.add(phoneNumber);
-        container.add(title);
-        container.add(firstName); container.add(lastName); container.add(address);
-        container.add(update); container.add(add); container.add(avatar);
+        setBackground(Color.decode("#FFFFFF"));
+        body.add(userName);
+        add(back);
+        body.add(oldPassword);
+        body.add(newPassword);
+        body.add(confirmPassword);
+        body.add(phoneNumber);
+        add(title);
+        body.add(firstName); body.add(lastName); body.add(address);
+        body.add(update); body.add(add); body.add(avatar);
 
-        setContentPane(container);
-        pack();
+        add(body);
+//        setContentPane(container);
+//        pack();
 //        this.setVisible(true);
     }
     private static void copyFileUsingStream(File source, File dest) throws IOException {

@@ -2,6 +2,7 @@ package Business;
 
 import DataAccess.CategoryDA;
 import DataAccess.CustomerDA;
+import DataAccess.PromotionDA;
 import Pojo.CategoryPOJO;
 import Pojo.CustomerPOJO;
 
@@ -10,6 +11,15 @@ import java.util.List;
 
 public class CustomerBU {
     CustomerDA da = new CustomerDA();
+
+    public static String[] getAllCustomerName() {
+        List<String> entity = CustomerDA.getAllCustomerName();
+
+        String[] customers = new String[entity.size()];
+
+        entity.toArray(customers);
+        return customers;
+    }
 
     public List<CustomerPOJO> getAll(){
         return da.getAll();

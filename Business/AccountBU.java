@@ -15,11 +15,11 @@ import java.util.List;
 public class AccountBU {
     public static void employeeLogin(String username, String password) {
         UserPOJO user = EmployeeDA.findEmployeeDA(username, password);
-        String[][] orders = OrderBU.getAll();
+//        String[][] orders = OrderBU.getAll();
 
         if (user != null) {
             HomeView.render(
-                    new EmployeeView(user, orders)
+                    new EmployeeView(user)
             );
         }
         else {

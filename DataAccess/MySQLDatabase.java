@@ -35,7 +35,6 @@ public class MySQLDatabase {
             statement = conn.createStatement();
         }catch(SQLException | ClassNotFoundException e) {
             System.out.println(e);
-            System.out.println("Hello");
         }
 
         instance = this;

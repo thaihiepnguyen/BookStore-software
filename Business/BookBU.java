@@ -18,4 +18,5 @@ public class BookBU {
     public List<BookPOJO>[] searchBook(String title){
         return new List[]{BookDA.searchBook(title)};
     }
+    public static String[][] getBookByName() { return BookDA.getBookName();}
 }

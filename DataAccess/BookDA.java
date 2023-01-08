@@ -551,4 +551,34 @@ public class BookDA {
         }
         return ans;
     }
+
+    public static String[][] getBookName() {
+        List<List<String>> ans = null;
+        try {
+            ans = new ArrayList<>();
+
+            String query = "SELECT book.title FROM book";
+            ResultSet rs = db.statement.executeQuery(query);
+            int cnt = 1;
+            while(rs.next()){
+                String name = rs.getString("title");
+                List<String> f = new ArrayList<>();
+                f.add(Integer.toString(cnt));
+                f.add(name);
+                ans.add(f);
+                cnt++;
+            }
+            rs.close();
+//            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+            ans = null;
+        }
+
+        String[][] result = ans.stream().map(u -> u.toArray(new String[0])).toArray(String[][]::new);
+
+//        String[] result = (String[]) ans.toArray();
+
+        return result;
+    }
 }

@@ -141,7 +141,6 @@ public class EmployeeDA {
         values = values.substring(0, values.length() - 1);
         String sql = "update user set " + values + "where id = " + id;
 
-        System.out.println(sql);
 
         try {
 //            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
@@ -161,5 +160,36 @@ public class EmployeeDA {
             }
         }
         return null;
+    }
+
+    public static List<String> getAllEmployeeName() {
+        List<String> name = new ArrayList<>();
+        String sql = "select username from user where role_id = 2";
+
+        try {
+            ResultSet rs = db.statement.executeQuery(sql);
+
+            while (rs.next()) {
+                name.add(rs.getString("username"));
+            }
+            return name;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int findIdByName(String name) {
+        String sql = "select id from user where username = ? and role_id = 2";
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.next(); return rs.getInt("id");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
