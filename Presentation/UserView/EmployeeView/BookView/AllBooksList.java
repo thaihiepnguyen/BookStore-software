@@ -54,7 +54,7 @@ public class AllBooksList extends JPanel{
         MyButton searchBtn = new MyButton("Search", 20);
         searchBtn.setBounds(330,0,100,30);
 
-        JComboBox cb = new JComboBox<>(new String[]{"View Disable Books", "View Enable Books", "View New Books", "View Out Of Stock"});
+        JComboBox cb = new JComboBox<>(new String[]{"View Enable Books", "View Disable Books", "View New Books", "View Out Of Stock"});
         cb.setBounds(450,0,150,30);
 
         searchBar.add(input);
@@ -181,12 +181,12 @@ public class AllBooksList extends JPanel{
         cb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(cb.getSelectedIndex() == 0){
+                if(cb.getSelectedIndex() == 1){
                     BookBU business = new BookBU();
                     final List<BookPOJO>[] books = business.getAll();
                     updateScreen(books, false);
                 }
-                else if(cb.getSelectedIndex() == 1){
+                else if(cb.getSelectedIndex() == 0){
                     BookBU business = new BookBU();
                     final List<BookPOJO>[] books = business.getAll();
                     updateScreen(books, true);
