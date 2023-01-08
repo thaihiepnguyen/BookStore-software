@@ -129,6 +129,7 @@ public class PromotionStatisticDA {
     }
     public static String[][] getTop10orders(int pro_id){
         String ans[][] = null;
+        int count = 0;
         try {
             Connection connection = MyConnection.create();
             Statement statement;
@@ -156,6 +157,8 @@ public class PromotionStatisticDA {
             while(rs.next()){
                 ans[row][0] = String.valueOf(rs.getInt("Order ID"));
                 ans[row++][1] = String.valueOf(rs.getInt("total")) + "đ";
+                count++;
+                if(count == 10) break;
             }
 //            for(int i = 0; i < line; i++){
 //                for(int j = 0; j < 2; j++){
@@ -208,6 +211,7 @@ public class PromotionStatisticDA {
     }
     public static String[][] getTop10books(int pro_id){
         String ans[][] = null;
+        int count = 0;
         try {
             Connection connection = MyConnection.create();
             Statement statement;
@@ -238,7 +242,9 @@ public class PromotionStatisticDA {
                 ans[row][0] = String.valueOf(rs.getInt("Book ID"));
                 ans[row][1] = String.valueOf(rs.getString("title"));
                 ans[row++][2] = String.valueOf(rs.getInt("total_price") * (1 - PromotionStatisticDA.getPromotionDiscount(pro_id))) + "đ";
-//                System.out.println((1 - PromotionStatisticDA.getPromotionDiscount(pro_id)));
+                count++;
+                if(count == 10) break;
+                //                System.out.println((1 - PromotionStatisticDA.getPromotionDiscount(pro_id)));
             }
 //            for(int i = 0; i < line; i++){
 //                for(int j = 0; j < 2; j++){
@@ -255,6 +261,7 @@ public class PromotionStatisticDA {
     }
     public static String[][] getTop10customers(int pro_id){
         String ans[][] = null;
+        int count = 0;
         try {
             Connection connection = MyConnection.create();
             Statement statement;
@@ -285,6 +292,8 @@ public class PromotionStatisticDA {
                 ans[row][0] = String.valueOf(rs.getInt("cus_id"));
                 ans[row][1] = String.valueOf(rs.getString("name"));
                 ans[row++][2] = String.valueOf(rs.getInt("number_buy"));
+                count++;
+                if(count == 10) break;
             }
 //            for(int i = 0; i < line; i++){
 //                for(int j = 0; j < 2; j++){
