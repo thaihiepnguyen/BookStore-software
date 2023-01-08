@@ -52,8 +52,7 @@ public class HomeView extends JFrame {
         if (EmployeeView.usernameBuffer != "") {
             loginView.username.setText(EmployeeView.usernameBuffer);
         }
-//        container.add(loginView, LOGIN_PAGE);
-        container.add(new Revenue());
+        container.add(loginView, LOGIN_PAGE);
         container.repaint();
         container.revalidate();
         mainLayout.show(container, LOGIN_PAGE);

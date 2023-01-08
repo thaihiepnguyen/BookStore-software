@@ -40,7 +40,7 @@ public class PromotionStatisticView extends JPanel{
         // body: titleBar, container(listPn: NORTH)
         JPanel body = new JPanel();
         body.setLayout(new BorderLayout());
-        body.setBounds(30,170,400,100);
+        body.setBounds(30,170,750,350);
 
         // SearchBar with 2 dropdown
         JPanel searchBar = new JPanel();

@@ -208,6 +208,7 @@ public class PromotionStatisticDA {
     }
     public static String[][] getTop10books(int pro_id){
         String ans[][] = null;
+        int count = 0;
         try {
             Connection connection = MyConnection.create();
             Statement statement;
@@ -238,7 +239,8 @@ public class PromotionStatisticDA {
                 ans[row][0] = String.valueOf(rs.getInt("Book ID"));
                 ans[row][1] = String.valueOf(rs.getString("title"));
                 ans[row++][2] = String.valueOf(rs.getInt("total_price") * (1 - PromotionStatisticDA.getPromotionDiscount(pro_id))) + "đ";
-//                System.out.println((1 - PromotionStatisticDA.getPromotionDiscount(pro_id)));
+                count++;
+                if(count == 10) break;
             }
 //            for(int i = 0; i < line; i++){
 //                for(int j = 0; j < 2; j++){
