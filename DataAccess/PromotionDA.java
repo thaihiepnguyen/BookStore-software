@@ -416,4 +416,23 @@ public class PromotionDA {
         }
         return ans;
     }
+
+    public static boolean isEnable(String pro_name){
+        boolean isEnable = true;
+        try {
+            String sql = "Select * from promotion";
+            ResultSet rs = db.statement.executeQuery(sql);
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                if(pro_name.equals(name)) {
+                    isEnable = rs.getBoolean("is_enable");
+                    return isEnable;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDA.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isEnable;
+    }
 }
