@@ -244,10 +244,6 @@ public class PromotionStatisticDA {
                 ans[row++][2] = String.valueOf(rs.getInt("total_price") * (1 - PromotionStatisticDA.getPromotionDiscount(pro_id))) + "đ";
                 count++;
                 if(count == 10) break;
-<<<<<<< HEAD
-                //                System.out.println((1 - PromotionStatisticDA.getPromotionDiscount(pro_id)));
-=======
->>>>>>> 2d65d56a334c83f08a9339ba7d24097dff62bfe7
             }
 //            for(int i = 0; i < line; i++){
 //                for(int j = 0; j < 2; j++){

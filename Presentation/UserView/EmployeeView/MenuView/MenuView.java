@@ -51,7 +51,7 @@ public class MenuView extends JPanel {
                                 50, 50
                         )
                 ));
-
+//            System.out.println(avt);
             roleOfUser = new JLabel("Employee");
             roleOfUser.setForeground(new Color(255,255, 255));
             roleOfUser.setFont(new Font(roleOfUser.getName(), Font.PLAIN, 18));
