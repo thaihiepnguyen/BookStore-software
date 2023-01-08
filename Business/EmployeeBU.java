@@ -17,8 +17,10 @@ public class EmployeeBU {
         // reload db
         EmployeeView employeeView = new EmployeeView(userPOJO);
 
+
         // re-render
         HomeView.render(employeeView);
+
         employeeView.mainLayout.show(employeeView.container, "profileView");
     }
 

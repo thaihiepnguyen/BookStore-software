@@ -1,5 +1,6 @@
 package Presentation.UserView.EmployeeView.ProfileView.EditProfileView;
 
+import Business.AdminBU;
 import Business.EmployeeBU;
 import Pojo.UserPOJO;
 import Presentation.HomeView.HomeView;
@@ -10,6 +11,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -195,7 +197,16 @@ public class EditProfileView extends JPanel {
                     entity.put("avt_path", avatar);
                 }
 
-                EmployeeBU.update(entity, id);
+                if(userPOJO.getRole_id()==2){
+                    EmployeeBU.update(entity, id);
+                }
+                else{
+                    try {
+                        AdminBU.update(entity, id);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
 
                 that.setVisible(false);
             }
