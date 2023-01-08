@@ -2,6 +2,8 @@ package Presentation.UserView.EmployeeView.OrderView.AddOrderView;
 
 import Business.EmployeeBU;
 import Business.OrderBU;
+import DataAccess.OrderDA;
+import DataAccess.PromotionStatisticDA;
 import Pojo.UserPOJO;
 import Presentation.LayoutView.MyButton.MyButton;
 
@@ -18,6 +20,8 @@ public class AddOrderView extends JPanel {
     JLabel title = new JLabel("Add New Order");
 
     JPanel body; String nameOfBookBuffer; String Quantity;
+    List<String> bookList = new ArrayList<>();
+    List<String> quantities = new ArrayList<>();
     InputComponent cusName;
     InputComponent emName;
     InputComponent proName;
@@ -170,9 +174,14 @@ public class AddOrderView extends JPanel {
                     Quantity = "" + quanBox.getItemAt(
                             quanBox.getSelectedIndex());
                 }
-
-
+                float dis = 0;
+                if (proBox.getSelectedIndex() != -1) {
+                    String pro = ""+quanBox.getItemAt(
+                            quanBox.getSelectedIndex());
+                    dis = PromotionStatisticDA.getPromotionDiscount(pro);
+                }
                 List<String> oneLine = new ArrayList<>();
+                bookList.add(nameOfBookBuffer); quantities.add(Quantity);
                 oneLine.add(nameOfBookBuffer);oneLine.add(Quantity);
                 ans.add(oneLine);
                 if (ans.get(0).get(0) == "") {
@@ -189,9 +198,7 @@ public class AddOrderView extends JPanel {
                 listOfOrder.repaint();
                 listOfOrder.revalidate();
 
-                int Total = 0;
-
-
+                float Total = 0;
 
                 for (var row : ans) {
                     int quantity = Integer.parseInt(row.get(1));
@@ -199,6 +206,8 @@ public class AddOrderView extends JPanel {
 
                     Total += price * quantity;
                 }
+
+                Total = Total * (1 - dis);
                 total.removeAll();
                 total.repaint();
                 total.revalidate();
@@ -214,6 +223,37 @@ public class AddOrderView extends JPanel {
                 nameOfBookBuffer = books.getValueAt(books.getSelectedRow(), 1).toString();
             }
         });
+        add.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
 
+                String quantity="";
+                String promotion="";
+                String customer="";
+                String employee="";
+
+                if (quanBox.getSelectedIndex() != -1) {
+                    Quantity = "" + quanBox.getItemAt(
+                            quanBox.getSelectedIndex());
+                }
+
+                if (proBox.getSelectedIndex() != -1) {
+                    promotion = "" + proBox.getItemAt(
+                            proBox.getSelectedIndex());
+                }
+
+                if (cusBox.getSelectedIndex() != -1) {
+                    customer = "" + cusBox.getItemAt(
+                            cusBox.getSelectedIndex());
+                }
+
+                employee = userPOJO.getUsername();
+
+                int id = OrderDA.getLastId();
+                OrderBU.insert(id, customer, employee, promotion);
+
+                OrderDA.insertOrderBook(id, bookList, quantities);
+            }
+        });
     }
 }

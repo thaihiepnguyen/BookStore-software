@@ -10,6 +10,7 @@ import Presentation.UserView.AdminView.AdminView;
 import Presentation.UserView.EmployeeView.EmployeeView;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AccountBU {
@@ -27,7 +28,7 @@ public class AccountBU {
         }
     }
 
-    public static void adminLogin(String username, String password) {
+    public static void adminLogin(String username, String password) throws SQLException {
         UserPOJO user = AdminDA.findAdmin(username, password);
 
         if (user != null) {

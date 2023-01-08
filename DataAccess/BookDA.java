@@ -483,19 +483,19 @@ public class BookDA {
             String queryCount = "select count(*) as count from book;";
             ResultSet rsCount = db.statement.executeQuery(queryCount);
             int rows = 0;
-            int count = 1;
+            int count = 0;
             if(rsCount.next()) {
                 rows = rsCount.getInt("count");
             }
-            System.out.println(rows);
+//            System.out.println(rows);
 
             String query = "SELECT book.id, book.is_enable, book.quantity, title, description ,category.name as category, author.name as author, publisher.name as publisher\n" +
                     "FROM book, author, publisher,category\n" +
-                    "where book.author_id = author.id and book.publisher_id = publisher.id\n" +
-                    "order by book.id asc;";
+                    "where book.author_id = author.id and book.publisher_id = publisher.id and category.id = book.category_id\n" +
+                    "order by book.id desc";
             ResultSet rs = db.statement.executeQuery(query);
             while(rs.next()){
-                if(count > rows - 3) {
+                if(count < 10) {
                     int id = rs.getInt("id");
                     String name = rs.getString("title");
                     String author = rs.getString("author");
@@ -527,8 +527,8 @@ public class BookDA {
 //            statement = connection.createStatement();
             String query = "SELECT distinct book.id, book.is_enable, book.quantity, title, description ,category.name as category, author.name as author, publisher.name as publisher\n" +
                     "FROM book, author, publisher,category\n" +
-                    "where book.author_id = author.id and book.publisher_id = publisher.id and book.quantity=0\n" +
-                    "order by book.id asc;";
+                    "where book.author_id = author.id and book.publisher_id = publisher.id and category.id = book.category_id and book.quantity=0\n" +
+                    "order by book.id asc";
             ResultSet rs = db.statement.executeQuery(query);
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -580,5 +580,19 @@ public class BookDA {
 //        String[] result = (String[]) ans.toArray();
 
         return result;
+    }
+    public static int findIdByName(String name) {
+        String sql = "select id from book where title = ?";
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.next(); return rs.getInt("id");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

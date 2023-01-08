@@ -7,6 +7,7 @@ import Pojo.BookPOJO;
 import Pojo.OrderPOJO;
 import Pojo.PromotionPOJO;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,9 @@ public class OrderBU {
         return OrderDA.getPriceByName(name);
     }
 
-
+    public static void insert(int id, String cus, String emId, String proId) {
+        OrderDA.insert(id, cus, emId, proId);
+    }
     static class Utils {
         public static String[][] listToStringConverter(List<OrderPOJO> orders) {
             List<List<String>> list= new ArrayList<>();

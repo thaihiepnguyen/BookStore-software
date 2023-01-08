@@ -1,6 +1,8 @@
 package Presentation.UserView.EmployeeView.PromotionView;
 
 import Business.PromotionBU;
+import DataAccess.MySQLDatabase;
+import DataAccess.RevenueDA;
 import Pojo.PromotionPOJO;
 import Pojo.UserPOJO;
 import Presentation.UserView.EmployeeView.BookView.MyComponents.MyButton;
@@ -211,13 +213,22 @@ public class PromotionView extends JPanel {
     }
 
     public static void main(String[] args) {
-        JFrame fr = new JFrame("test");
-        fr.setLayout(new BorderLayout());
-        fr.setSize(new Dimension(1000,600));
-        fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JPanel sc = new PromotionView();
-        fr.add(sc, BorderLayout.CENTER);
-        fr.add((new MenuView(new UserPOJO())), BorderLayout.WEST);
-        fr.setVisible(true);
+        new MySQLDatabase(
+                "localhost",
+                3306,
+                "root",
+                "",
+                "book-store"
+        );
+
+
+//        JFrame fr = new JFrame("test");
+//        fr.setLayout(new BorderLayout());
+//        fr.setSize(new Dimension(1000,600));
+//        fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        JPanel sc = new PromotionView();
+//        fr.add(sc, BorderLayout.CENTER);
+//        fr.add((new MenuView(new UserPOJO())), BorderLayout.WEST);
+//        fr.setVisible(true);
     }
 }

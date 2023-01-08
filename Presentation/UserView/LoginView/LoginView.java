@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class LoginView extends JPanel implements ActionListener {
     JRadioButton employee, admin;
@@ -162,7 +163,11 @@ public class LoginView extends JPanel implements ActionListener {
         }
 
         if (admin.isSelected()) {
-            AccountBU.adminLogin(name, pass);
+            try {
+                AccountBU.adminLogin(name, pass);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         };
     }
 }

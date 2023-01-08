@@ -1,14 +1,14 @@
 package DataAccess;
 
+import Business.OrderBU;
 import Pojo.OrderPOJO;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.Date;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Timestamp;
 
 public class OrderDA {
     static MySQLDatabase db;
@@ -16,6 +16,52 @@ public class OrderDA {
     static {
         try {
             db = MySQLDatabase.getInstance();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void insert(int id, String cus, String em, String pro) {
+        String sql = "INSERT INTO `order` VALUES (?, ?, ?, ?, ?);";
+
+
+        var buffer = findAll();
+
+        assert buffer != null;
+
+        int proId = PromotionDA.findIdByName(pro);
+        int cusId = CustomerDA.findIdByName(cus);
+        int emID = EmployeeDA.findIdByName(em);
+
+        long timeNow = Calendar.getInstance().getTimeInMillis();
+
+        java.sql.Timestamp ts = new java.sql.Timestamp(timeNow);
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id + 1);
+            preparedStatement.setInt(2, cusId);
+            preparedStatement.setInt(3, emID);
+            preparedStatement.setTimestamp(4, ts);
+            preparedStatement.setInt(5, proId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void insertOrderBook(int id, List<String> books, List<String> quatities) {
+        String sql = "INSERT INTO `order_book` VALUES (?, ?, ?);";
+
+        try {
+            PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
+            for (int i = 0; i < books.size(); i++) {
+                preparedStatement.setInt(1, id + 1);
+                preparedStatement.setInt(2, BookDA.findIdByName(books.get(i)));
+                preparedStatement.setInt(3, Integer.parseInt(quatities.get(i)));
+                preparedStatement.executeUpdate();
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -29,7 +75,6 @@ public class OrderDA {
         String sql = "update `order`" +
                 "set cus_id = ?, employee_id=?, promotion_id=? " +
                 "where id = ?";
-
 
         try {
             PreparedStatement preparedStatement = db.conn.prepareStatement(sql);
@@ -72,6 +117,24 @@ public class OrderDA {
         return result;
     }
 
+    static public int getLastId() {
+        String sql = "Select * from `order`";
+        Statement statement = db.getStatement();
+
+        ResultSet entity;
+        int lastId = 0;
+        try {
+            entity = statement.executeQuery(sql);
+            if (entity == null) return 0;
+            while(entity.next()) {
+                lastId = entity.getInt("id");
+            }
+
+            return lastId;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     static class Utils {
         public static List<OrderPOJO> ResultSetToOrderPOJOConverter(ResultSet entity) {
@@ -95,7 +158,6 @@ public class OrderDA {
                     proName = entity.getString("promotion");
                     date = entity.getDate("date");
                     price = entity.getLong("price");
-
 
                     OrderPOJO orderPOJO = new OrderPOJO(
                             id,
@@ -125,6 +187,13 @@ public class OrderDA {
                 "  and user.role_id = 2 and `order`.promotion_id = promotion.id and\n" +
                 "      `order`.id = order_book.order_id and book.id = order_book.book_id order by `order`.id";
 
+//=======
+//        String sql = "select `order`.id, customer.name as customer, user.username employee ,book.title as book, promotion.name as promotion, `order`.date_time as date, book.price as price\n" +
+//                "from user, customer, book, promotion, `order`\n" +
+//                "where `order`.cus_id = customer.id\n" +
+//                "and `order`.employee_id = user.id and user.role_id = 2 and promotion.id = `order`.promotion_id\n" +
+//                "order by `order`.id";
+//>>>>>>> 70ae405e12ab53b2fea9703650cc52e5927fe7a8
 
         Statement statement = db.getStatement();
         try {

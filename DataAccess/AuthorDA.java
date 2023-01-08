@@ -1,7 +1,6 @@
 package DataAccess;
 
 import Pojo.AuthorPOJO;
-import Pojo.PublisherPOJO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

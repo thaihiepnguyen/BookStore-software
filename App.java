@@ -1,5 +1,8 @@
+
 import DataAccess.BookDA;
+
 import DataAccess.MySQLDatabase;
+import DataAccess.RevenueDA;
 import Presentation.HomeView.HomeView;
 
 import java.io.IOException;
@@ -25,6 +28,7 @@ public class App {
             "reallyStrongPwd123",
             "book-store"
             );
+
         HomeView.setCurrentPath(currentPath);
         HomeView.run(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 

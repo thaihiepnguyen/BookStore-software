@@ -2,6 +2,7 @@ package Presentation.UserView.AdminView.MenuView;
 
 import Pojo.UserPOJO;
 import Presentation.LayoutView.RoundPanel.RoundPanel;
+//import Presentation.LayoutView.RoundPanel.RoundPanel;
 import Presentation.UserView.AdminView.MenuView.ImageIconUtil;
 import Presentation.UserView.AdminView.MenuView.MenuItem;
 
@@ -16,16 +17,13 @@ public class MenuView extends JPanel {
     JLabel userName;
     JPanel body;
 
-    public MenuItem dashboard;
 
-    public MenuItem book;
-    MenuItem sheet;
-    public MenuItem promotion;
-    public MenuItem customer;
+    public MenuItem users;
+    public MenuItem revenue;
+    public MenuItem statisticPromotion;
 
-    public MenuItem profile;
+//    public MenuItem profile;
 
-    MenuItem order;
     JPanel footer;
     public MenuItem logout;
 
@@ -61,18 +59,14 @@ public class MenuView extends JPanel {
 
         body = new JPanel();
         {
-            dashboard = new MenuItem("Presentation/UserView/AdminView/MenuView" +
-                    "/resources/1-white.png", "Dashboard");
-            book = new MenuItem("Presentation/UserView/AdminView/MenuView" +
-                    "/resources/2-white.png", "Book");
-            promotion = new MenuItem("Presentation/UserView/AdminView/MenuView" +
-                    "/resources/3-white.png", "Promotion");
-            customer = new MenuItem("Presentation/UserView/AdminView/MenuView" +
-                    "/resources/4-white.png", "Customer");
-            order = new MenuItem("Presentation/UserView/AdminView/MenuView" +
-                    "/resources/5-white.png", "Order");
-            sheet = new MenuItem("Presentation/UserView/AdminView/MenuView" +
-                    "/resources/7-white.png", "Sheet");
+
+            statisticPromotion = new MenuItem("Presentation/UserView/AdminView/MenuView" +
+                    "/resources/3-white.png", "Pro Statistic");
+            users = new MenuItem("Presentation/UserView/AdminView/MenuView" +
+                    "/resources/4-white.png", "Users");
+            revenue = new MenuItem("Presentation/UserView/AdminView/MenuView" +
+                    "/resources/5-white.png", "Revenue");
+
         }
         footer = new JPanel();
         {
@@ -102,18 +96,12 @@ public class MenuView extends JPanel {
         body.setLayout(null);
         body.setOpaque(false);
         {
-            dashboard.setBounds(10, 0, 200, 50);
-            book.setBounds(10, 50, 200, 50);
-            promotion.setBounds(10, 100, 200, 50);
-            customer.setBounds(10, 150, 200, 50);
-            order.setBounds(10, 200, 200, 50);
-            sheet.setBounds(10,250,200,50);
-            body.add(dashboard);
-            body.add(book);
-            body.add(promotion);
-            body.add(customer);
-            body.add(order);
-            body.add(sheet);
+            users.setBounds(10, 50, 200, 50);
+            revenue.setBounds(10, 120, 200, 50);
+            statisticPromotion.setBounds(10, 190, 200, 50);
+            body.add(users);
+            body.add(revenue);
+            body.add(statisticPromotion);
         }
 
         body.setBounds(0,120, 201, 350);
@@ -128,7 +116,7 @@ public class MenuView extends JPanel {
 
         footer.setBounds(0,500, 201, 75);
 
-        setBackground(new Color(57, 77, 101));
+        setBackground(new Color(166, 30, 77));
 
         setLayout(null);
         setPreferredSize(new Dimension(200, 600));
