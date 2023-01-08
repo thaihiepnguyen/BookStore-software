@@ -64,7 +64,11 @@ public class OrderDA {
     public static List<OrderPOJO> findAll() {
         String sql = "select `order`.id, customer.name as customer, user.username employee ,book.title as book, promotion.name as promotion, `order`.date_time as date, book.price as price\n" +
                 "from user, customer, book, promotion, `order`\n" +
+<<<<<<< HEAD
                 "where `order`.cus_id = customer.id\n" +
+=======
+                "where `order`.cus_id = customer.id \n" +
+>>>>>>> 125e078023b4b783844f6dea90bd3c22af5c8d26
                 "and `order`.employee_id = user.id and user.role_id = 2 and promotion.id = `order`.promotion_id\n" +
                 "order by `order`.id";
 
