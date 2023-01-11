@@ -35,23 +35,23 @@ Run App.java
 # Overview
 
 - HomePage
-  ![home](./overview/HomePage.png)
+  ![home](./Overview/HomePage.png)
 - LoginPage
-  ![product](./overview/LoginPage.png)
+  ![product](./Overview/LoginPage.png)
 - BookPage
-  ![checkout](./overview/BookPage.png)
+  ![checkout](./Overview/BookPage.png)
 - DetailOfBookPage
-  ![user](./overview/BookDetailPage.png)
+  ![user](./Overview/BookDetailPage.png)
 - CustomerPage
-    ![user](./overview/CustomerPage.png)
+    ![user](./Overview/CustomerPage.png)
 - PromotionPage
-    ![user](./overview/PromotionPage.png)
+    ![user](./Overview/PromotionPage.png)
 - ProfilePage
-    ![user](./overview/ProfilePage.png)
+    ![user](./Overview/ProfilePage.png)
 - EditProfilePage
-    ![user](./overview/EditProfilePage.png)
+    ![user](./Overview/EditProfilePage.png)
 - OrderPage
-    ![user](./overview/OrderPage.png)
+    ![user](./Overview/OrderPage.png)
 
 Authors: Nguyễn Thái Hiệp, Đinh Nguyễn Duy Khang, Trần Nguyên Phong
 
