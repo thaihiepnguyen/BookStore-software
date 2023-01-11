@@ -1,6 +1,6 @@
 # BookStore Desktop Application
 
-- Made with Java Language
+- Made with Java language
 - Made with Swing Framework for User Interface
 - Made with MySQL Database
 - The Project of **Java Programming** Subject (Ho Tuan Thanh, M.Sc Instructor)
@@ -20,8 +20,8 @@
 # Development
 
 ```
-- Run db_ver10.sql file in MySqlScript folder
-- Include mysql-connector-j-8.0.31.jar library into the project 
+- Run `db_ver10.sql` file in MySqlScript folder
+- Include `mysql-connector-j-8.0.31.jar` library into the project 
 ```
 
 # Deployment
