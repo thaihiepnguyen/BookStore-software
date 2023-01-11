@@ -208,13 +208,6 @@ public class OrderDA {
                 "  and user.role_id = 2 and `order`.promotion_id = promotion.id and\n" +
                 "      `order`.id = order_book.order_id and book.id = order_book.book_id order by `order`.id";
 
-//=======
-//        String sql = "select `order`.id, customer.name as customer, user.username employee ,book.title as book, promotion.name as promotion, `order`.date_time as date, book.price as price\n" +
-//                "from user, customer, book, promotion, `order`\n" +
-//                "where `order`.cus_id = customer.id\n" +
-//                "and `order`.employee_id = user.id and user.role_id = 2 and promotion.id = `order`.promotion_id\n" +
-//                "order by `order`.id";
-//>>>>>>> 70ae405e12ab53b2fea9703650cc52e5927fe7a8
 
         Statement statement = db.getStatement();
         try {
@@ -276,13 +269,6 @@ public class OrderDA {
                 "  and user.role_id = 2 and `order`.promotion_id = promotion.id and\n" +
                 "      `order`.id = order_book.order_id and book.id = order_book.book_id order by `order`.id";
 
-//=======
-//        String sql = "select `order`.id, customer.name as customer, user.username employee ,book.title as book, promotion.name as promotion, `order`.date_time as date, book.price as price\n" +
-//                "from user, customer, book, promotion, `order`\n" +
-//                "where `order`.cus_id = customer.id\n" +
-//                "and `order`.employee_id = user.id and user.role_id = 2 and promotion.id = `order`.promotion_id\n" +
-//                "order by `order`.id";
-//>>>>>>> 70ae405e12ab53b2fea9703650cc52e5927fe7a8
 
         Statement statement = db.getStatement();
         try {

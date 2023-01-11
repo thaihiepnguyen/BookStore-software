@@ -82,7 +82,7 @@ public class OrderBU {
                 else date = "";
                 String price;
                 if (order.getPrice() != -1)
-                    price = Long.toString(order.getPrice());
+                    price = Float.toString(order.getPrice());
                 else {
                     price = "";
                 }

@@ -459,19 +459,19 @@ INSERT INTO order_book VALUES
 
 --
 
--- DELIMITER $$
--- CREATE PROCEDURE InsertRandOrder(NumRows INT)
---     BEGIN
---         DECLARE i INT;
---         SET i = 1;
---         WHILE i <= NumRows DO
---             INSERT INTO `order` (cus_id, employee_id, date_time, promotion_id) VALUES (RAND()*(20-1)+1, RAND()*(11-1)+1, CURRENT_TIMESTAMP - INTERVAL FLOOR(RAND() * 14 * 24 * 60 *60) SECOND,RAND()*(4-1)+1);
---             SET i = i + 1;
---         END WHILE;
---         COMMIT;
---     END$$
--- DELIMITER ;
--- CALL InsertRandOrder(40);
+# DELIMITER $$
+# CREATE PROCEDURE InsertRandOrder(NumRows INT)
+#     BEGIN
+#         DECLARE i INT;
+#         SET i = 1;
+#         WHILE i <= NumRows DO
+#             INSERT INTO `order` (cus_id, employee_id, date_time, promotion_id) VALUES (RAND()*(20-1)+1, RAND()*(11-1)+1, CURRENT_TIMESTAMP - INTERVAL FLOOR(RAND() * 14 * 24 * 60 *60) SECOND,RAND()*(4-1)+1);
+#             SET i = i + 1;
+#         END WHILE;
+#         COMMIT;
+#     END$$
+# DELIMITER ;
+# CALL InsertRandOrder(40);
 
 -- DELIMITER $$
 -- CREATE PROCEDURE InsertRandOrderBook(NumRows INT)

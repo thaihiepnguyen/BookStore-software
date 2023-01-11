@@ -1,13 +1,9 @@
 
-import DataAccess.BookDA;
 
 import DataAccess.MySQLDatabase;
-import DataAccess.RevenueDA;
 import Presentation.HomeView.HomeView;
-
 import java.io.IOException;
 import java.io.File;
-import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
@@ -35,7 +31,6 @@ public class App {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 HomeView.render();
-                System.out.println(Arrays.deepToString(BookDA.getBookName()));
             }
         });
     }
